@@ -1,0 +1,179 @@
+.search-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Style cho ô input */
+.search-input {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style cho nút tìm kiếm */
+.search-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Reset some default browser styles */
+body,
+h1,
+h2,
+h3,
+p,
+ol,
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+.xoa:hover {
+    cursor: pointer;
+    filter: brightness(85%);
+}
+
+.chucnang-xemthem:hover {
+    cursor: pointer;
+    filter: brightness(90%);
+}
+
+.chucnang-xoa:hover {
+    cursor: pointer;
+    filter: brightness(90%);
+}
+
+.chucnang-xoa {
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(186, 7, 7);
+    color: white;
+}
+
+.chucnang-xemthem {
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+
+}
+
+.container-create {
+    width: 100%;
+    height: auto;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.chucnang:hover {
+    cursor: pointer;
+    filter: brightness(85%);
+}
+
+.chucnang-quayve:hover {
+    cursor: pointer;
+    filter: brightness(85%);
+}
+
+.topnav {
+    /* background-color: white; */
+
+    /* background-color: #333; */
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    height: auto;
+    width: 50%;
+    margin-left: 10%;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    /* color: #f2f2f2; */
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.topnav a:hover {
+    background-color: black;
+
+}
+
+.form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.button button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button button:hover {
+    background-color: #45a049;
+}
+
+.list-users {
+    padding: 15px 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #ccc;
+}
+
+#thongtinsanpham {}
