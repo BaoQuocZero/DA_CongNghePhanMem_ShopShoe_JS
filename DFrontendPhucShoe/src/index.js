@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./component/ComponentLogin/Login";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProfileCustomer from "./profileCustomer/profileCustomer";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -19,6 +20,27 @@ root.render(
             </>
           }
         />
+      </Routes>
+      <Routes>
+        <Route
+          path="/profile/:"
+          element={
+            <>
+              <Login></Login>
+            </>
+          }
+        />
+      </Routes>
+      <Routes>
+        {" "}
+        <Route
+          path="/profile/:username"
+          element={
+            <>
+              <ProfileCustomer></ProfileCustomer>
+            </>
+          }
+        />{" "}
       </Routes>
     </Router>
     <ToastContainer

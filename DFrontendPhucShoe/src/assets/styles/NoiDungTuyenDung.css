@@ -1,0 +1,67 @@
+/* NoiDungTuyenDung.css */
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.logotuyendung {
+    border-radius: 50%;
+    /* height: 100%; */
+    text-decoration: none;
+    margin-left: 2px;
+    font-size: 17px;
+    font-weight: bold;
+
+    font-family: Agbalumo;
+
+    color: black;
+    filter: drop-shadow(30px 30px 30px rgb(255, 255, 255) 1.5) brightness(220%) saturate(150%) blur(5px);
+}
+
+.container-tuyendung {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 100px;
+}
+
+.banner-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+h1,
+h4 {
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.job-description,
+.requirements,
+.benefits,
+.working-hours,
+.working-location,
+.how-to-apply,
+.closing-remarks {
+    margin-bottom: 20px;
+}
+
+.apply-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #555;
+}
