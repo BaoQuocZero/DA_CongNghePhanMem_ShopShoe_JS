@@ -1,0 +1,111 @@
+@media (min-width: 768px) {
+    .container-imf {
+        width: 100%;
+        height: 100px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .imf-child1 {
+        width: 26%;
+        height: 100%;
+        border: 1px black solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .imf-child2 {
+        width: 26%;
+        height: 100%;
+        border: 1px black solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .imf-child3 {
+        width: 26%;
+        height: 100%;
+        border: 1px black solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .imf-child1>span {
+        margin-left: 5%;
+    }
+
+    .imf-child2>span {
+        margin-left: 5%;
+    }
+
+    .imf-child3>span {
+        margin-left: 5%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container-imf {
+        width: 100%;
+        height: 100px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        font-size: 10px;
+    }
+
+    .imf-child1 {
+        width: 26%;
+        height: 100%;
+        border: 1px black solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10px;
+    }
+
+    .imf-child2 {
+        width: 26%;
+        height: 100%;
+        border: 1px black solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10px;
+    }
+
+    .imf-child3 {
+        width: 26%;
+        height: 100%;
+        border: 1px black solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .imf-child1>span {
+        margin-left: 5%;
+        text-align: center;
+    }
+
+    .imf-child2>span {
+        margin-left: 5%;
+        text-align: center;
+    }
+
+    .imf-child3>span {
+        margin-left: 5%;
+        text-align: center;
+    }
+
+    .icon-child {
+        display: none;
+    }
+}

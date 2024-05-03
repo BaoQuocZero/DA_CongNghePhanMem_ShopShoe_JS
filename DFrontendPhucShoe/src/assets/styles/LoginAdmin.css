@@ -1,0 +1,311 @@
+.container-LoginAdmin {
+    height: 100vh;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    object-fit: cover;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerLogin {
+
+    height: 85vh;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-LoginImages {
+    width: 60%;
+    height: 100%;
+}
+
+/* .container-LoginImages>img {
+    width: 100%;
+    height: 100%;
+} */
+
+.ContainerLoginAdminif {
+
+    width: 50%;
+
+    height: 100%;
+
+    /* margin-left: 13%; */
+    /* margin-top: 4%; */
+    display: flex;
+}
+
+.login {
+
+
+    background-color: white;
+    box-shadow: 0px 4px 8px 0px rgb(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+
+    border-radius: 15px;
+}
+
+.imageAdmin {
+    border-radius: 15px;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    box-shadow: 0px 4px 8px 0px rgb(0, 0, 0, 0.4);
+}
+
+.loginchung {
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+
+}
+
+.backnen {
+
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin-top: -20%;
+    opacity: 0.3;
+}
+
+.wrap {
+    width: 100%;
+    height: 100%;
+}
+
+.image>button {
+    width: 30px;
+    height: 30px;
+    border-radius: 20%;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+/* --------- */
+.btn-random {
+    color: #141E51;
+    background: #fff;
+    padding: 7px 20px;
+    font-weight: 700;
+    border-radius: 25px;
+    transition: all 0.4s;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    display: block;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.btn-random:focus {
+    outline: none;
+}
+
+#loginh1 {
+    margin-left: 8%;
+    margin-top: 20%;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+#loginh2 {
+    margin-left: 8%;
+    font-size: 13px;
+    margin-bottom: 4%;
+}
+
+.Chaiconemail {
+
+    border-radius: 10px;
+    margin-left: 9%;
+
+    width: 76%;
+
+}
+
+/* .iconemail:focus {
+    border: 1px solid blue;
+} */
+
+.chaiconlock {
+    margin-left: 9%;
+    border-radius: 10px;
+
+    width: 76%;
+}
+
+.fa-lock {
+    margin-left: 2%;
+
+}
+
+.fa-envelope {
+    margin-left: 2%;
+}
+
+.email {
+    padding: 14px;
+    margin-left: 2%;
+    width: 90%;
+    height: 40px;
+    border-radius: 10px;
+    margin-top: 1%;
+    border: none;
+    outline: none;
+
+}
+
+input {
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.pass {
+    margin-top: 1%;
+    margin-left: 2%;
+    width: 90%;
+    height: 40px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+.dangnhap {
+    background-color: #addbff;
+    margin-top: 2%;
+    margin-left: 10%;
+    cursor: pointer;
+    width: 76%;
+    height: 40px;
+    border-radius: 13px;
+    border: none;
+    outline: none;
+
+}
+
+.click {
+    cursor: pointer;
+    position: relative;
+
+
+}
+
+#light-sun {
+    cursor: pointer;
+    position: absolute;
+    border: none;
+    outline: none;
+
+
+}
+
+#light-dark {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    position: absolute;
+    background-color: #99dbe9;
+    filter: brightness(70%);
+
+}
+
+.icon-sun-dark {
+    opacity: 0.5;
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    margin-left: 18px;
+    margin-top: 18px;
+
+}
+
+.click:hover {
+    filter: brightness(150%);
+}
+
+/* @keyframes show{
+        from{
+            opacity: 0;
+        }
+        to{
+            opacity: 1;
+        }
+    } */
+.loginh1 {
+    animation: show 1s;
+}
+
+.loginh2 {
+    animation: show 1s;
+}
+
+.hoac {
+    text-align: center;
+    opacity: 0.7;
+    font-size: 10px;
+    margin-top: 10px;
+    margin-left: -11px;
+    color: gray;
+}
+
+.hinhgg {
+    width: 30px;
+    height: 30px;
+    box-shadow: none;
+    margin-left: -9%;
+    margin-top: -6px;
+}
+
+.dangnhapgg {
+    cursor: pointer;
+    margin-bottom: 10px;
+    height: 40PX;
+
+    margin-top: 1%;
+    margin-left: 10%;
+    width: 76%;
+    height: 40px;
+    border-radius: 13px;
+    border: none;
+    outline: none;
+    background-color: #ffffff;
+}
+
+.taotaikhoan {
+    margin-top: 10px;
+    color: #096BDE;
+    font-size: 13px;
+}
+
+.dangnhapp {
+
+    text-align: center;
+    margin-left: -10px;
+}
+
+input::placeholder {
+    margin-left: 30px;
+}
+
+.dieukhoan {
+    margin-top: 10px;
+    margin-left: 10%;
+    height: auto;
+    font-size: 13px;
+    width: 80%;
+
+}

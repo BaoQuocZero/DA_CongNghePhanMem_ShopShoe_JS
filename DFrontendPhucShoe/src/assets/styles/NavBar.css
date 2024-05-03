@@ -1,0 +1,149 @@
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 80px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    /* Thêm box-shadow */
+}
+
+
+.nav {
+    width: 100%;
+    height: auto;
+    margin-left: -1%;
+}
+
+.isOpen {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+
+}
+
+.image-navbar {
+    text-decoration: none;
+    border-radius: 50%;
+    filter: brightness(105%);
+    margin-left: 5%;
+    font-family: Agbalumo;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+
+    /* animation: hueRotate 20s alternate infinite; */
+}
+
+.image-navbar:hover {
+    color: black;
+    filter: drop-shadow(1px 1px 1px rgb(0, 0, 0)) brightness(110%) saturate(150%) blur(0px);
+}
+
+@keyframes hueRotate {
+    0% {
+        filter: hue-rotate(0deg);
+        /* Màu bắt đầu từ màu gốc */
+    }
+
+    100% {
+        filter: hue-rotate(270deg);
+        /* Chuyển đến một màu tối hơn */
+    }
+}
+
+.ml-auto {
+    width: 50%;
+    height: auto;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-left: 13%;
+}
+
+.nav-item:hover {
+    filter: brightness(10%);
+}
+
+.cart-div>a {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.nav-item {
+    margin-left: 30px;
+    text-decoration: none;
+    color: rgb(116, 112, 112);
+    width: 10%;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+}
+
+.cart-div {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 17%;
+    font-size: 20px;
+}
+
+
+
+
+
+.image-div {
+    white-space: nowrap;
+}
+
+.font-awe {
+    color: rgb(26, 25, 25);
+}
+
+.nav-item4 {}
+
+/* Dropdown styles for small screens */
+@media (max-width: 768px) {
+    .image-navbar {
+        display: none;
+    }
+
+    .ml-auto {
+        font-size: 13px;
+        width: 100%;
+        height: auto;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        margin-right: 15%;
+    }
+
+    .nav-item {
+        width: auto;
+
+    }
+
+    a {
+        width: 100%;
+    }
+
+    .nav-item2 {}
+
+    #navbar {
+        background-color: aliceblue;
+    }
+
+    .cart-div {
+        margin-left: -10%;
+        margin-right: 10%;
+        font-size: 15px;
+        margin-top: 2px;
+    }
+}

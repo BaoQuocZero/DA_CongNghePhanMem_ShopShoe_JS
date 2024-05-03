@@ -1,0 +1,149 @@
+.container-profileCustomer {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    margin-top: 7%;
+
+}
+
+.profileCustomer-functions {
+    width: 20%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+
+    /* align-items: center; */
+}
+
+.input-avt {
+    width: 70%;
+    margin-top: 50px;
+
+}
+
+.btn-upload {}
+
+.profileCustomer-functions-wrap {
+    width: 80%;
+    height: auto;
+
+
+}
+
+
+
+.displayflex {
+    display: flex;
+}
+
+.functions-br-ngang {
+    width: 100%;
+    height: auto;
+}
+
+.functions-br-ngang1 {
+    width: 98%;
+    height: 1px;
+    border: 1px solid black;
+}
+
+.functions-thongtincanhan {
+    width: 80%;
+    height: auto;
+    margin-top: 5%;
+}
+
+.profileCustomer-information {
+    width: 80%;
+    height: 80%;
+    /* background-color: black; */
+}
+
+.col {
+    /* background-color: aqua; */
+
+}
+
+.form-infomation {
+    width: 50%;
+    height: auto;
+    /* margin-left: -50%; */
+}
+
+.information-data {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    margin-top: 0px;
+    margin-left: 50px;
+    /* background-color: blue; */
+    /* align-items: center;
+    justify-content: center; */
+}
+
+
+
+.container-avatar {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.avatarUser {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 250px;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+/* .avata-wrap {
+    margin-left: 50px;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+} */
+
+.information-name {
+    width: 100%;
+    height: auto;
+}
+
+.br-doc {
+    width: 1px;
+    height: 100%;
+    border: 1px solid black;
+}
+
+.information-name>p {
+    margin-left: 3%;
+}
+
+.information-br {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.br {
+    width: 94%;
+    border: 1px solid black;
+}
+
+.functions-thongtincanhan:hover {
+    cursor: pointer;
+    color: blue;
+}

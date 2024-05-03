@@ -1,0 +1,644 @@
+.muahang-container {
+    width: 100%;
+    height: auto;
+    font-family: "Roboto Condensed";
+
+}
+
+.div-logomuahang {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#logophucshoe {
+
+    margin-top: 100px;
+
+    font-size: 40px;
+    text-decoration: none;
+
+
+
+    border-radius: 50%;
+    filter: brightness(105%);
+
+    font-family: Agbalumo;
+    font-weight: bold;
+
+    color: black;
+}
+
+#logophucshoe:hover {
+    color: black;
+    filter: drop-shadow(1px 1px 1px rgb(0, 0, 0)) brightness(110%) saturate(150%) blur(0px);
+}
+
+
+
+
+
+/* ------------------------------------ */
+.container-setup {
+    width: 100%;
+    height: 700px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-bottom: 100px;
+
+}
+
+.muahang-giay-info {
+    width: 50%;
+
+}
+
+.muahang-customer-info {
+    width: 50%;
+    height: auto;
+    display: flex;
+}
+
+.muahang-label {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+
+}
+
+.muahang-form {
+    width: 100%;
+    height: auto;
+
+}
+
+.thongtinh-muahang {
+    margin-left: 11%;
+
+}
+
+.muahang-input {
+    width: 80%;
+    height: 50px;
+    border: 1px solid #737373;
+    border-radius: 10px;
+    opacity: 0.8;
+    z-index: 3;
+    transition: border-color 0.3s;
+    padding-left: 10px;
+}
+
+.hoten {
+    margin-bottom: -20px;
+}
+
+.muahang-sdt {
+    margin-bottom: 5px;
+}
+
+.muahang-input:focus {
+    border-color: rgb(51, 141, 188);
+    z-index: 5;
+    opacity: 1;
+}
+
+.container-tinhthanhvietnam {
+    width: 100%;
+    height: auto;
+}
+
+.muahang-sonha {
+    margin-bottom: -20px;
+}
+
+.tinhthanh {
+    width: 80%;
+    height: 50px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    margin-left: 10%;
+    opacity: 0.8;
+    border: 1px solid #737373;
+    padding-left: 7px;
+
+}
+
+.thanhtoan {
+    margin-left: 11%;
+    margin-top: 1%;
+    font-weight: bold;
+}
+
+.muahang-input:focus {
+    border: 2px solid rgb(51, 141, 188);
+}
+
+.tinhthanh:focus {
+    border: 2px solid rgb(51, 141, 188);
+}
+
+.sanpham-img {
+    width: 20%;
+    height: 20%;
+    border: 0.5px solid #3333;
+
+    position: relative;
+}
+
+.hr-xoaydoc {
+    height: 500px;
+    width: 1px;
+    border: 1px solid black;
+    opacity: 0.2;
+
+}
+
+.sanpham-name {
+    margin-left: 10%;
+    font-size: 13px;
+    color: #565252;
+}
+
+.thongtin-sanpham {
+    width: 80%;
+    height: auto;
+    margin-left: 10%;
+
+}
+
+.sanpham-price {
+    margin-left: 7%;
+    font-size: 18px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.sanpham-price1 {
+    margin-left: 5%;
+    font-size: 15px;
+    color: #565252;
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+
+.muahang-magiamgia1 {
+    width: 100%;
+    height: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.muahang-magiamhgia {
+    height: 50px;
+    width: 58%;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.muahang-xacnhan {
+    border-radius: 10px;
+    margin-left: 10px;
+    background-color: black;
+    color: white;
+    width: 40%;
+    height: 50px;
+}
+
+.discount-bannerr {
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    font: 12px;
+    /* Change from left to right */
+    color: white;
+    background-color: #565252;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 50%;
+    z-index: 1;
+    margin-top: -5px;
+    margin-left: 109px;
+}
+
+
+/* 
+.muahang-tamtinh3 {
+    margin-left: 80%;
+}
+
+.muahang-phivanchuyen {
+    margin-top: 20px;
+}
+
+.muahang-phivanchuyen1 {
+    margin-left: 78%;
+}
+
+.muahang-tongcong {
+    font-size: 20px;
+
+}
+
+
+.muahang-tongcong1 {
+    margin-left: 80%;
+}
+
+.muahang-tongcong2 {} */
+
+.product-muahang_banner {
+    position: absolute;
+    background-color: #e74c3c;
+    /* Adjust color as needed */
+    color: #fff;
+    padding: 5px 10px;
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.muahang-button {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    height: 40px;
+    background-color: black;
+    color: white;
+
+
+}
+
+
+
+/* Add this style to position the container relative to the image */
+/* Styles for Tam tinh, Phi van chuyen, and Tong cong sections */
+/* Common styles for the three sections */
+.muahang-tamtinh,
+.muahang-phivanchuyen,
+.muahang-tongcong {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.muahang-tamtinh1,
+.muahang-phivanchuyen1,
+.muahang-tongcong1 {
+    font-size: 18px;
+    color: #565252;
+}
+
+.muahang-tamtinh3 {
+    font-size: 18px;
+    color: #565252;
+}
+
+/* Style for the horizontal line */
+hr {
+    border: 0.5px solid #3333;
+    margin: 20px 0;
+}
+
+/* Additional styles for the total section */
+.muahang-tongcong {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.muahang-tongcong1 {
+    font-size: 20px;
+    color: #000000;
+}
+
+/* Add more styles as needed */
+
+
+.muahang-button:hover {
+    .muahang-container {
+        width: 100%;
+        height: auto;
+        font-family: "Roboto Condensed";
+
+    }
+
+    #logophucshoe {
+
+        margin-top: 30px;
+
+        font-size: 40px;
+        text-decoration: none;
+
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+        filter: brightness(105%);
+
+        font-family: Agbalumo;
+        font-weight: bold;
+
+        color: black;
+    }
+
+    #logophucshoe:hover {
+        color: black;
+        filter: drop-shadow(1px 1px 1px rgb(0, 0, 0)) brightness(110%) saturate(150%) blur(0px);
+    }
+
+
+
+
+
+    /* ------------------------------------ */
+    .container-setup {
+        width: 100%;
+        height: 600px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+
+
+    }
+
+    .muahang-giay-info {
+        width: 50%;
+
+    }
+
+    .muahang-customer-info {
+        width: 50%;
+        height: auto;
+        display: flex;
+    }
+
+    .muahang-label {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .muahang-form {
+        width: 100%;
+        height: auto;
+
+    }
+
+    .thongtinh-muahang {
+        margin-left: 11%;
+
+    }
+
+    .muahang-input {
+        width: 80%;
+        height: 50px;
+        border: 1px solid #737373;
+        border-radius: 10px;
+        opacity: 0.8;
+        z-index: 3;
+        transition: border-color 0.3s;
+        padding-left: 10px;
+    }
+
+    .hoten {
+        margin-bottom: -20px;
+    }
+
+    .muahang-sdt {
+        margin-bottom: 5px;
+    }
+
+    .muahang-input:focus {
+        border-color: rgb(51, 141, 188);
+        z-index: 5;
+        opacity: 1;
+    }
+
+    .container-tinhthanhvietnam {
+        width: 100%;
+        height: auto;
+    }
+
+    .muahang-sonha {
+        margin-bottom: -20px;
+    }
+
+    .tinhthanh {
+        width: 80%;
+        height: 50px;
+        margin-bottom: 5px;
+        border-radius: 10px;
+        margin-left: 10%;
+        opacity: 0.8;
+        border: 1px solid #737373;
+        padding-left: 7px;
+
+    }
+
+    .thanhtoan {
+        margin-left: 11%;
+        margin-top: 1%;
+        font-weight: bold;
+    }
+
+    .muahang-input:focus {
+        border: 2px solid rgb(51, 141, 188);
+    }
+
+    .tinhthanh:focus {
+        border: 2px solid rgb(51, 141, 188);
+    }
+
+    .sanpham-img {
+        width: 20%;
+        height: 20%;
+        border: 0.5px solid #3333;
+
+        position: relative;
+    }
+
+    .hr-xoaydoc {
+        height: 500px;
+        width: 1px;
+        border: 1px solid black;
+        opacity: 0.2;
+
+    }
+
+    .sanpham-name {
+        margin-left: 10%;
+        font-size: 18px;
+        color: #565252;
+    }
+
+    .thongtin-sanpham {
+        width: 80%;
+        height: auto;
+        margin-left: 10%;
+
+    }
+
+    .sanpham-price {
+        margin-left: 10%;
+        font-size: 18px;
+        color: #000000;
+    }
+
+    .sanpham-price1 {
+        margin-left: 5%;
+        font-size: 15px;
+        color: #565252;
+        text-decoration: line-through;
+        opacity: 0.7;
+    }
+
+
+    .muahang-magiamgia1 {
+        width: 100%;
+        height: auto;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+    .muahang-magiamhgia {
+        height: 50px;
+        width: 58%;
+        border-radius: 10px;
+        padding-left: 10px;
+    }
+
+    .muahang-xacnhan {
+        border-radius: 10px;
+        margin-left: 10px;
+        background-color: black;
+        color: white;
+        width: 40%;
+        height: 50px;
+    }
+
+    .discount-bannerr {
+        width: 20px;
+        height: 20px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        font: 12px;
+        /* Change from left to right */
+        color: white;
+        background-color: #565252;
+        padding: 5px;
+        font-size: 14px;
+        border-radius: 50%;
+        z-index: 1;
+        margin-top: -5px;
+        margin-left: 109px;
+    }
+
+
+    /* 
+    .muahang-tamtinh3 {
+        margin-left: 80%;
+    }
+    
+    .muahang-phivanchuyen {
+        margin-top: 20px;
+    }
+    
+    .muahang-phivanchuyen1 {
+        margin-left: 78%;
+    }
+    
+    .muahang-tongcong {
+        font-size: 20px;
+    
+    }
+    
+    
+    .muahang-tongcong1 {
+        margin-left: 80%;
+    }
+    
+    .muahang-tongcong2 {} */
+
+    .product-muahang_banner {
+        position: absolute;
+        background-color: #e74c3c;
+        /* Adjust color as needed */
+        color: #fff;
+        padding: 5px 10px;
+        border-top-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        font-size: 12px;
+        font-weight: bold;
+        z-index: 2;
+    }
+
+    .muahang-button {
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+        height: 40px;
+        background-color: black;
+        color: white;
+
+
+    }
+
+
+
+    /* Add this style to position the container relative to the image */
+    /* Styles for Tam tinh, Phi van chuyen, and Tong cong sections */
+    /* Common styles for the three sections */
+    .muahang-tamtinh,
+    .muahang-phivanchuyen,
+    .muahang-tongcong {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .muahang-tamtinh1,
+    .muahang-phivanchuyen1,
+    .muahang-tongcong1 {
+        font-size: 18px;
+        color: #565252;
+    }
+
+    .muahang-tamtinh3 {
+        font-size: 18px;
+        color: #565252;
+    }
+
+    /* Style for the horizontal line */
+    hr {
+        border: 0.5px solid #3333;
+        margin: 20px 0;
+    }
+
+    /* Additional styles for the total section */
+    .muahang-tongcong {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .muahang-tongcong1 {
+        font-size: 20px;
+        color: #000000;
+    }
+}
