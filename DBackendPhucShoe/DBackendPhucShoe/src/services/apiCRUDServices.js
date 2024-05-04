@@ -17,7 +17,7 @@ const checkPassword = (inputpassword, hashpass) => {
 
 const getUser = async () => {
   const [results, fields] = await connection.execute(
-    "SELECT u.*,k.makhachhang,k.ten, k.diachi,k.ghichu,k.sodienthoai FROM `users` as u, khachhang as k where u.taikhoan = k.taikhoan"
+    "SELECT u.*,k.makhachhang,k.ten,k.avatar, k.diachi,k.ghichu,k.sodienthoai FROM `users` as u, khachhang as k where u.taikhoan = k.taikhoan"
   );
   return {
     EM: "xem thoong tin thanh cong",
@@ -152,6 +152,37 @@ const updateUser = async (taikhoan, ten, diachi, sodienthoai) => {
       );
       return {
         EM: "thay đổi thông tin thành công",
+        EC: 1,
+        DT: results2,
+      };
+    } else {
+      return {
+        EM: "Tài khoản không tồn tại",
+        EC: 0,
+        DT: [],
+      };
+    }
+    console.log(results);
+  } catch (error) {
+    console.error("Error in postLoginUser:", error);
+    throw error;
+  }
+};
+
+const updateAvatarUser = async (taikhoan, avatar) => {
+  try {
+    const [results, fields] = await connection.execute(
+      "select * from users where taikhoan = ?",
+      [taikhoan]
+    );
+    console.log("check resultls", results);
+    if (results.length > 0) {
+      const [results2, fields] = await connection.execute(
+        "update khachhang set avatar = ? where taikhoan = ?",
+        [avatar, taikhoan]
+      );
+      return {
+        EM: "thay đổi avatar thành công",
         EC: 1,
         DT: results2,
       };
@@ -367,6 +398,7 @@ module.exports = {
   postLoginUser,
   getThongtinUser,
   updateUser,
+  updateAvatarUser,
   DeleteUser,
   UpdateAdmin,
   postLoginAdmin,

@@ -5,6 +5,7 @@ const {
   postLoginUser,
   getThongtinUser,
   updateUser,
+  updateAvatarUser,
   DeleteUser,
   postLoginAdmin,
   createLoginAdmin,
@@ -80,6 +81,20 @@ const CapnhatUser = async (req, res) => {
   }
 };
 
+const CapnhatAvatarUser = async (req, res) => {
+  try {
+    const taikhoan = req.params.username;
+    const results = await updateAvatarUser(taikhoan, req.file.filename);
+    return res.status(200).json({
+      EM: results.EM,
+      EC: results.EC,
+      DT: results.DT,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const CapnhatPasswordUser = async (req, res) => {
   try {
     const taikhoan = req.params.username;
@@ -141,6 +156,7 @@ module.exports = {
   loginUser,
   getInfoUser,
   CapnhatUser,
+  CapnhatAvatarUser,
   XoaUser,
   loginAdmin,
   registerAdmin,
