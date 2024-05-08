@@ -4,7 +4,7 @@ const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 
 const connection = require("../config/old.js");
-
+const { createJWT } = require("../middleware/JWTaction");
 const hashPassword = (userPassword) => {
   let hashPassword = bcrypt.hashSync(userPassword, salt);
   //let check = bcrypt.compareSync(password, hashPassword);
@@ -30,7 +30,7 @@ const createLoginUser = async (taikhoan, password) => {
     let taikhoantontai = await checktaikhoan(taikhoan);
     if (taikhoantontai === true) {
       return {
-        EM: "tai khoan da ton tai",
+        EM: "Tài Khoản Đã Tồn Tại O.o",
         EC: 0,
         DT: [],
       };
@@ -83,10 +83,18 @@ const postLoginUser = async (taikhoan, password) => {
     if (results.length > 0) {
       const isCorrectPass = await bcrypt.compare(password, results[0].matkhau);
       if (isCorrectPass) {
+        let payload = {
+          taikhoan: results[0].taikhoan,
+          matkhau: results[0].matkhau,
+        };
+        let token = createJWT(payload);
         return {
           EM: "Đăng nhập thành công",
           EC: 1,
-          DT: results,
+          DT: {
+            access_token: token,
+            data: results,
+          },
         };
       } else {
         return {
@@ -116,10 +124,17 @@ const getThongtinUser = async (taikhoan) => {
     );
     console.log(results);
     if (results.length > 0) {
+      const [results1, fields1] = await connection.execute(
+        "SELECT k.ten,k.diachi,k.ghichu,k.sodienthoai,d.madonhang,d.ngaydonhang,c.trangthai,s.tensanpham,s.gia,c.soluong,s.gia * c.soluong as tongtien from khachhang as k, donhang as d, chitietdonhang as c, sanpham as s where k.makhachhang = d.makhachhang and d.madonhang = c.madonhang and c.masp = s.masp and k.taikhoan = ?",
+        [taikhoan]
+      );
       return {
         EM: "tìm thấy user !!!",
         EC: 1,
-        DT: results,
+        DT: {
+          results,
+          results1,
+        },
       };
     } else {
       return {
@@ -267,7 +282,7 @@ const UpdateAdmin = async (taikhoan, matkhau) => {
     let taikhoantontai = await checkTaiKhoanAdmin(taikhoan);
     if (taikhoantontai === true) {
       return {
-        EM: "tai khoan da ton tai",
+        EM: "Tài Khoản Đã Tồn Tại O.o",
         EC: 0,
         DT: [],
       };
@@ -318,10 +333,18 @@ const postLoginAdmin = async (username, password) => {
     if (results.length > 0) {
       const isCorrectPass = await bcrypt.compare(password, results[0].password);
       if (isCorrectPass) {
+        let payload = {
+          taikhoan: results[0].taikhoan,
+          matkhau: results[0].password,
+        };
+        let token = createJWT(payload);
         return {
           EM: "Đăng nhập thành công",
           EC: 1,
-          DT: results,
+          DT: {
+            access_token: token,
+            data: results,
+          },
         };
       } else {
         return {
@@ -351,7 +374,7 @@ const createLoginAdmin = async (taikhoan, password) => {
     let taikhoantontai = await checktaikhoanAdmin(username);
     if (taikhoantontai === true) {
       return {
-        EM: "tai khoan da ton tai",
+        EM: "Tài khoản đã tồn tại   ~(O.o)~",
         EC: 0,
         DT: [],
       };
@@ -378,7 +401,7 @@ const createLoginAdmin = async (taikhoan, password) => {
 const checktaikhoanAdmin = async (username) => {
   try {
     const [results, fields] = await connection.execute(
-      "SELECT * FROM `admin` where `taikhoan` = ?",
+      "SELECT * FROM `admin` where `username` = ?",
       [username]
     );
 

@@ -38,6 +38,14 @@ const loginUser = async (req, res) => {
     const taikhoan = req.body.username;
     const matkhau = req.body.password;
     const results = await postLoginUser(taikhoan, matkhau);
+    console.log("User logged in", results);
+    if (results && results.DT && results.DT.access_token) {
+      res.cookie("jwt", results.DT.access_token, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 1000,
+      });
+    }
+
     return res.status(200).json({
       EM: results.EM,
       EC: results.EC,
@@ -129,7 +137,14 @@ const loginAdmin = async (req, res) => {
   try {
     const username = req.body.username;
     const password = req.body.password;
+    console.log(username, password);
     const results = await postLoginAdmin(username, password);
+    if (results && results.DT && results.DT.access_token) {
+      res.cookie("jwt", results.DT.access_token, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 1000,
+      });
+    }
     return res.status(200).json({
       EM: results.EM,
       EC: results.EC,
@@ -150,6 +165,24 @@ const registerAdmin = async (req, res) => {
     DT: results.DT,
   });
 };
+
+const logoutUser = async (req, res) => {
+  try {
+    res.clearCookie("jwt");
+    return res.status(200).json({
+      EM: "Logout Thành Công !!!",
+      EC: 0,
+      DT: " ",
+    });
+  } catch {
+    return res.status(500).json({
+      EM: "error from server",
+      EC: "-1",
+      DT: " ",
+    });
+  }
+};
+
 module.exports = {
   CreateUser,
   getAllUser,
@@ -161,4 +194,5 @@ module.exports = {
   loginAdmin,
   registerAdmin,
   CapnhatPasswordUser,
+  logoutUser,
 };
