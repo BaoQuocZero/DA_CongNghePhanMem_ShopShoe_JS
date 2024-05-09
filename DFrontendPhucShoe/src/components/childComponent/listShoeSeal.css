@@ -1,0 +1,157 @@
+/* ShoeList.css */
+
+.shoe-list {
+    max-width: 1200px;
+    margin: 0 auto;
+
+}
+
+
+.shoe-listindex {
+    z-index: 200;
+    margin-top: -5%;
+}
+
+.thea {
+    text-decoration: none;
+    z-index: 10;
+    color: black;
+}
+
+#tenSP {
+    font-weight: normal;
+    font-size: 14px;
+    z-index: 20;
+}
+
+#shoe-listseal_tieude {
+
+    text-align: center;
+}
+
+.shoe-list ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.shoe-list li {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+    width: calc((100% - 50px) / 6);
+    transition: transform 0.3s ease;
+    /* Thêm hiệu ứng chuyển động */
+}
+
+.hrne {
+    margin-top: -3%;
+}
+
+.shoe-list li:hover {
+    transform: scale(1.05);
+    /* Phóng to khi hover */
+}
+
+
+
+.shoe-list img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    width: 80%;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+    /* Thêm hiệu ứng chuyển động */
+}
+
+.shoe-list li:hover img {
+    /* transform: scale(1.1); */
+    cursor: pointer;
+    /* Phóng to hình ảnh khi hover */
+}
+
+.shoe-list h3 {
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+
+
+.shoe-list p {
+    font-weight: bold;
+    color: #333;
+    font-size: 15px;
+}
+
+/* Media queries for responsiveness */
+@media screen and (max-width: 600px) {
+    .shoe-list li {
+        width: 100%;
+    }
+
+    .shoe-list img {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 768px) {
+    .shoe-list li {
+        width: 48%;
+    }
+}
+
+/* ... (previous styles) */
+
+.shoe-list li {
+    position: relative;
+    /* Add this to enable absolute positioning within li */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+    width: calc((100% - 50px) / 6);
+    transition: transform 0.3s ease;
+    /* Thêm hiệu ứng chuyển động */
+}
+
+.shoe-list li .discounted-price {
+    font-size: 16px;
+    color: #e74c3c;
+    /* Adjust color as needed */
+    font-weight: bold;
+}
+
+/* Add this style for the discount banner */
+.shoe-list li .discount-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #e74c3c;
+    /* Adjust color as needed */
+    color: #fff;
+    padding: 5px 10px;
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.shoe-list_seal {
+    text-decoration: line-through;
+    color: #000000;
+    opacity: 0.3;
+}
+
+.shoe-list li:hover {
+    /* transform: scale(1.05); */
+    /* Phóng to khi hover */
+}
+
+/* ... (previous styles) */

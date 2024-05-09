@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import MyNavbar from "../component/NavbarhomePage.js";
+import MyNavbar from "../components/NavbarhomePage.js";
 import axios from "axios";
 import "./profileCustomer.css";
 import { faL } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
-import Footer from "../component/foolterHomepage.js";
-import Loading from "../component/ComponentLoading/CompnentLoading.tsx";
+import Footer from "../components/foolterHomepage.js";
+import Loading from "../components/ComponentLoading/CompnentLoading.tsx";
 const ProfileCustomer = () => {
   const { username } = useParams();
   const [IsOpenProfile, setIsOpenProfile] = useState(true);

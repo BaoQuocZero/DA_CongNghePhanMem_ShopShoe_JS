@@ -1,0 +1,116 @@
+#tieude_tatcasp {
+    margin-top: 120px;
+    margin-bottom: 70px;
+}
+
+.input-timSP {
+    margin-left: 40px;
+    width: 20%;
+    height: 40px;
+    border-radius: 10px;
+    padding-left: 10px;
+
+}
+
+/* Thêm vào file CSS của bạn hoặc chính trong component nếu bạn muốn */
+
+.button-sort {
+    margin-left: 40px;
+    width: 20%;
+    height: 40px;
+    border-radius: 10px;
+    padding-left: 10px;
+
+    /* Màu chữ */
+
+    /* Không có đường viền */
+
+    /* Kích thước nút */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+    cursor: pointer;
+    border-radius: 10px;
+    /* Bo góc */
+    transition: background-color 0.3s;
+    /* Hiệu ứng chuyển động màu nền */
+    background-color: white;
+    border: 1px solid black;
+    color: black
+}
+
+.button-sort:focus {
+    background-color: black;
+    /* Màu nền */
+    color: white;
+    /* Màu nền khi di chuột qua */
+}
+
+
+/* Thêm vào file CSS của bạn hoặc chính trong component nếu bạn muốn */
+
+.button-sort {
+    margin-right: auto;
+    /* ... (CSS hiện tại) ... */
+    background-color: white;
+    color: black;
+}
+
+.button-sort.asc {
+    background-color: white;
+    color: black;
+}
+
+.button-sort.desc {
+    background-color: black;
+    color: white;
+}
+
+
+/* Styling for the label */
+.label-brand {
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+/* Styling for the dropdown container */
+.dropdown-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+/* Styling for the select element */
+.select-brand {
+    padding: 8px;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+/* Hover effect for the select element */
+.select-brand:hover {
+    border-color: #2980b9;
+}
+
+.select-price {
+    padding: 8px;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.select-price:hover {
+    border-color: #2980b9;
+}
+
+.label-price {
+    margin-right: 22px;
+    font-weight: bold;
+}
