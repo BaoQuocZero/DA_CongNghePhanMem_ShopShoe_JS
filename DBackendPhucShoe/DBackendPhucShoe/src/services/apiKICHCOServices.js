@@ -69,8 +69,42 @@ const updateKICHCO = async (makichco, kichco) => {
   }
 };
 
+const deleteKICHCO = async (magiatri) => {
+  try {
+    const [results, fields] = await connection.execute(
+      `select * from kichco where MAGIATRI = ?`,
+      [magiatri]
+    );
+
+    if (results.length > 0) {
+      const [results1, fields] = await connection.execute(
+        "delete from kichco where MAGIATRI = ?",
+        [magiatri]
+      );
+      return {
+        EM: "xóa kích cỡ thành công",
+        EC: 1,
+        DT: [],
+      };
+    } else {
+      return {
+        EM: "không thể xóa kích cỡ ",
+        EC: 0,
+        DT: [],
+      };
+    }
+  } catch (error) {
+    return {
+      EM: "không thể xóa kích cỡ vì trùng khóa",
+      EC: 0,
+      DT: [],
+    };
+  }
+};
+
 module.exports = {
   getKICHCO,
   createKICHCO,
   updateKICHCO,
+  deleteKICHCO,
 };

@@ -69,8 +69,42 @@ const updateLOAI = async (maloai, name) => {
   }
 };
 
+const deleteLOAI = async (maloai) => {
+  try {
+    const [results, fields] = await connection.execute(
+      `select * from loai where MALOAI = ?`,
+      [maloai]
+    );
+    console.log("check results", results);
+    if (results.length > 0) {
+      const [results1, fields] = await connection.execute(
+        "delete from loai where MALOAI = ?",
+        [maloai]
+      );
+      return {
+        EM: "xóa thể loại sản phẩm thành công",
+        EC: 1,
+        DT: [],
+      };
+    } else {
+      return {
+        EM: "không thể xóa thể loại ",
+        EC: 0,
+        DT: [],
+      };
+    }
+  } catch (error) {
+    return {
+      EM: "không thể xóa thể loại vì trùng khóa",
+      EC: 0,
+      DT: [],
+    };
+  }
+};
+
 module.exports = {
   getLOAI,
   createLOAI,
   updateLOAI,
+  deleteLOAI,
 };
