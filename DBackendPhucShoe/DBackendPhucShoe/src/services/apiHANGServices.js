@@ -69,8 +69,42 @@ const updateHANG = async (mahang, hang) => {
   }
 };
 
+const deleteHANG = async (mahang) => {
+  try {
+    const [results, fields] = await connection.execute(
+      `select * from hang where MAHANG = ?`,
+      [mahang]
+    );
+
+    if (results.length > 0) {
+      const [results1, fields] = await connection.execute(
+        "delete from hang where MAHANG = ?",
+        [mahang]
+      );
+      return {
+        EM: "xóa hãng thành công",
+        EC: 1,
+        DT: [],
+      };
+    } else {
+      return {
+        EM: "không thể xóa hãng ",
+        EC: 0,
+        DT: [],
+      };
+    }
+  } catch (error) {
+    return {
+      EM: "không thể xóa hãng vì trùng khóa",
+      EC: 0,
+      DT: [],
+    };
+  }
+};
+
 module.exports = {
   getHANG,
   createHANG,
   updateHANG,
+  deleteHANG,
 };

@@ -27,9 +27,11 @@ const {
   DanhSachkichco,
   Capnhatkichco,
   Taokichco,
+  XoaKichco,
   DanhSachloai,
   Taoloai,
   Capnhatloai,
+  XoaLoai,
   DanhSachsanpham,
   DanhSachthongkesanpham,
   Taosanpham,
@@ -101,21 +103,21 @@ router.delete("/user/info/delete/:username", checkUserJWT, XoaUser); //xóa user
 router.get("/hang", DanhSachHang);
 router.post("/hang/create", TaoHang);
 router.put("/hang/info/update/:mahang", CapnhatHang);
-router.delete("/hang/info/delete/:username", XoaHang); //chưa làm được =))))
+router.delete("/hang/info/delete", XoaHang); //chưa làm được =))))
 
 //----------------------------------------------------------------------------------------------------------------
 //api KICHCO
 router.get("/kichco", DanhSachkichco);
 router.post("/kichco/create", Taokichco);
 router.put("/kichco/info/update/:magiatri", Capnhatkichco);
-router.delete("/kichco/info/delete/:username", XoaUser); // chưa làm được =))))
+router.delete("/kichco/info/delete", XoaKichco); // chưa làm được =))))
 
 //----------------------------------------------------------------------------------------------------------------
 //api MALOAI
 router.get("/loai", DanhSachloai); // get list of users
 router.post("/loai/create", Taoloai); //get info 1 user
 router.put("/loai/info/update/:maloai", Capnhatloai);
-router.delete("/loai/info/delete/:username", XoaUser);
+router.delete("/loai/info/delete", XoaLoai);
 
 //api sản phẩm
 router.get("/productall", DanhSachsanpham); // get list of users

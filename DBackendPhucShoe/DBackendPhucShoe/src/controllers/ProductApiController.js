@@ -4,17 +4,20 @@ const {
   createHANG,
   updateHANG,
   getHANG,
+  deleteHANG,
 } = require("../services/apiHANGServices");
 const multer = require("multer");
 const {
   createKICHCO,
   updateKICHCO,
   getKICHCO,
+  deleteKICHCO,
 } = require("../services/apiKICHCOServices");
 const {
   getLOAI,
   createLOAI,
   updateLOAI,
+  deleteLOAI,
 } = require("../services/apiLOAIServices");
 
 const {
@@ -67,8 +70,8 @@ const CapnhatHang = async (req, res) => {
 
 const XoaHang = async (req, res) => {
   try {
-    const taikhoan = req.params.username;
-    const results = await DeleteUser(taikhoan);
+    const mahang = req.body.mahang;
+    const results = await deleteHANG(mahang);
     return res.status(200).json({
       EM: results.EM,
       EC: results.EC,
@@ -78,7 +81,6 @@ const XoaHang = async (req, res) => {
     console.log(error);
   }
 };
-
 // -------------------------------------------------------------------------------------------------
 //kích cỡ
 const Taokichco = async (req, res) => {
@@ -119,6 +121,20 @@ const Capnhatkichco = async (req, res) => {
   }
 };
 
+const XoaKichco = async (req, res) => {
+  try {
+    const magiatri = req.body.magiatri;
+    const results = await deleteKICHCO(magiatri);
+    return res.status(200).json({
+      EM: results.EM,
+      EC: results.EC,
+      DT: results.DT,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // -------------------------------------------------------------------------------------------------
 const Taoloai = async (req, res) => {
   const name = req.body.name;
@@ -148,6 +164,20 @@ const Capnhatloai = async (req, res) => {
     const name = req.body.name;
 
     const results = await updateLOAI(maloai, name);
+    return res.status(200).json({
+      EM: results.EM,
+      EC: results.EC,
+      DT: results.DT,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const XoaLoai = async (req, res) => {
+  try {
+    const maloai = req.body.maloai;
+    const results = await deleteLOAI(maloai);
     return res.status(200).json({
       EM: results.EM,
       EC: results.EC,
@@ -264,14 +294,17 @@ module.exports = {
   XoaHang,
   DanhSachHang,
   TaoHang,
+  XoaHang,
   //kích cỡ
   DanhSachkichco,
   Capnhatkichco,
   Taokichco,
+  XoaKichco,
   //loại sản phẩm
   DanhSachloai,
   Taoloai,
   Capnhatloai,
+  XoaLoai,
   //sản phẩm
   DanhSachsanpham,
   DanhSachthongkesanpham,
