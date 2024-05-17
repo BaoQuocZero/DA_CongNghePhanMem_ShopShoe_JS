@@ -7,7 +7,7 @@ const ThongTinChiTietGiay = () => {
   const [counterValue, setCounterValue] = useState(1);
   const [selectedSize, setSelectedSize] = useState(null);
   const navigate = useNavigate();
-  console.log(state.MASP);
+  console.log(state.MASP)
 
   let handleClickMuaHang = (event) => {
     if (selectedSize == null) {
@@ -68,15 +68,13 @@ const ThongTinChiTietGiay = () => {
                 {["37", "38", "39", "40"].map((size) => (
                   <div
                     key={size}
-                    className={`size-option ${
-                      selectedSize === size ? "selected" : ""
-                    }`}
+                    className={`size-option ${selectedSize === size ? "selected" : ""
+                      }`}
                     onClick={() => handleSizeClick(size)}
                   >
                     <p
-                      className={`size-text ${
-                        selectedSize === size ? "selected-text" : ""
-                      }`}
+                      className={`size-text ${selectedSize === size ? "selected-text" : ""
+                        }`}
                     >
                       {size}
                     </p>
