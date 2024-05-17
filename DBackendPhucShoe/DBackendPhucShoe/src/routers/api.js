@@ -61,7 +61,7 @@ const imageFilter = function (req, file, cb) {
   cb(null, true);
 };
 const upload = multer({ storage: storage, fileFilter: imageFilter });
-// router.get("/product", getAllProduct);
+router.get("/product", getAllProduct);
 // // router.put("/product/:", checkUserJWT, getAllProduct);
 // router.delete("/product", checkUserJWT, getAllProduct);
 

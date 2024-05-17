@@ -8,17 +8,36 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProfileCustomer from "./profileCustomer/profileCustomer";
 import HomePage from "./view/homePage";
+import ListShoe from "./components/listShoe";
+import Footer from "./components/foolterHomepage";
+import MyNavbar from "./components/NavbarhomePage";
+import ThongTinChiTietGiay from "./view/thongtinchitietgiay";
+import ThongTinChiTietGiaySeal from "./view/thongtinchitietgiayseal";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
       <Routes>
         {" "}
+        <Route path="/" element={<HomePage />} />
         <Route
-          path="/"
+          path="/thongtinchitietgiay/:shoes"
           element={
             <>
-              <HomePage />
+              <MyNavbar />
+              <ThongTinChiTietGiay />
+              <ListShoe />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/thongtinchitietgiayseal/:shoes"
+          element={
+            <>
+              <MyNavbar />
+              <ThongTinChiTietGiaySeal />
+              <Footer />
             </>
           }
         />
