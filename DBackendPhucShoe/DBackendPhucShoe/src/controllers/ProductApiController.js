@@ -26,6 +26,7 @@ const {
   updateSANPHAM,
   Deletesanpham,
   getTongSoLuongSANPHAM,
+  getSANPHAMwthPaginate,
 } = require("../services/apiSANPHAMServices");
 
 // -------------------------------------------------------------------------------------------------
@@ -70,7 +71,7 @@ const CapnhatHang = async (req, res) => {
 
 const XoaHang = async (req, res) => {
   try {
-    const mahang = req.body.mahang;
+    const mahang = req.query.mahang;
     const results = await deleteHANG(mahang);
     return res.status(200).json({
       EM: results.EM,
@@ -81,6 +82,7 @@ const XoaHang = async (req, res) => {
     console.log(error);
   }
 };
+
 // -------------------------------------------------------------------------------------------------
 //kích cỡ
 const Taokichco = async (req, res) => {
@@ -123,8 +125,9 @@ const Capnhatkichco = async (req, res) => {
 
 const XoaKichco = async (req, res) => {
   try {
-    const magiatri = req.body.magiatri;
+    const magiatri = req.query.magiatri;
     const results = await deleteKICHCO(magiatri);
+    console.log(magiatri);
     return res.status(200).json({
       EM: results.EM,
       EC: results.EC,
@@ -176,7 +179,8 @@ const Capnhatloai = async (req, res) => {
 
 const XoaLoai = async (req, res) => {
   try {
-    const maloai = req.body.maloai;
+    const maloai = req.query.maloai;
+    console.log(maloai);
     const results = await deleteLOAI(maloai);
     return res.status(200).json({
       EM: results.EM,
@@ -185,6 +189,7 @@ const XoaLoai = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -198,6 +203,26 @@ const DanhSachsanpham = async (req, res) => {
     EC: results.EC,
     DT: results.DT,
   });
+};
+
+const DanhSachsanphamwithPaginate = async (req, res) => {
+  try {
+    let page = req.query.page;
+    let limit = req.query.limit;
+    const results = await getSANPHAMwthPaginate(page, limit);
+    return res.status(200).json({
+      EM: results.EM,
+      EC: results.EC,
+      DT: results.DT,
+    });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(200).json({
+      EM: results.EM,
+      EC: results.EC,
+      DT: results.DT,
+    });
+  }
 };
 
 const DanhSachthongkesanpham = async (req, res) => {
@@ -242,6 +267,7 @@ const Taosanpham = async (req, res) => {
 };
 
 const Capnhatsanpham = async (req, res) => {
+  const filename = req.file ? req.file.filename : null;
   try {
     const masanpham = req.params.masanpham;
     const TengiayShoe = req.body.TengiayShoe;
@@ -252,13 +278,14 @@ const Capnhatsanpham = async (req, res) => {
     const SizeGiayShoe = req.body.SizeGiayShoe;
     const SoLuongShoe = req.body.SoLuongShoe;
     const ThongtinShoe = req.body.ThongtinShoe;
+
     const results = await updateSANPHAM(
       masanpham,
       TengiayShoe,
       HanggiayShoe,
       GiabanShoe,
       GiamgiaShoe,
-      req.file.filename,
+      filename,
       LoaiGiayShoe,
       SizeGiayShoe,
       SoLuongShoe,
@@ -294,7 +321,6 @@ module.exports = {
   XoaHang,
   DanhSachHang,
   TaoHang,
-  XoaHang,
   //kích cỡ
   DanhSachkichco,
   Capnhatkichco,
@@ -307,6 +333,7 @@ module.exports = {
   XoaLoai,
   //sản phẩm
   DanhSachsanpham,
+  DanhSachsanphamwithPaginate,
   DanhSachthongkesanpham,
   Taosanpham,
   Capnhatsanpham,
