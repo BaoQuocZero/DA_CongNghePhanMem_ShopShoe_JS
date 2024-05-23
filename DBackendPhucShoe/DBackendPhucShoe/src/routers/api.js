@@ -4,7 +4,7 @@ const multer = require("multer");
 const path = require("path");
 var appRoot = require("app-root-path");
 const fs = require("fs");
-// const { getAllProduct } = require("../controllers/ApiController");
+const { getAllProduct } = require("../controllers/ApiController");
 const {
   CreateUser,
   getAllUser,
