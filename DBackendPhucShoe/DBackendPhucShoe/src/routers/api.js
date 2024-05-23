@@ -3,8 +3,8 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 var appRoot = require("app-root-path");
-const fs = require("fs");
-const { getAllProduct } = require("../controllers/ApiController");
+// const fs = require("fs");
+// const { getAllProduct } = require("../controllers/ApiController");
 const {
   CreateUser,
   getAllUser,
@@ -18,7 +18,14 @@ const {
   registerAdmin,
   CapnhatPasswordUser,
 } = require("../controllers/apiUserController");
-
+const {
+  getDonHangChuaduocGiao,
+  getDonHangDaDuocGiao,
+  updateTrangthai,
+  XoaDonHangHuy,
+  updateTrangthaihuydon,
+  getDonHangDaHuy,
+} = require("../controllers/ApiDonHangController");
 const {
   CapnhatHang,
   XoaHang,
@@ -33,6 +40,7 @@ const {
   Capnhatloai,
   XoaLoai,
   DanhSachsanpham,
+  DanhSachsanphamwithPaginate,
   DanhSachthongkesanpham,
   Taosanpham,
   Capnhatsanpham,
@@ -63,12 +71,16 @@ const imageFilter = function (req, file, cb) {
   cb(null, true);
 };
 const upload = multer({ storage: storage, fileFilter: imageFilter });
-router.get("/product", getAllProduct);
-// // router.put("/product/:", checkUserJWT, getAllProduct);
+// router.get("/product", getAllProduct);
+// // router.post("/product", getAllProduct);
+// router.put("/product/:", checkUserJWT, getAllProduct);
 // router.delete("/product", checkUserJWT, getAllProduct);
 
 //----------------------------------------------------------------------------------------------------------------
 //user routes login and register
+router.get("/protected", checkUserJWT, (req, res) => {
+  res.json({ message: "Protected data", user: req.user }); // Sử dụng thông tin người dùng từ req.user
+});
 router.post("/register", CreateUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
@@ -121,6 +133,7 @@ router.delete("/loai/info/delete", XoaLoai);
 
 //api sản phẩm
 router.get("/productall", DanhSachsanpham); // get list of users
+router.get("/productallPaginate", DanhSachsanphamwithPaginate);
 router.get("/productThongke", DanhSachthongkesanpham); // get list of users
 router.post("/product/create", upload.single("image"), Taosanpham); //get info 1 user
 router.put(
@@ -130,4 +143,11 @@ router.put(
 );
 router.delete("/product/info/delete/:masanpham", Xoasanpham);
 
+//api đơn hàng
+router.get("/donhangchuagiao", getDonHangChuaduocGiao); // lấy đơn hàng chưa giao
+router.get("/donhangdagiao", getDonHangDaDuocGiao); //lấy đơn hàng đã giao thành công
+router.put("/donhang/update/:madonhang", updateTrangthai); //update trạng thái của đơn hang
+router.get("/donhangdahuy", getDonHangDaHuy); //lấy đơn hàng đã Hủy
+router.put("/donhanghuy/update/:madonhang", updateTrangthaihuydon); // update trạng thái đơn hàng thành ĐÃ HỦY
+router.delete("/donhanghuy/info/delete", XoaDonHangHuy); // XÓA CÁC ĐƠN HÀNG ĐÃ HỦY
 module.exports = router; // Di chuyển dòng này về cuối tệp của bạn

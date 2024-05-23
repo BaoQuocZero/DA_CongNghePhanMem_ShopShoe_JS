@@ -4,7 +4,7 @@ import "../assets/styles/thongtinchitietgiay.css";
 
 const ThongTinChiTietGiaySeal = () => {
   const { state } = useLocation();
-  const [counterValue, setCounterValue] = useState(1);
+  const [counterValue, setCounterValue] = useState(1)
   const [selectedSize, setSelectedSize] = useState(null);
   const navigate = useNavigate();
 
@@ -54,15 +54,13 @@ const ThongTinChiTietGiaySeal = () => {
               {["37", "38", "39", "40"].map((size) => (
                 <div
                   key={size}
-                  className={`size-option ${
-                    selectedSize === size ? "selected" : ""
-                  }`}
+                  className={`size-option ${selectedSize === size ? "selected" : ""
+                    }`}
                   onClick={() => handleSizeClick(size)}
                 >
                   <p
-                    className={`size-text ${
-                      selectedSize === size ? "selected-text" : ""
-                    }`}
+                    className={`size-text ${selectedSize === size ? "selected-text" : ""
+                      }`}
                   >
                     {size}
                   </p>
