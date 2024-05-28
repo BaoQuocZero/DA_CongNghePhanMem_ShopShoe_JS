@@ -8,6 +8,7 @@ const ListOrders = () => {
     const navigate = useNavigate()
     const [ListOdersChuaGiao, setListOdersChuaGiao] = useState([]);
     const [IsOpenChiTiet, setIsOpenChiTiet] = useState(false)
+    const [MaDonHang, setMaDonHang] = useState(null)
     const fetchData = async () => {
         try {
             const response = await axios.get("http://localhost:3003/api/v1/donhangchuagiao");
@@ -65,7 +66,10 @@ const ListOrders = () => {
         }
     };
     const handleChiTiet = (madonhang) => {
+        setMaDonHang(madonhang)
         setIsOpenChiTiet(!IsOpenChiTiet)
+
+
     }
     const handleMoveRouteDaGiao = () => {
         navigate('/dashboard/ordersDaGiao')
@@ -87,6 +91,7 @@ const ListOrders = () => {
 
         return `${formattedDate}, ${formattedTime}`;
     };
+    const filteredOrder = ListOdersChuaGiao.find(order => order.madonhang === MaDonHang);
     return (
         <>
             <h2>Đơn Hàng</h2>
@@ -123,7 +128,7 @@ const ListOrders = () => {
                             <td>{formatCurrency(order.thanhtien)}</td>
                             <td>{order.trangthai}</td>
                             <td>
-                                <button className="button" onClick={() => handleXacNhanGiaoHang(order.madonhang)}>Xác Nhận</button>
+                                <button className="btn btn-success" onClick={() => handleXacNhanGiaoHang(order.madonhang)}>Xác Nhận</button>
                             </td>
                             <td>
                                 <button className="btn btn-danger" onClick={() => handleHuyDon(order.madonhang)}>Hủy Đơn</button>
@@ -134,12 +139,46 @@ const ListOrders = () => {
 
                         </tr>
 
-                    ))}
-                    {IsOpenChiTiet ? (
-                        <p>sugfu</p>
-                    ) : false}
-                </tbody>
+                    ))}      </tbody>
             </table>
+            {IsOpenChiTiet && filteredOrder && (
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn hàng</th>
+                            <th>Tên</th>
+                            <th>Ngày đặt hàng</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá</th>
+                            <th>Thành tiền</th>
+                            <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
+                            <th>Trạng thái</th>
+                            <th>Hình ảnh</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{filteredOrder.madonhang}</td>
+                            <td>{filteredOrder.ten}</td>
+                            <td>{new Date(filteredOrder.ngaydonhang).toLocaleString()}</td>
+                            <td>{filteredOrder.tensanpham}</td>
+                            <td>{filteredOrder.soluong}</td>
+                            <td>{formatCurrency(filteredOrder.gia)}</td>
+                            <td>{formatCurrency(filteredOrder.thanhtien)}</td>
+                            <td>{filteredOrder.diachi}</td>
+                            <td>{filteredOrder.sodienthoai}</td>
+                            <td>{filteredOrder.trangthai}</td>
+                            <td>
+                                <img src={`http://localhost:3003/images/${filteredOrder.description}`} alt={filteredOrder.description} width="50" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            )}
+
+
         </>
     );
 }

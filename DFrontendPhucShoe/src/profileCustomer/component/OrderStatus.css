@@ -1,0 +1,95 @@
+/* body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+} */
+.order-status-container {
+    font-size: 30px;
+    display: flex;
+    width: 70px;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-status {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.status-item svg {
+    font-size: 24px;
+}
+
+.status-item.processing {
+    background-color: #e0f7fa;
+    color: #00796b;
+}
+
+.status-item.processing svg {
+    color: #00796b;
+}
+
+.status-item.confirmed {
+    background-color: #e8f5e9;
+    color: #388e3c;
+}
+
+.status-item.confirmed svg {
+    color: #388e3c;
+}
+
+.status-item.shipped {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.status-item.shipped svg {
+    color: #f57c00;
+}
+
+.status-item.delivered {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.status-item.delivered svg {
+    color: #1976d2;
+}
+
+.status-item.cancelled {
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
+.status-item.cancelled svg {
+    color: #d32f2f;
+}
+
+.status-item:hover {
+    background-color: #ddd;
+    color: #000;
+}

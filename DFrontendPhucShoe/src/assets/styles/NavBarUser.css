@@ -1,0 +1,82 @@
+.cart-div {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10%;
+    font-size: 20px;
+    height: 500px;
+    width: 200px;
+    position: relative;
+}
+
+.ml-auto {
+    width: 60%;
+    height: auto;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-left: 7%;
+}
+
+.nav-item {
+    margin-left: 30px;
+    text-decoration: none;
+    color: rgb(116, 112, 112);
+    width: 12%;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+}
+
+.icon-logout {
+    margin-top: -10px;
+    margin-left: 30px;
+    cursor: pointer;
+    position: absolute;
+    /* Position the icon independently */
+}
+
+.container-logoutUser {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px 2px 5px #0e4f21;
+    width: 80px;
+
+    /* Change position to relative */
+    height: 100px;
+    /* margin-bottom: -80px; */
+    /* display: none; */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    position: absolute;
+    margin-top: 20px;
+    margin-left: -20px;
+    /* Add transition for smoother effect */
+}
+
+
+.container-logoutUser:hover {
+
+    color: white;
+
+    /* Move the element slightly up on hover */
+}
+
+.logout {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.logout:hover {
+    color: #ffffff;
+    background-color: #0e4f21;
+    transform: translateY(5px);
+    border-radius: 5px;
+}

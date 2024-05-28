@@ -21,7 +21,7 @@ function ListShoe() {
           hang: response.data.hang,
           loading: false,
         });
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error(error.message);
         setData({
@@ -34,8 +34,8 @@ function ListShoe() {
     fetchData();
   }, []);
 
-  console.log("checkdatalistSHOE", data);
-  console.log("check Hang", hang);
+  // console.log("checkdatalistSHOE", data);
+  // console.log("check Hang", hang);
   return (
     <div className="App">
       <ShoeList shoes={data} hang={hang} />

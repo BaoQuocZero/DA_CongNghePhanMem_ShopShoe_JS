@@ -6,7 +6,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from '../layouts/dashboard';
 import ProductsPageFake from "../pages/products"
-
+const OnlyChiTietHoaDon = lazy(() => import('../sections/ListOrders/ChiTietHoaDon/OnlyChiTietHoaDon'));
 const ListOrdersChiTietHoaDon = lazy(() => import('../sections/ListOrders/ChiTietHoaDon/ListOrdersChiTietHoaDon'));
 const ListOrdersDaHuy = lazy(() => import('../sections/ListOrders/ListOrdersDaHuy/ListOrdersDaHuy'));
 const ListOrdersDaGiao = lazy(() => import('../sections/ListOrders/ListOrdersDaGiao/ListOrdersDaGiao'));
@@ -97,6 +97,18 @@ export default function Router() {
             <ListOrdersChiTietHoaDon />
 
 
+          </Suspense>
+        </DashboardLayout>
+      )
+    }
+    , {
+      path: '/ordersDaGiao/:madonhangParam', // Thêm ký tự '*' vào cuối đường dẫn
+      element: (
+        <DashboardLayout>
+          <Suspense fallback={<div>Loading...</div>}>
+
+
+            <OnlyChiTietHoaDon />
           </Suspense>
         </DashboardLayout>
       )

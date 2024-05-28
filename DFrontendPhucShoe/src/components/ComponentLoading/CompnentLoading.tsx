@@ -14,7 +14,7 @@ function Loading() {
   return (
     <div className="ComponentLoading"> 
     <ClimbingBoxLoader 
-    color="#36d7b7"
+    color="#212b36"
     speedMultiplier={2}
     size={32}
     /> 

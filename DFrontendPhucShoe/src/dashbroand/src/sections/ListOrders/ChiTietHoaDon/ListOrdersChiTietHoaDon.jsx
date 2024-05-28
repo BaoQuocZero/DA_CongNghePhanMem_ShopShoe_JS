@@ -90,15 +90,22 @@ const ListOrdersChiTietHoaDon = () => {
                     Trở về
                 </button>
             </div>
-            <table className="table">
+            <table className="table ">
                 <thead>
-                    <tr> <th>Mã Đơn Hàng</th>
+                    <tr>
+                        <th>Mã Đơn Hàng</th>
                         <th>Tên khách hàng</th>
+                        <th>Tài Khoản</th>
                         <th>Thời gian</th>
                         <th>Thành tiền</th>
-                        <th>Trạng thái</th>
-                        <th>Thông tin chi tiết</th>
 
+                        <th>Tên ảnh</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Địa chỉ</th>
+                        <th>Số điện thoại</th>
+                        <th>Hình ảnh</th>
+                        <th>Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -106,13 +113,19 @@ const ListOrdersChiTietHoaDon = () => {
                         <tr key={index}>
                             <td>{order.madonhang}</td>
                             <td>{order.ten}</td>
+                            <td>{order.taikhoan ? order.taikhoan : "Không xác định"}</td>
                             <td>{formatDate(order.ngaydonhang)}</td>
                             <td>{formatCurrency(order.thanhtien)}</td>
-                            <td>{order.trangthai}</td>
-                            <td>
-                                <button className="button" onClick={() => handleXacNhanGiaoHang(order.madonhang)}>Chi Tiết Hóa Đơn</button>
-                            </td>
 
+                            <td>{order.description}</td>
+                            <td>{order.tensanpham}</td>
+                            <td>{order.soluong}</td>
+                            <td>{order.diachi}</td>
+                            <td>{order.sodienthoai}</td>
+                            <td>
+                                <img src={`http://localhost:3003/images/${order.description}`} alt={order.description} width="50" />
+                            </td>
+                            <td>{order.trangthai}</td>
                         </tr>
                     ))}
                 </tbody>

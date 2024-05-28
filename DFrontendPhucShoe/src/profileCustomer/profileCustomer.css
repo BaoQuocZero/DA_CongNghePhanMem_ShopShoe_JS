@@ -21,9 +21,13 @@
     width: 70%;
     margin-top: 50px;
 
+
 }
 
-.btn-upload {}
+.btn-upload {
+    margin-left: 30px;
+
+}
 
 .profileCustomer-functions-wrap {
     width: 80%;
@@ -33,6 +37,15 @@
 }
 
 
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-top: 40px;
+    margin-left: 65px;
+
+}
 
 .displayflex {
     display: flex;
@@ -86,7 +99,8 @@
 
 
 .container-avatar {
-    width: 100%;
+    margin-left: 200px;
+    width: 500px;
     height: 500px;
     display: flex;
     display: flex;

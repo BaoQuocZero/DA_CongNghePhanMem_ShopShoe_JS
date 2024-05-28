@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+
 // import Slide1 from "./assets/image/slide1.jpg";
 const Login = () => {
   //   const registerBtn = document.getElementById("register");
@@ -39,7 +40,7 @@ const Login = () => {
       toast.error("Vui lòng điền đầy đủ thông tin đăng ký");
     } else {
       setIsActive(true);
-      toast.success("Đăng ký thành công");
+
       axios
         .post("http://localhost:3003/api/v1/register", {
           username: UsernameRegister,
@@ -48,6 +49,11 @@ const Login = () => {
         .then((response) => {
           // Xử lý phản hồi từ máy chủ nếu cần
           console.log(response);
+          if (response.data.EC == 1) {
+            toast.success("Đăng ký thành công");
+          } else {
+            toast.error(response.data.EM);
+          }
         })
         .catch((error) => {
           // Xử lý lỗi nếu cần
@@ -60,7 +66,6 @@ const Login = () => {
     if (!UsernameLogin || !PasswordLogin) {
       toast.error("Vui lòng điền đầy đủ thông tin đăng nhập");
     } else {
-      toast.success("Đăng nhập thành công");
       setIsActive(false);
       axios
         .post("http://localhost:3003/api/v1/login", {
@@ -68,10 +73,22 @@ const Login = () => {
           password: PasswordLogin,
         })
         .then((response) => {
-          console.log(response);
+          console.log(response.data);
           console.log(response.data.EC);
           if (response.data.EC == 1) {
-            navigate("/dashboard");
+            console.log(response.data.DT.access_token);
+            sessionStorage.setItem(
+              "accessToken",
+              response.data.DT.access_token
+            );
+
+            toast.success("Đăng nhập thành công");
+            // navigate(`/profile/${UsernameLogin}`, {
+            //   state: { access_token: response.data.DT.access_token },
+            // });
+            navigate(`/`);
+          } else {
+            toast.error("Đăng nhập thất bại");
           }
         })
         .catch((error) => {
@@ -100,7 +117,7 @@ const Login = () => {
           {" "}
           <div className="form-container sign-up">
             <form action="">
-              <h1>Create Account</h1>
+              {/* <h2>Create Account</h2> */}
               <div className="social-icons">
                 <a href="#" className="icon">
                   <i className="fab fa-google-plus"></i>
@@ -115,7 +132,7 @@ const Login = () => {
                   <i className="fab fa-linkedin"></i>
                 </a>
               </div>
-              <span>or use your email for registeration</span>
+              <span>Hãy đăng ký một tài khoản dành cho riêng bạn</span>
               <div className="couple-text">
                 <input
                   type="text"
@@ -148,13 +165,13 @@ const Login = () => {
                 <div className="labelline"> Re-Password</div>
               </div>
               <button className="btn-accept" onClick={handleRegister}>
-                Sign up
+                Đăng ký
               </button>
             </form>
           </div>
           <div className="form-container sign-in">
             <form action="">
-              <h1>Sign in</h1>
+              {/* <h2>Sign in</h2> */}
               <div className="social-icons">
                 <a href="#" className="icon">
                   <i className="fab fa-google-plus"></i>
@@ -169,7 +186,8 @@ const Login = () => {
                   <i className="fab fa-linkedin"></i>
                 </a>
               </div>
-              <span>or use your email for registeration</span>
+              {/* <span>or use your email for registeration</span> */}
+              <span>Đăng nhập để sử dụng thêm nhiều thứ mới mẻ hơn</span>
               <div className="couple-text">
                 <input
                   type="text"
@@ -193,7 +211,7 @@ const Login = () => {
                 forget your password ?
               </a>
               <button className="btn-accept" onClick={handleLogin}>
-                Sign in
+                Đăng nhập
               </button>
             </form>
           </div>
@@ -201,9 +219,13 @@ const Login = () => {
             <div className="toggle">
               <div className="toggle-panel toggle-left">
                 <h1>HELLO, MY FRIEND !!</h1>
-                <p>
+                {/* <p>
                   Register with your personal details to use all of site
                   features
+                </p> */}
+                <p>
+                  Có một tài khoản trong tay bạn dễ dàng tạo nên thuận tiện mua
+                  hàng
                 </p>
                 <button
                   className="hidden"
@@ -211,19 +233,19 @@ const Login = () => {
                   onClick={handleLoginClick}
                 >
                   {" "}
-                  Sign in
+                  Đăng nhập
                 </button>
               </div>
               <div className="toggle-panel toggle-right">
                 <h1> WELCOME BACK</h1>
-                <p>Enter your personal details to use all of site features</p>
+                <p>Đăng nhập để tạo nên sự liên kết giới bạn và mình</p>
                 <button
                   className="hidden"
                   id="register"
                   onClick={handleRegisterClick}
                 >
                   {" "}
-                  Sign Up
+                  Đăng ký
                 </button>
               </div>
             </div>

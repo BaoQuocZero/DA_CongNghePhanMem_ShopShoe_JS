@@ -1,7 +1,7 @@
-import React from "react";
-import { AllShoeList } from "../components/childComponent/chillTatCaSP";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import React from 'react';
+import { AllShoeList } from '../components/childComponent/chillTatCaSP';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 // const shoesDatas = [
 //     { id: 1, name: 'Puma', image: require('../assets/images-shoes/listShoe1.jpg'), href: '/cart', price: 99.99 },
 //     { id: 2, name: 'MLB', image: require('../assets/images-shoes/listShoe2.jpg'), href: '/cart', price: 50.99 },
@@ -14,48 +14,49 @@ import { useState, useEffect } from "react";
 //     { id: 9, name: 'Nike Air ', image: require('../assets/images-shoes/listShoe8.jpg'), href: '/cart', price: 59.99 },
 //     { id: 9, name: 'Nike Air ', image: require('../assets/images-shoes/listShoe8.jpg'), href: '/cart', price: 59.99 },
 
+
 //     // Add more shoes as needed
 // ];
 
 function ListShoe() {
-  const [data, setData] = useState(null);
-  const [hang, setHang] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3003/api/v1/product"
-        );
+    const [data, setData] = useState(null);
+    const [hang, setHang] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://localhost:3003/api/v1/product");
 
-        setData({
-          data: response.data.data,
-          loading: false,
-        });
-        setHang({
-          data: response.data.hang,
-          loading: false,
-        });
+                setData({
+                    data: response.data.data,
+                    loading: false,
+                });
+                setHang({
+                    data: response.data.hang,
+                    loading: false,
+                });
 
-        console.log(response.data);
-      } catch (error) {
-        console.error(error.message);
-        setData({
-          error: error.message,
-          loading: false,
-        });
-      }
-    };
 
-    fetchData();
-  }, []);
+                console.log(response.data);
+            } catch (error) {
+                console.error(error.message);
+                setData({
+                    error: error.message,
+                    loading: false,
+                });
+            }
+        };
 
-  console.log("checkdatalistSHOE", data);
+        fetchData();
+    }, []);
 
-  return (
-    <div className="App">
-      <AllShoeList shoes={data} hang={hang} />
-    </div>
-  );
+
+    console.log('checkdatalistSHOE', data);
+
+    return (
+        <div className="App">
+            <AllShoeList shoes={data} hang={hang} />
+        </div>
+    );
 }
 
 export default ListShoe;

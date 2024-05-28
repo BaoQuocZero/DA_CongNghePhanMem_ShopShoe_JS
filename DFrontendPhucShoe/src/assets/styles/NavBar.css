@@ -1,5 +1,8 @@
 #navbar {
     position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: 0;
     left: 0;
     z-index: 100;
@@ -44,6 +47,41 @@
     filter: drop-shadow(1px 1px 1px rgb(0, 0, 0)) brightness(110%) saturate(150%) blur(0px);
 }
 
+.nav-dangnhap {
+    margin-left: 50px;
+
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-avatar {
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.nav-avatarUser {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.username {
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 @keyframes hueRotate {
     0% {
         filter: hue-rotate(0deg);
@@ -56,13 +94,13 @@
     }
 }
 
-.ml-auto {
-    width: 50%;
+.ml-autoo {
+    width: 80%;
     height: auto;
     align-items: center;
     display: flex;
     justify-content: center;
-    margin-left: 13%;
+    /* margin-left: 13%; */
 }
 
 .nav-item:hover {
@@ -86,12 +124,12 @@
 
 }
 
-.cart-div {
-
+.cart-divv {
+    width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 17%;
+    /* margin-left: 15%; */
     font-size: 20px;
 }
 
@@ -146,4 +184,53 @@
         font-size: 15px;
         margin-top: 2px;
     }
+}
+
+
+
+
+.user-info {
+    position: relative;
+}
+
+.nav-avatar {
+    cursor: pointer;
+}
+
+.nav-avatarUser {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 5px);
+    /* Hiển thị dropdown phía dưới avatar */
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 150px;
+    z-index: 1000;
+    /* Tăng z-index để đảm bảo hiển thị trên các phần tử khác */
+    /* display: none; */
+    /* Mặc định ẩn dropdown */
+    display: block;
+}
+
+.user-info:hover .dropdown-menu {
+    display: block;
+    /* Hiển thị dropdown khi hover vào phần tử chứa avatar */
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.dropdown-item:hover {
+    background: #f0f0f0;
 }

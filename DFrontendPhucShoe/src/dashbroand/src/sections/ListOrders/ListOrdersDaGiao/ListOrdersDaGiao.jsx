@@ -13,7 +13,7 @@ const ListOrdersDaHuy = () => {
             const response = await axios.get("http://localhost:3003/api/v1/donhangdagiao");
             const sortedOrders = response.data.DT.sort((a, b) => new Date(b.ngaydonhang) - new Date(a.ngaydonhang));
             setListOdersChuaGiao(sortedOrders);
-
+            console.log('Đơn hàng đã giao', sortedOrders)
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -70,6 +70,9 @@ const ListOrdersDaHuy = () => {
     const handleMoveDaHuy = () => {
         navigate('/dashboard/ordersDaHuy')
     }
+    const handleChiTietHoaDon = (madonhang) => {
+        navigate(`/dashboard/ordersDaGiao/${madonhang}`);
+    };
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const optionsDate = { day: '2-digit', month: 'numeric', year: 'numeric' };
@@ -96,10 +99,11 @@ const ListOrdersDaHuy = () => {
                 <thead>
                     <tr> <th>Mã Đơn Hàng</th>
                         <th>Tên khách hàng</th>
+                        <th>Tài khoản</th>
                         <th>Thời gian</th>
                         <th>Thành tiền</th>
                         <th>Trạng thái</th>
-                        <th>Thông tin chi tiết</th>
+                        <th className=" ">Thông tin chi tiết</th>
 
                     </tr>
                 </thead>
@@ -108,12 +112,14 @@ const ListOrdersDaHuy = () => {
                         <tr key={index}>
                             <td>{order.madonhang}</td>
                             <td>{order.ten}</td>
+                            <td>{order.taikhoan ? order.taikhoan : "Không xác định"}</td>
                             <td>{formatDate(order.ngaydonhang)}</td>
                             <td>{formatCurrency(order.thanhtien)}</td>
                             <td>{order.trangthai}</td>
-                            <td>
-                                <button className="button" onClick={() => handleXacNhanGiaoHang(order.madonhang)}>Chi Tiết Hóa Đơn</button>
-                            </td>
+                            <td>     <button class="btn btn-success d-block mx-auto" onClick={() => handleChiTietHoaDon(order.madonhang)}>
+                                Chi Tiết Hóa Đơn
+                            </button></td>
+
 
                         </tr>
                     ))}

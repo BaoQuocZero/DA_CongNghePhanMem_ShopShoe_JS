@@ -32,7 +32,7 @@ function ListShoeSealNam() {
           loading: false,
         });
 
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error(error.message);
         setData({
@@ -45,7 +45,7 @@ function ListShoeSealNam() {
     fetchData();
   }, []);
 
-  console.log("checkdatalistSHOE", data);
+  // console.log('checkdatalistSHOE', data);
 
   return (
     <div className="App">

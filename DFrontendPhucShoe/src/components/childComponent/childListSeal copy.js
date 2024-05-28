@@ -1,87 +1,93 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './listShoe.css';
-import '../childComponent/chillTatCaSP.css';
-import '../childComponent/listShoeSeal.css'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./listShoe.css";
+import "../childComponent/chillTatCaSP.css";
+import "../childComponent/listShoeSeal.css";
 export const handleItemClick = (shoe, navigate) => {
-    console.log('Item clicked:', shoe);
-    navigate(`/thongtinchitietgiay/${shoe.MASP}`, { state: shoe });
+  console.log("Item clicked:", shoe);
+  navigate(`/thongtinchitietgiay/${shoe.MASP}`, { state: shoe });
 };
 
 export const renderShoeItem = (shoe, navigate) => {
-    console.log('Rendering shoe item:', shoe);
+  // console.log('Rendering shoe item:', shoe);
 
-    // Làm tròn giá đến hai chữ số sau dấu thập phân
-    const roundedPrice = parseFloat(shoe.GIA).toFixed(0);
-    var so = parseFloat(roundedPrice);
+  // Làm tròn giá đến hai chữ số sau dấu thập phân
+  const roundedPrice = parseFloat(shoe.GIA).toFixed(0);
+  var so = parseFloat(roundedPrice);
 
-    const price = so.toLocaleString();
-    return (
-        <li key={shoe.MASP} onClick={() => handleItemClick(shoe, navigate)}>
-            <img src={`http://localhost:3003/images/${shoe.description}`} alt={shoe.TENSANPHAM} />
-            <p id="CLS-tensp">{shoe.TENSANPHAM}</p>
-            <p>{price}đ</p>
-        </li>
-    );
+  const price = so.toLocaleString();
+  return (
+    <li key={shoe.MASP} onClick={() => handleItemClick(shoe, navigate)}>
+      <img
+        src={`http://localhost:3003/images/${shoe.description}`}
+        alt={shoe.TENSANPHAM}
+      />
+      <p id="CLS-tensp">{shoe.TENSANPHAM}</p>
+      <p>{price}đ</p>
+    </li>
+  );
 };
 
-
-
 export const ShoeListSealNam = ({ shoes }) => {
-    const navigate = useNavigate();
-    const [searchTerm, setSearchTerm] = useState('');
-    const [sortOrder, setSortOrder] = useState('asc');
-    const [selectedBrand, setSelectedBrand] = useState('');
-    const [selectedPriceRange, setSelectedPriceRange] = useState('Tất cả');
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedPriceRange, setSelectedPriceRange] = useState("Tất cả");
 
-    const checkPriceRange = (price) => {
-        const numericPrice = parseFloat(price);
+  const checkPriceRange = (price) => {
+    const numericPrice = parseFloat(price);
 
-        switch (selectedPriceRange) {
-            case 'Dưới 200k':
-                return numericPrice < 200000;
-            case 'Dưới 300k':
-                return numericPrice < 300000;
-            case 'Dưới 400k':
-                return numericPrice < 400000;
-            case 'Dưới 500k':
-                return numericPrice < 500000;
-            default:
-                return true;
-        }
-    };
-
-    if (!shoes || !shoes.data || !Array.isArray(shoes.data) || shoes.data.length === 0) {
-        return <div>No shoes available</div>;
+    switch (selectedPriceRange) {
+      case "Dưới 200k":
+        return numericPrice < 200000;
+      case "Dưới 300k":
+        return numericPrice < 300000;
+      case "Dưới 400k":
+        return numericPrice < 400000;
+      case "Dưới 500k":
+        return numericPrice < 500000;
+      default:
+        return true;
     }
+  };
 
-    const filteredShoes = shoes.data.filter(
-        (shoe) =>
-            shoe.TENSANPHAM.toLowerCase().includes(searchTerm.toLowerCase()) &&
-            (selectedBrand === '' || shoe.TENHANG === selectedBrand) &&
-            (selectedPriceRange === 'Tất cả' || checkPriceRange(shoe.GIA)) &&
-            shoe.MALOAI === 15
-    );
+  if (
+    !shoes ||
+    !shoes.data ||
+    !Array.isArray(shoes.data) ||
+    shoes.data.length === 0
+  ) {
+    return <div>No shoes available</div>;
+  }
 
-    const sortedShoes = [...filteredShoes].sort((a, b) => {
-        const priceA = parseFloat(a.GIA);
-        const priceB = parseFloat(b.GIA);
+  const filteredShoes = shoes.data.filter(
+    (shoe) =>
+      shoe.TENSANPHAM.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (selectedBrand === "" || shoe.TENHANG === selectedBrand) &&
+      (selectedPriceRange === "Tất cả" || checkPriceRange(shoe.GIA)) &&
+      shoe.MALOAI === 15
+  );
 
-        if (sortOrder === 'asc') {
-            return priceA - priceB;
-        } else {
-            return priceB - priceA;
-        }
-    });
+  const sortedShoes = [...filteredShoes].sort((a, b) => {
+    const priceA = parseFloat(a.GIA);
+    const priceB = parseFloat(b.GIA);
 
-    const uniqueBrands = [...new Set(shoes.data.map((shoe) => shoe.TENHANG))];
-    const limitedShoes = sortedShoes.slice(0, 10);
-    return (
-        <div className="shoe-list shoe-listindex">
-            <h2 className="tieude" id="tieude_tatcasp">
-                Sản Phẩm Giày Dành Cho Nam
-            </h2>
-            {/* <div>
+    if (sortOrder === "asc") {
+      return priceA - priceB;
+    } else {
+      return priceB - priceA;
+    }
+  });
+
+  const uniqueBrands = [...new Set(shoes.data.map((shoe) => shoe.TENHANG))];
+  const limitedShoes = sortedShoes.slice(0, 10);
+  return (
+    <div className="shoe-list shoe-listindex">
+      <h2 className="tieude" id="tieude_tatcasp">
+        Sản Phẩm Giày Dành Cho Nam
+      </h2>
+      {/* <div>
                 <input
                     className="input-timSP"
                     type="text"
@@ -109,7 +115,7 @@ export const ShoeListSealNam = ({ shoes }) => {
                     ))}
                 </select>
             </div> */}
-            {/* <div className="dropdown-container">
+      {/* <div className="dropdown-container">
                 <label className="label-price" htmlFor="priceFilter">Chọn giá:</label>
                 <select
                     id="priceFilter"
@@ -122,20 +128,20 @@ export const ShoeListSealNam = ({ shoes }) => {
                     ))}
                 </select>
             </div> */}
-            <hr className='hrne'></hr>
-            <ul>
-                {limitedShoes.map((shoe) => (
-                    <li key={shoe.MASP} onClick={() => handleItemClick(shoe, navigate)}>
-                        <img
-                            src={`http://localhost:3003/images/${shoe.description}`}
-                            alt={shoe.TENSANPHAM}
-                        />
-                        <p id="CLS-tensp">{shoe.TENSANPHAM}</p>
-                        <p>{parseFloat(shoe.GIA).toLocaleString()}đ</p>
-                    </li>
-                ))}
-            </ul>
-            <hr></hr>
-        </div>
-    );
+      <hr className="hrne"></hr>
+      <ul>
+        {limitedShoes.map((shoe) => (
+          <li key={shoe.MASP} onClick={() => handleItemClick(shoe, navigate)}>
+            <img
+              src={`http://localhost:3003/images/${shoe.description}`}
+              alt={shoe.TENSANPHAM}
+            />
+            <p id="CLS-tensp">{shoe.TENSANPHAM}</p>
+            <p>{parseFloat(shoe.GIA).toLocaleString()}đ</p>
+          </li>
+        ))}
+      </ul>
+      <hr></hr>
+    </div>
+  );
 };

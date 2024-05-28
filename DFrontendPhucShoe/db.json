@@ -1,0 +1,90 @@
+{
+  "login": [
+    {
+      "id": "0e3e",
+      "UsernameLogin": "phuc",
+      "PasswordLogin": "0123"
+    }
+  ],
+  "register": [
+    {
+      "id": "1",
+      "username": "user1",
+      "password": "password1"
+    },
+    {
+      "id": "2",
+      "username": "user2",
+      "password": "password2"
+    },
+    {
+      "id": "3",
+      "username": "user3",
+      "password": "password3"
+    },
+    {
+      "id": "42ed",
+      "username": "sdhvs",
+      "password": "wuefuiw",
+      "email": "wfhwhe"
+    },
+    {
+      "id": "790f",
+      "username": "adádad",
+      "password": "ádad",
+      "email": "adadasd"
+    },
+    {
+      "id": "70be",
+      "username": "phuc",
+      "password": "0123",
+      "email": "phuc@gmail.com"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "title": "Post 1",
+      "body": "Body of post 1"
+    },
+    {
+      "id": "2",
+      "title": "Post 2",
+      "body": "Body of post 2"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "postId": 1,
+      "body": "Comment on post 1"
+    },
+    {
+      "id": "2",
+      "postId": 1,
+      "body": "Another comment on post 1"
+    },
+    {
+      "id": "3",
+      "postId": 2,
+      "body": "Comment on post 2"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "user1",
+      "password": "password1"
+    },
+    {
+      "id": "2",
+      "username": "user2",
+      "password": "password2"
+    },
+    {
+      "id": "3",
+      "username": "user3",
+      "password": "password3"
+    }
+  ]
+}

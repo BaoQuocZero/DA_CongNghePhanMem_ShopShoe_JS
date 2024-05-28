@@ -88,6 +88,7 @@ const ListOrdersDaGiao = () => {
                 <thead>
                     <tr> <th>Mã Đơn Hàng</th>
                         <th>Tên khách hàng</th>
+                        <th>Tài Khoản</th>
                         <th>Thời gian</th>
                         <th>Thành tiền</th>
                         <th>Trạng thái</th>
@@ -100,6 +101,7 @@ const ListOrdersDaGiao = () => {
                         <tr key={index}>
                             <td>{order.madonhang}</td>
                             <td>{order.ten}</td>
+                            <td>{order.taikhoan ? order.taikhoan : "Không xác định"}</td>
                             <td>{new Date(order.ngaydonhang).toLocaleString()}</td>
                             <td>{formatCurrency(order.thanhtien)}</td>
                             <td>{order.trangthai}</td>
