@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/images/favicon.ico">
+    <title>Create Users</title>
+</head>
+<style>
+
+</style>
+
+<body>
+
+    <div class="container">
+        <div class="vertical-navbar">
+            <a href="/">Home</a>
+            <a href="/create" class="create-sanpham">Tạo Sản Phẩm</a>
+            <!-- <a href="/khachhang">Thông Tin Khách Hàng</a> -->
+            <a href="/All-donhang">Tất Cả Đơn Hàng</a>
+            <a href="/all-chitietdonhang">Tất Cả Thông Tin Chi Tiết Đơn Hàng</a>
+
+            <a href="/ThongkeAll">Thông Kê</a>
+
+        </div>
+        <div class="container-create">
+            <div class="topnav">
+
+                <!-- <a href="/create" class="active">Thêm Sản Phẩm</a> -->
+                <a href="/create-loaisanpham" class="active">
+                    <p class="active-chucnang">Thêm Loại Giày</p>
+                </a>
+                <a href="/create-hangsanpham" class="active">
+                    <p>Thêm Hãng Giày</p>
+                </a>
+            </div>
+            <div class="container-thongtin">
+                <div class="form">
+                    <form action="/create-Sanpham" enctype="multipart/form-data" method="post">
+                        <fieldset>
+                            <legend>Tạo Sản Phẩm</legend>
+                            <!-- <div class="input-group">
+                    <label for="">Mã Sản Phẩm</label>
+                    <input type="text" id="MASP" name="MASP">
+                </div> -->
+                            <div class="input-group">
+                                <label for="">Giá bán</label>
+                                <input type="text" id="EmailId" name="Gia">
+                            </div>
+                            <div class="input-group">
+                                <label for="">Tên Sản Phẩm</label>
+                                <input type="text" name="tenSanpham">
+                            </div>
+                            <div class="input-group">
+                                <label for="size">Tên Hãng</label>
+
+                                <select name="Tenhang">
+                                    <% AllHangSP.forEach(function(AllHangSP) { %>
+                                        <option value="<%= AllHangSP.TENHANG %>">
+                                            <%= AllHangSP.TENHANG %>
+                                        </option>
+                                        <% }); %>
+                                            <!-- Thêm các option khác nếu cần -->
+                                </select>
+
+                            </div>
+                            <!-- <div class="input-group input-groupcity">
+                    <label for="">Mô tả sản phẩm</label>
+                    <input type="text" name="Mota">
+                </div> -->
+                            <div class="input-group">
+                                <label for="size">Loại Sản Phẩm</label>
+                                <select name="MALOAI">
+                                    <% AllLoaiSP.forEach(function(AllLoaiSP) { %>
+
+
+                                        <option value="<%= AllLoaiSP.MALOAI %>">
+                                            <%= AllLoaiSP.name %>
+                                        </option>
+                                        <% }); %>
+                                            <!-- Thêm các option khác nếu cần -->
+                                </select>
+
+                            </div>
+                            <div class="input-group">
+                                <label for="size">Size</label>
+                                <select name="Size" id="size">
+                                    <!-- Thêm các option từ cơ sở dữ liệu -->
+                                    <option value="37">37</option>
+                                    <option value="38">38</option>
+                                    <option value="39">39</option>
+                                    <option value="40">40</option>
+                                    <!-- Thêm các option khác nếu cần -->
+                                </select>
+                            </div>
+                            <div class="input-group input-groupcity">
+                                <label for="">Số lượng</label>
+                                <input type="text" name="Soluong">
+                            </div>
+                            <div class="input-group input-groupcity">
+                                <label for="">Thông tin chi tiết mô tả sản phẩm</label>
+                                <input type="text" name="thongtinsanpham" id="thongtinsanpham">
+                            </div>
+                            <div>
+                                <p for="" class="tieude-hinhanh">Hình ảnh </p>
+                                <input type="file" name="profile_pic" />
+                            </div>
+                            <td>
+                                <form method="POST" action="/upload-profile-pic" enctype="multipart/form-data"></form>
+                            </td>
+                            <div class="button">
+                                <button> Tạo Sản Phẩm</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="product-stats">
+                    <h2 class="stats-title">Thống kê sản phẩm</h2>
+                    <p class="stats-info">Tổng số sản phẩm đã tạo: <%= totalProducts %>
+                    </p>
+
+                    <p class="stats-info">Số lượng sản phẩm của hãng nhiều nhất: <%= mostHang ? mostHang.TENHANG + ' ('
+                            + mostHang.TotalProducts + ' sản phẩm)' : 'Không có thông tin' %>
+                    </p>
+
+                    <p class="stats-info">Số lượng có loại sản phẩm nhiều nhất ID: <%= mostLoai ? mostLoai.MALOAI + ' ('
+                            + mostLoai.TotalProducts + ' sản phẩm)' : 'Không có thông tin' %>
+                    </p>
+
+                    <p class="stats-info">Số lượng sản phẩm có size nhiều nhất: với size <%= mostSize ? mostSize.GIATRI
+                            + ' (' + mostSize.TotalProducts + ' sản phẩm)' : 'Không có thông tin' %>
+                    </p>
+
+                    <p class="stats-info">Tổng giá tiền của tất cả sản phẩm: <%= totalPrice ?
+                            totalPrice.toLocaleString('en-US', { style: 'currency' , currency: 'USD' })
+                            : 'Không có thông tin' %>đ</p>
+                </div>
+
+            </div>
+
+            <!-- Thêm vào template.ejs -->
+
+
+
+            <div class="list-users">
+
+                <p class="danhsachsanpham">Danh Sách Sản Phẩm</p>
+
+                <table class="table">
+                    <tr class="tieude-data">
+                        <th>Mã </th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Tên Hãng</th>
+                        <th>Giá bán</th>
+
+                        <th>Mã Loại</th>
+                        <th>Size </th>
+                        <th>Số lượng</th>
+                        <th> Mô tả</th>
+                        <th> Hình ảnh</th>
+                        <th> Chức năng</th>
+                    </tr>
+                    <% listSanpham.forEach(function(listSanpham) { %>
+                        <tr>
+
+                            <td>
+                                <%= listSanpham.MASP %>
+                            </td>
+                            <td>
+                                <%= listSanpham.TENSANPHAM %>
+                            </td>
+                            <td>
+                                <%= listSanpham.TENHANG %>
+                            </td>
+                            <td>
+                                <%= listSanpham.GIA %>
+                            </td>
+
+                            <td>
+                                <%= listSanpham.MALOAI %>
+                            </td>
+                            <td>
+                                <%= listSanpham.GIATRI %>
+                            </td>
+                            <td>
+                                <%= listSanpham.SOLUONG %>
+                            </td>
+                            <td>
+                                <%= listSanpham.THONGTINSANPHAM %>
+                            </td>
+                            <td>
+
+
+                                <img src="/images/<%= listSanpham.description %>" alt="" width="50px" height="50px" />
+                            </td>
+
+                            <td>
+                                <form action="/chon-sanpham/<%= listSanpham.MASP %>" method="post">
+                                    <button class="chucnang">Chọn</button>
+                                </form>
+
+
+                            </td>
+
+                        </tr>
+
+                        <% }); %>
+
+
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <style>
+        /* Thêm vào phần CSS của bạn */
+        /* Thêm vào phần CSS của bạn */
+        .product-stats {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            height: 50%;
+            margin-top: 100px;
+            margin-right: 100px
+        }
+
+        .stats-title {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .stats-info {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Các quy tắc CSS khác mà bạn có thể thêm vào để tùy chỉnh giao diện */
+
+
+        /* Các quy tắc CSS khác mà bạn có thể thêm vào để tùy chỉnh giao diện */
+
+
+        .container-thongtin {
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .chucnang {
+            width: 65px;
+            height: 35px;
+            border-radius: 7px;
+            background-color: #45a049;
+            border: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .list-users {
+            margin-left: 15%;
+            margin-top: 50px;
+            padding: 15px 20px;
+            width: 80%;
+            background-color: white;
+            border-radius: 15px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #ccc;
+        }
+
+        .tieude-hinhanh {
+            margin-bottom: 20px;
+        }
+
+        .create-sanpham {
+            background-color: black;
+        }
+
+        .active-chucnang {
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+
+        .active {
+            background-color: black;
+            border-radius: 20px;
+            margin-right: 10px;
+
+        }
+
+        .active:hover {
+            background-color: white;
+        }
+
+        .container-create {
+            width: 100%;
+
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            background-color: #edf1fa;
+
+        }
+
+        .form {
+            margin-left: 15%;
+            margin-top: 50px;
+            padding: 15px 20px;
+            width: 100%;
+            background-color: white;
+            border-radius: 15px;
+        }
+
+        .vertical-navbar {
+            border-radius: 10px;
+            width: 10%;
+            display: flex;
+            flex-direction: column;
+            background-color: #333;
+            /* Màu nền của navbar */
+            padding: 15px;
+            /* Khoảng cách giữa các nút */
+            position: fixed;
+
+            height: 100%;
+            /* Chiều cao của navbar sẽ chiếm toàn bộ chiều cao của trang */
+        }
+
+        .vertical-navbar a {
+            color: white;
+            /* Màu chữ của các nút */
+            text-decoration: none;
+            /* Loại bỏ đường gạch chân mặc định cho liên kết */
+            padding: 10px;
+            /* Kích thước của từng nút */
+            /* border-bottom: 1px solid #ddd; */
+            /* Đường biên dưới giữa các nút */
+        }
+
+        .vertical-navbar a:hover {
+            background-color: black;
+            /* Màu nền khi di chuột qua nút */
+        }
+
+        .content {
+            margin-left: 200px;
+            /* Để tránh bị che phủ bởi navbar */
+            padding: 20px;
+        }
+    </style>
+</body>
+
+</html>

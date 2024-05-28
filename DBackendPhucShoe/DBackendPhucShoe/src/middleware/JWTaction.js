@@ -1,6 +1,6 @@
 require("dotenv").config();
 var jwt = require("jsonwebtoken");
-var token = jwt.sign({ foo: "bar" }, "shhhhh");
+
 const nonSercurePaths = ["/", "/register", "/login", "/logout"];
 const createJWT = (payload) => {
   let key = "phucfixne";
@@ -13,7 +13,7 @@ const createJWT = (payload) => {
 
   return token;
 };
-
+//--
 const verifyToken = (token) => {
   let key = "phucfixne";
   let decoded = null;
@@ -39,6 +39,7 @@ const checkUserJWT = (req, res, next) => {
   if (nonSercurePaths.includes(req.path)) return next();
   let cookie = req.cookies;
   let tokenFromHeader = extractToken(req);
+
   if ((cookie && cookie.jwt) || tokenFromHeader) {
     let token = cookie && cookie.jwt ? cookie.jwt : tokenFromHeader;
     let decoded = verifyToken(token);

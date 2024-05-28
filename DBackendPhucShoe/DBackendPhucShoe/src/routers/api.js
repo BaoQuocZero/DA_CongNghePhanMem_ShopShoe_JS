@@ -3,8 +3,8 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 var appRoot = require("app-root-path");
-// const fs = require("fs");
-// const { getAllProduct } = require("../controllers/ApiController");
+const fs = require("fs");
+const { getAllProduct } = require("../controllers/ApiController");
 const {
   CreateUser,
   getAllUser,
@@ -17,6 +17,7 @@ const {
   loginAdmin,
   registerAdmin,
   CapnhatPasswordUser,
+  muahangUser,
 } = require("../controllers/apiUserController");
 const {
   getDonHangChuaduocGiao,
@@ -25,6 +26,9 @@ const {
   XoaDonHangHuy,
   updateTrangthaihuydon,
   getDonHangDaHuy,
+  getDonHangChuaduocGiaochokhachhang,
+  getDonHangDaduocGiaochokhachhang,
+  getDonHangDahuyGiaochokhachhang,
 } = require("../controllers/ApiDonHangController");
 const {
   CapnhatHang,
@@ -71,11 +75,13 @@ const imageFilter = function (req, file, cb) {
   cb(null, true);
 };
 const upload = multer({ storage: storage, fileFilter: imageFilter });
-// router.get("/product", getAllProduct);
-// // router.post("/product", getAllProduct);
-// router.put("/product/:", checkUserJWT, getAllProduct);
-// router.delete("/product", checkUserJWT, getAllProduct);
+router.get("/product", getAllProduct);
+// router.post("/product", getAllProduct);
+router.put("/product/:", checkUserJWT, getAllProduct);
+router.delete("/product", checkUserJWT, getAllProduct);
 
+//mua hàng dành cho user
+router.post("/productt", muahangUser);
 //----------------------------------------------------------------------------------------------------------------
 //user routes login and register
 router.get("/protected", checkUserJWT, (req, res) => {
@@ -145,9 +151,15 @@ router.delete("/product/info/delete/:masanpham", Xoasanpham);
 
 //api đơn hàng
 router.get("/donhangchuagiao", getDonHangChuaduocGiao); // lấy đơn hàng chưa giao
+
 router.get("/donhangdagiao", getDonHangDaDuocGiao); //lấy đơn hàng đã giao thành công
 router.put("/donhang/update/:madonhang", updateTrangthai); //update trạng thái của đơn hang
 router.get("/donhangdahuy", getDonHangDaHuy); //lấy đơn hàng đã Hủy
 router.put("/donhanghuy/update/:madonhang", updateTrangthaihuydon); // update trạng thái đơn hàng thành ĐÃ HỦY
 router.delete("/donhanghuy/info/delete", XoaDonHangHuy); // XÓA CÁC ĐƠN HÀNG ĐÃ HỦY
+
+//api đơn hàng cho user
+router.post("/donhangchuagiaokhachhang", getDonHangChuaduocGiaochokhachhang);
+router.post("/donhangdagiaokhachhang", getDonHangDaduocGiaochokhachhang);
+router.post("/donhangdahuygiaokhachhang", getDonHangDahuyGiaochokhachhang);
 module.exports = router; // Di chuyển dòng này về cuối tệp của bạn

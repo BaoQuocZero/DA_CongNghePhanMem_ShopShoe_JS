@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/images/favicon.ico">
+    <title>HomePage</title>
+</head>
+<style>
+
+</style>
+
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="/create">Tạo Sản Phẩm</a>
+        <a href="/khachhang">Thông Tin Khách Hàng</a>
+        <a href="/All-donhang">Tất Cả Đơn Hàng</a>
+
+    </div>
+    <!-- <div class="form">
+                            <form action="/create-Sanpham" enctype="multipart/form-data" method="post">
+                                <fieldset>
+                                    <legend>Form add new users</legend>
+                                    <div class="input-group">
+                                        <label for="">ID</label>
+                                        <input type="text" name="Gia" value="">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="">Tên Sản Phẩm</label>
+                                        <input type="text" name="tenSanpham">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="">Giá bán</label>
+                                        <input type="text" name="Gia">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label for="size">Tên Hãng</label>
+                                        <select name="Tenhang" id="">
+
+                                            <option value="Nike">Nike</option>
+
+
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label for="">Mã Loại</label>
+                                        <input type="text" name="Loaisanpham">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="size">Size</label>
+                                        <select name="Size" id="size">
+
+                                            <option value="37">37</option>
+                                            <option value="38">38</option>
+                                            <option value="39">39</option>
+                                            <option value="40">40</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="input-group input-groupcity">
+                                        <label for="">Số lượng</label>
+                                        <input type="text" name="Soluong">
+                                    </div>
+                                    <div>
+                                        <label for="">Avatar: </label>
+                                        <input type="file" name="profile_pic" />
+                                    </div>
+                                    <td>
+                                        <form method="POST" action="/upload-profile-pic" enctype="multipart/form-data"></form>
+                                    </td>
+                                    <div class="button">
+                                        <button> Adđ New User</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div> -->
+    <div class="list-users">
+
+        <table>
+            <tr>
+                <th>Mã Khách Hàng </th>
+                <th>Tên</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+
+                <th>Ghi chú</th>
+
+            </tr>
+            <% User.forEach(function(User) { %>
+                <tr>
+
+                    <td>
+                        <%= User.MAKHACHHANG %>
+                    </td>
+                    <td>
+                        <%= User.TEN %>
+                    </td>
+                    <td>
+                        <%= User.DIACHI %>
+                    </td>
+                    <td>
+                        <%=User.SODIENTHOAI %>
+                    </td>
+                    <td>
+                        <%=User.GHICHU %>
+                    </td>
+
+
+
+
+
+
+
+                    <td>
+                        <form action="/xem-sanpham/<%= User.MAKHACHHANG  %>" method="post"><button>Đơn Hàng chi
+                                tiết</button>
+                        </form>
+                        <form action="/delete-user/<%= User.MAKHACHHANG %>" method="post"><button>Xóa</button>
+                        </form>
+
+                    </td>
+
+                </tr>
+
+                <% }); %>
+
+
+
+        </table>
+
+    </div>
+
+</body>
+
+
+</html>

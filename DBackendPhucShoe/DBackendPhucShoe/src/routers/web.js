@@ -26,7 +26,7 @@ const {
   getAppcetLoaiSP,
   postHandleRemoveSanpham,
   getChonSanPham,
-
+  postDeleteUser,
   getHoangphucdethuong,
   getSameple,
   getUpdatePage,
