@@ -24,11 +24,11 @@ function ListShoeSeal() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3003/api/v1/product"
+          "http://localhost:3003/api/v1/productall"
         );
 
         setData({
-          data: response.data.data,
+          data: response.data.DT,
           loading: false,
         });
 
