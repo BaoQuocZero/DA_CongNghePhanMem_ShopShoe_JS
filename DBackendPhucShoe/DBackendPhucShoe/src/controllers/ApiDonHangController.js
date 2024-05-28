@@ -6,10 +6,23 @@ const {
   getDonHangHuy,
   updateStatusHuydon,
   DeleteDonhangHuy,
-} = require("../services/apiDONHANGService.js");
+  getDonHangChuaGiaoKhachhang,
+  getDonHangDaGiaoKhachhang,
+  getDonHangDaHuyKhachhang,
+} = require("../services/apiDONHANGService");
 
 const getDonHangChuaduocGiao = async (req, res) => {
   const results = await getDonHangChuaGiao();
+  return res.status(200).json({
+    EM: results.EM,
+    EC: results.EC,
+    DT: results.DT,
+  });
+};
+const getDonHangChuaduocGiaochokhachhang = async (req, res) => {
+  const taikhoan = req.body.taikhoan;
+  console.log(taikhoan);
+  const results = await getDonHangChuaGiaoKhachhang(taikhoan);
   return res.status(200).json({
     EM: results.EM,
     EC: results.EC,
@@ -24,9 +37,28 @@ const getDonHangDaDuocGiao = async (req, res) => {
     DT: results.DT,
   });
 };
+const getDonHangDaduocGiaochokhachhang = async (req, res) => {
+  const taikhoan = req.body.taikhoan;
+  const results = await getDonHangDaGiaoKhachhang(taikhoan);
+  return res.status(200).json({
+    EM: results.EM,
+    EC: results.EC,
+    DT: results.DT,
+  });
+};
 
 const getDonHangDaHuy = async (req, res) => {
   const results = await getDonHangHuy();
+  return res.status(200).json({
+    EM: results.EM,
+    EC: results.EC,
+    DT: results.DT,
+  });
+};
+
+const getDonHangDahuyGiaochokhachhang = async (req, res) => {
+  const taikhoan = req.body.taikhoan;
+  const results = await getDonHangDaHuyKhachhang(taikhoan);
   return res.status(200).json({
     EM: results.EM,
     EC: results.EC,
@@ -74,4 +106,7 @@ module.exports = {
   XoaDonHangHuy,
   updateTrangthaihuydon,
   getDonHangDaHuy,
+  getDonHangChuaduocGiaochokhachhang,
+  getDonHangDaduocGiaochokhachhang,
+  getDonHangDahuyGiaochokhachhang,
 };

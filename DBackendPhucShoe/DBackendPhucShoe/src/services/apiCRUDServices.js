@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-
+require("dotenv").config();
 const salt = bcrypt.genSaltSync(saltRounds);
-
+const { format } = require("date-fns");
 const connection = require("../config/old.js");
 const { createJWT } = require("../middleware/JWTaction");
 const hashPassword = (userPassword) => {
@@ -125,7 +125,7 @@ const getThongtinUser = async (taikhoan) => {
     console.log(results);
     if (results.length > 0) {
       const [results1, fields1] = await connection.execute(
-        "SELECT k.ten,k.diachi,k.ghichu,k.sodienthoai,d.madonhang,d.ngaydonhang,c.trangthai,s.tensanpham,s.gia,c.soluong,s.gia * c.soluong as tongtien from khachhang as k, donhang as d, chitietdonhang as c, sanpham as s where k.makhachhang = d.makhachhang and d.madonhang = c.madonhang and c.masp = s.masp and k.taikhoan = ?",
+        "SELECT k.makhachhang,k.ten,k.diachi,k.ghichu,k.sodienthoai,d.madonhang,d.ngaydonhang,c.trangthai,s.tensanpham,s.gia,c.soluong,s.gia * c.soluong as tongtien from khachhang as k, donhang as d, chitietdonhang as c, sanpham as s where k.makhachhang = d.makhachhang and d.madonhang = c.madonhang and c.masp = s.masp and k.taikhoan = ?",
         [taikhoan]
       );
       return {
@@ -150,7 +150,7 @@ const getThongtinUser = async (taikhoan) => {
 };
 
 const generateRandomCustomerID = () => {
-  return Math.floor(Math.random() * 1000) + 1;
+  return Math.floor(Math.random() * 10000) + 1;
 };
 
 const updateUser = async (taikhoan, ten, diachi, sodienthoai) => {
@@ -337,13 +337,21 @@ const postLoginAdmin = async (username, password) => {
           taikhoan: results[0].taikhoan,
           matkhau: results[0].password,
         };
-        let token = createJWT(payload);
+
+        // Add the role to the payload object
+        let payloadWithRole = {
+          ...payload,
+          role: process.env.SECRETROLE,
+        };
+
+        let token = createJWT(payloadWithRole);
+        console.log(token);
         return {
           EM: "Đăng nhập thành công",
           EC: 1,
           DT: {
             access_token: token,
-            data: results,
+            data: payloadWithRole,
           },
         };
       } else {
@@ -415,6 +423,73 @@ const checktaikhoanAdmin = async (username) => {
   }
 };
 
+const buyProductpost = async (
+  taikhoan,
+  ten,
+  diachi,
+  ghichu,
+  sodienthoai,
+  masp,
+  soluong,
+  thanhtien
+) => {
+  try {
+    const currentTime = format(new Date(), "yyyy-MM-dd HH:mm:ss");
+    const newId = generateRandomCustomerID();
+    const newIdDonhang = generateRandomCustomerID();
+    const [results, fields] = await connection.execute(
+      `select * from khachhang where taikhoan = ?`,
+      [taikhoan]
+    );
+    if (results.length > 0) {
+      console.log("check id", newId);
+      console.log("check idn", results[0].MAKHACHHANG);
+      const [results1, fields1] = await connection.execute(
+        `INSERT INTO donhang(madonhang,makhachhang,ten,diachi,sodienthoai,ghichu,ngaydonhang,trangthai) VALUES (?,?,?,?,?,?,?,'ChuaGiao')`,
+        [
+          newIdDonhang,
+          results[0].MAKHACHHANG,
+          ten,
+          diachi,
+          sodienthoai,
+          ghichu,
+          currentTime,
+        ]
+      );
+      const [results2, fields2] = await connection.execute(
+        `INSERT INTO chitietdonhang(madonhang,masp,soluong,thanhtien,trangthai) VALUES (?,?,?,?,'ChuaGiao')`,
+        [newIdDonhang, masp, soluong, thanhtien]
+      );
+      return {
+        EM: "Mua hàng thành công",
+        EC: 0,
+        DT: [],
+      };
+    } else {
+      const [results, fields] = await connection.execute(
+        `INSERT INTO khachhang(makhachhang) values (?)`,
+        [newId]
+      );
+      const [results1, fields1] = await connection.execute(
+        `INSERT INTO donhang(madonhang,makhachhang,ten,diachi,sodienthoai,ghichu,ngaydonhang,trangthai) VALUES (?,?,?,?,?,?,?,'ChuaGiao')`,
+        [newIdDonhang, newId, ten, diachi, sodienthoai, ghichu, currentTime]
+      );
+      const [results3, fields3] = await connection.execute(
+        `INSERT INTO chitietdonhang (madonhang,masp,soluong,thanhtien,trangthai) VALUES (?,?,?,?,'ChuaGiao')`,
+        [newIdDonhang, masp, soluong, thanhtien]
+      );
+      return {
+        EM: "Mua hàng thành công",
+        EC: 0,
+        DT: [],
+      };
+    }
+  } catch (error) {
+    console.error("Error in postLoginUser:", error);
+    throw error;
+  }
+};
+
 module.exports = {
   createLoginUser,
   getUser,
@@ -427,4 +502,5 @@ module.exports = {
   postLoginAdmin,
   createLoginAdmin,
   updatePasswordUser,
+  buyProductpost,
 };

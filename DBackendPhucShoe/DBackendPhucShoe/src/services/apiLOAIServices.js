@@ -94,6 +94,7 @@ const deleteLOAI = async (maloai) => {
       };
     }
   } catch (error) {
+    
     return {
       EM: "không thể xóa thể loại vì trùng khóa",
       EC: 0,

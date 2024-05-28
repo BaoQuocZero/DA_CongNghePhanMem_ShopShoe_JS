@@ -10,6 +10,7 @@ const {
   postLoginAdmin,
   createLoginAdmin,
   updatePasswordUser,
+  buyProductpost,
 } = require("../services/apiCRUDServices");
 
 const CreateUser = async (req, res) => {
@@ -183,6 +184,38 @@ const logoutUser = async (req, res) => {
   }
 };
 
+const muahangUser = async (req, res) => {
+  try {
+    const taikhoan = req.body.username;
+    const ten = req.body.ten;
+    const diachi = req.body.diachi;
+    const ghichu = req.body.ghichu;
+    const masp = req.body.masp;
+    const sodienthoai = req.body.sodienthoai;
+    const soluong = req.body.soluong;
+    const thanhtien = req.body.thanhtien;
+    const results = await buyProductpost(
+      taikhoan,
+      ten,
+      diachi,
+      ghichu,
+      sodienthoai,
+      masp,
+      soluong,
+      thanhtien
+    );
+    return res.status(200).json({
+      EM: results.EM,
+      EC: results.EC,
+      DT: results.DT,
+    });
+  } catch {
+    return res.status(200).json({
+      EM: "404 not found",
+    });
+  }
+};
+
 module.exports = {
   CreateUser,
   getAllUser,
@@ -195,4 +228,5 @@ module.exports = {
   registerAdmin,
   CapnhatPasswordUser,
   logoutUser,
+  muahangUser,
 };

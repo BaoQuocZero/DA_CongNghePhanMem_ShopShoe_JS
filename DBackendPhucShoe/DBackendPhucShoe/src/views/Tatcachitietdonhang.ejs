@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/images/favicon.ico">
+    <title>HomePage</title>
+</head>
+<style>
+
+</style>
+
+<body>
+    <div class="container">
+        <div class="vertical-navbar">
+            <a class="active" href="/">Home</a>
+            <a href="/create">Tạo Sản Phẩm</a>
+            <!-- <a href="/khachhang">Thông Tin Khách Hàng</a> -->
+            <a href="/All-donhang">Tất Cả Đơn Hàng</a>
+            <a href="/all-chitietdonhang" style="background-color: black;">Tất Cả Thông Tin Chi Tiết Đơn Hàng</a>
+            <a href="/ThongkeAll">Thông Kê</a>
+        </div>
+        <div class="list-users">
+            <!-- <form action="/All-donhang" method="get">
+                <button class="chucnang-quayve">Quay về</button>
+            </form> -->
+            <div>
+                <h4> Thông tin chi tiết của đơn hàng</h4>
+            </div>
+
+            <table>
+                <tr>
+                    <th>Mã Khách Hàng</th>
+                    <th>Tên</th>
+                    <th>Tên Sản Phẩm</th>>
+                    <th>Địa chỉ</th>
+                    <th>Số điện thoại</th>
+                    <th>Ghi chú</th>
+                    <th>Mã Đơn Hàng</th>
+                    <th>Mã SẢN PHẨM</th>
+                    <th>SỐ LƯỢNG</th>
+                    <th>THÀNH TIỀN</th>
+                    <th>TRẠNG THÁI</th>
+                </tr>
+                <% data.forEach(function (row) { %>
+                    <tr>
+                        <td>
+                            <%= row.MAKHACHHANG %>
+                        </td>
+                        <td>
+                            <%= row.TEN %>
+                        </td>
+                        <td>
+                            <%= row.TENSANPHAM %>
+                        </td>
+                        <td>
+                            <%= row.DIACHI %>
+                        </td>
+                        <td>
+                            <%= row.SODIENTHOAI %>
+                        </td>
+                        <td>
+                            <%= row.GHICHU %>
+                        </td>
+                        <td>
+                            <%= row.MADONHANG %>
+                        </td>
+                        <td>
+                            <%= row.MASP %>
+                        </td>
+                        <td>
+                            <%= row.SOLUONG %>
+                        </td>
+                        <td>
+                            <%= row.THANHTIEN %>
+                        </td>
+                        <td>
+                            <%= row.TRANGTHAI %>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </table>
+
+
+        </div>
+
+
+    </div>
+    <style>
+        .container {
+            margin-top: -50px;
+        }
+
+        .chucnang-quayve {
+            margin-bottom: 20px;
+            width: 100px;
+            height: 35px;
+            border-radius: 7px;
+            background-color: #45a049;
+            border: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .list-users {
+            margin-left: 15%;
+            margin-top: 50px;
+            padding: 15px 20px;
+            width: 80%;
+            background-color: white;
+            border-radius: 15px;
+        }
+
+        .danhsachsanpham {
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .vertical-navbar {
+
+            width: 10%;
+            display: flex;
+            flex-direction: column;
+            background-color: #333;
+            /* Màu nền của navbar */
+            padding: 15px;
+            /* Khoảng cách giữa các nút */
+            position: fixed;
+
+            height: 100%;
+            /* Chiều cao của navbar sẽ chiếm toàn bộ chiều cao của trang */
+        }
+
+        .vertical-navbar a {
+            color: white;
+            /* Màu chữ của các nút */
+            text-decoration: none;
+            /* Loại bỏ đường gạch chân mặc định cho liên kết */
+            padding: 10px;
+            /* Kích thước của từng nút */
+            /* border-bottom: 1px solid #ddd; */
+            /* Đường biên dưới giữa các nút */
+        }
+
+        .vertical-navbar a:hover {
+            background-color: black;
+            /* Màu nền khi di chuột qua nút */
+        }
+    </style>
+</body>
+
+
+</html>
