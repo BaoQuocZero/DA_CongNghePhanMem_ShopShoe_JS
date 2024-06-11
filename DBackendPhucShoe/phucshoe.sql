@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 21, 2024 lúc 05:44 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Thời gian đã tạo: Th4 27, 2024 lúc 07:00 PM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -128,6 +128,7 @@ INSERT INTO `donhang` (`MADONHANG`, `MAKHACHHANG`, `NGAYDONHANG`, `TRANGTHAI`) V
 --
 
 CREATE TABLE `hang` (
+  `MAHANG` int(11) NOT NULL,
   `TENHANG` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -135,13 +136,14 @@ CREATE TABLE `hang` (
 -- Đang đổ dữ liệu cho bảng `hang`
 --
 
-INSERT INTO `hang` (`TENHANG`) VALUES
-('Adios'),
-('Centreripack'),
-('MWC'),
-('Niken'),
-('Pack'),
-('PhucShoe');
+INSERT INTO `hang` (`MAHANG`, `TENHANG`) VALUES
+(1, 'Adonisss'),
+(2, 'MWC'),
+(3, 'Pack'),
+(4, 'Niken'),
+(5, 'a'),
+(6, 'b'),
+(7, 'Adios');
 
 -- --------------------------------------------------------
 
@@ -155,7 +157,7 @@ CREATE TABLE `khachhang` (
   `DIACHI` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `GHICHU` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `SODIENTHOAI` varchar(20) DEFAULT NULL,
-  `taikhoan` varchar(255) DEFAULT NULL
+  `taikhoan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -186,8 +188,8 @@ INSERT INTO `khachhang` (`MAKHACHHANG`, `TEN`, `DIACHI`, `GHICHU`, `SODIENTHOAI`
 (462, 'Co Vi', '18 Đường 2/2, Xã Tú Xuyên, Huyện Văn Quan, Tỉnh Lạng Sơn', '', '0327434821', NULL),
 (463, 'Lê Thu Nguyệt', 'Số nhà 332 , Phường Sơn Kỳ, Quận Tân Phú, Thành phố Hồ Chí Minh', 'không mua', '0333333333', NULL),
 (610, 'Lê Thu Nguyệt', 'Số nhà 332 , undefined, undefined, Thành phố Hồ Chí Minh', 'không mua', '0333333333', NULL),
-(627, 'Mỹ Kim ', '18 Đường 2/2, Phường Giang Biên, Quận Long Biên, Thành phố Hà Nội', 'không vỡ', '032111111', NULL),
-(656, 'Lê Thu Nguyệt', 'Số nhà 332 , undefined, undefined, Thành phố Hồ Chí Minh', 'không mua', '0333333333', NULL),
+(627, 'Mỹ Kim ', '18 Đường 2/2, Phường Giang Biên, Quận Long Biên, Thành phố Hà Nội', 'không vỡ', '032111111', '12321313'),
+(656, 'Lê Thu Nguyệt', 'Số nhà 332 , undefined, undefined, Thành phố Hồ Chí Minh', 'không mua', '0333333333', 'abccc'),
 (662, 'Bùi Cát Hải', 'Ấp Kim Câu, Xã Văn Hội, Huyện Ninh Giang, Tỉnh Hải Dương', 'không vỡ', '094327', NULL),
 (668, 'Hoàng Phúc Hồ', '12 đường Phạm Ngũ Lão, Xã Vinh Quang, Huyện Vĩnh Bảo, Thành phố Hải Phòng', 'nhanh nha shop', '+84327434821', NULL),
 (677, 'Nguyễn Thị Thúy Hân', 'Số Nhà 512, Xã Châu Điền, Huyện Cầu Kè, Tỉnh Trà Vinh', 'Không có', '0325444312', NULL),
@@ -216,18 +218,21 @@ INSERT INTO `khachhang` (`MAKHACHHANG`, `TEN`, `DIACHI`, `GHICHU`, `SODIENTHOAI`
 --
 
 CREATE TABLE `kichco` (
-  `GIATRI` varchar(10) NOT NULL
+  `MAGIATRI` int(11) NOT NULL,
+  `GIATRI` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `kichco`
 --
 
-INSERT INTO `kichco` (`GIATRI`) VALUES
-('37'),
-('38'),
-('39'),
-('40');
+INSERT INTO `kichco` (`MAGIATRI`, `GIATRI`) VALUES
+(1, '37'),
+(2, '38'),
+(3, '39'),
+(4, '40'),
+(41, '35'),
+(42, '36');
 
 -- --------------------------------------------------------
 
@@ -248,7 +253,8 @@ INSERT INTO `loai` (`MALOAI`, `name`) VALUES
 (5, 'Độc Đáo'),
 (13, 'Thời Trang'),
 (15, 'Nam'),
-(16, 'Nữ');
+(16, 'Nữ'),
+(17, 'Nam+1');
 
 -- --------------------------------------------------------
 
@@ -259,11 +265,12 @@ INSERT INTO `loai` (`MALOAI`, `name`) VALUES
 CREATE TABLE `sanpham` (
   `MASP` int(11) NOT NULL,
   `TENSANPHAM` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `TENHANG` varchar(255) DEFAULT NULL,
+  `MAHANG` int(11) NOT NULL,
   `GIA` decimal(10,2) NOT NULL,
+  `giamgia` int(11) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `MALOAI` int(11) DEFAULT NULL,
-  `GIATRI` varchar(10) DEFAULT NULL,
+  `MAGIATRI` int(11) NOT NULL,
   `SOLUONG` int(11) DEFAULT NULL,
   `THONGTINSANPHAM` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -272,64 +279,64 @@ CREATE TABLE `sanpham` (
 -- Đang đổ dữ liệu cho bảng `sanpham`
 --
 
-INSERT INTO `sanpham` (`MASP`, `TENSANPHAM`, `TENHANG`, `GIA`, `description`, `MALOAI`, `GIATRI`, `SOLUONG`, `THONGTINSANPHAM`) VALUES
-(26, 'Giày MWC - T21A', 'MWC', 345000.00, 'profile_pic-1702011118624.jpg', 15, '38', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(29, 'Giày MWC - NT83', 'MWC', 345000.00, 'profile_pic-1702011129020.jpg', 15, '39', 2, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng chất liệu da tổng hợp phối màu, in chữ thời trang.  Đặc biệt sản phẩm sử dụng chất liệu da cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(30, 'Giày MWC - NT80', 'MWC', 345000.00, 'profile_pic-1702012314938.jpg', 15, '38', 0, 'Giày được thiết kế dáng buộc dây năng động, mặt giày sử dụng vải dệt dầy dặn in ép nhiệt viền nổi ,đế EVA nhẹ nhàng thoải mái.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(31, 'Giày MWC NT85', 'MWC', 375000.00, 'profile_pic-1702011166495.jpg', 15, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(32, 'Giày MWC NT32', 'MWC', 295000.00, 'profile_pic-1701869010936.jpg', 13, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(33, 'Giày MWC NT31', 'MWC', 345000.00, 'profile_pic-1701869062047.jpg', 13, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(34, 'Giày MWC NT30', 'MWC', 345000.00, 'profile_pic-1701869105575.jpg', 13, '39', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(35, 'Giày MWC NT29', 'MWC', 345000.00, 'profile_pic-1701869159838.jpg', 13, '38', 7, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(36, 'Giày Pack NT28', 'Pack', 275000.00, 'profile_pic-1701869217542.jpg', 5, '40', 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(37, 'Giày Niken NT20', 'Centreripack', 345000.00, 'profile_pic-1701869291978.jpg', 13, '40', 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(38, 'Giày Adios NT19', 'Adios', 345000.00, 'profile_pic-1701942142165.jpg', 13, '40', 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(39, 'Giày boot nữ MWC NUBO- 9127', 'MWC', 425000.00, 'profile_pic-1701961267065.jpg', 16, '40', 10, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(40, 'Giày cao gót MWC NUCG- 4468', 'MWC', 250000.00, 'profile_pic-1701961364792.jpg', 16, '39', 8, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(41, 'Giày thể thao nữ MWC NUTT- A1', 'MWC', 295000.00, 'profile_pic-1701961442792.jpg', 16, '37', 2, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng chất liệu da tổng hợp phối màu, in chữ thời trang.  Đặc biệt sản phẩm sử dụng chất liệu da cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(42, 'Giày thể thao nữ MWC NUTT- A133', 'MWC', 375000.00, 'profile_pic-1701961516007.jpg', 16, '40', 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(43, 'Giày sục cao gót MWC NUCG- 4446', 'MWC', 400000.00, 'profile_pic-1701961741997.jpg', 16, '40', 10, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(44, 'Giày thể thao nữ MWC NUTT- A133', 'MWC', 400000.00, 'profile_pic-1701961778593.jpg', 16, '37', 10, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(45, 'Giày thể thao nữ MWC NUTT- A130', 'MWC', 400000.00, 'profile_pic-1701961853003.jpg', 16, '40', 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(46, 'Giày thể thao nữ MWC NUTT- W668', 'MWC', 430000.00, 'profile_pic-1701961905082.jpg', 16, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(47, 'Giày sandal nữ MWC NUSD- 2423', 'MWC', 250000.00, 'profile_pic-1701961964536.jpg', 16, '38', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(48, 'Giày sandal nữ MWC NUSD- 2424', 'MWC', 260000.00, 'profile_pic-1701961994540.jpg', 16, '39', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(49, 'Giày thể thao nữ MWC NUTT- A114', 'Adios', 260000.00, 'profile_pic-1701962018496.jpg', 16, '37', 4, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(50, 'Giày sandal nữ MWC NUSD- 2426 ', 'MWC', 400000.00, 'profile_pic-1701962064910.jpg', 16, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(51, 'Giày sandal nữ MWC NUSD- 2419', 'MWC', 300000.00, 'profile_pic-1701962101171.jpg', 16, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(52, 'Giày sandal nữ MWC NUSD- 2400', 'MWC', 300000.00, 'profile_pic-1701962194952.jpg', 16, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(53, 'Giày sandal nữ MWC NUSD- 2400', 'MWC', 300000.00, 'profile_pic-1701962329249.jpg', 16, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(54, 'Giày Oxford MWC NUOX- 9633', 'MWC', 300000.00, 'profile_pic-1701962413933.jpg', 16, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(55, 'Dép nữ MWC NUDE- 8333', 'Adios', 345000.00, 'profile_pic-1701962460645.jpg', 16, '39', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(56, 'Dép nữ MWC NUDE- 8320 ', 'MWC', 345000.00, 'profile_pic-1701962550785.jpg', 16, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(57, 'Dép nữ MWC NUDE - 8291', 'MWC', 345000.00, 'profile_pic-1702013056947.jpg', 16, '39', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(58, 'Giày sandal nữ MWC NUSD- 2420', 'MWC', 325000.00, 'profile_pic-1702013118453.jpg', 16, '37', 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(59, 'Giày Thể Thao Nam MWC - 539', 'MWC', 325000.00, 'profile_pic-1702013238947.jpg', 15, '39', 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(60, 'Giày Thể Thao Nam MWC - 540', 'MWC', 325000.00, 'profile_pic-1702013269445.jpg', 15, '39', 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(61, 'Giày Thể Thao Nam MWC NATT- 510', 'MWC', 345000.00, 'profile_pic-1702013307095.jpg', 15, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(62, 'Giày Thể Thao Nam MWC - 5417', 'MWC', 345000.00, 'profile_pic-1702013335738.jpg', 15, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(63, 'Giày Thể Thao Nam MWC NATT - 5419 ', 'MWC', 250000.00, 'profile_pic-1702013373958.jpg', 15, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(64, 'Giày Thể Thao Nam MWC NATT- 5425', 'MWC', 300000.00, 'profile_pic-1702013405888.jpg', 15, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(65, 'Giày Thể Thao Nam MWC - 5414 ', 'MWC', 300000.00, 'profile_pic-1702013468074.jpg', 15, '39', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(66, 'Giày Thể Thao Nam MWC NATT- 5441', 'MWC', 300000.00, 'profile_pic-1702013527307.jpg', 15, '37', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(67, 'Giày Thể Thao Nam MWC - 5385 ', 'Adios', 550000.00, 'profile_pic-1702013562057.jpg', 5, '37', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(68, 'Giày Thể Thao Nam MWC NATT - 5309', 'Adios', 550000.00, 'profile_pic-1702013585397.jpg', 5, '37', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(69, 'Giày thể thao nam MWC NATT- 5010', 'Adios', 150000.00, 'profile_pic-1702013630078.jpg', 5, '37', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(70, 'Giày Thể Thao Nam MWC - 5418 ', 'MWC', 150000.00, 'profile_pic-1702013759694.jpg', 15, '40', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(71, 'Giày Thể Thao Nam MWC NATT- 5427 ', 'MWC', 300000.00, 'profile_pic-1702013821705.jpg', 15, '40', 19, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(72, 'Giày Tây nam MWC - 6630 ', 'MWC', 300000.00, 'profile_pic-1702013873183.jpg', 15, '39', 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(73, 'Giày Thể Thao Nam MWC NATT- 5452', 'MWC', 300000.00, 'profile_pic-1702013997081.jpg', 15, '40', 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(74, 'Giày Thể Thao Nam MWC NATT - 5443 ', 'MWC', 400000.00, 'profile_pic-1702014033646.jpg', 15, '39', 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(75, 'Giày Thể Thao Nam MWC NATT- 5442', 'MWC', 400000.00, 'profile_pic-1702014056989.jpg', 15, '39', 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(76, 'Giày Thể Thao Nam MWC NATT - 5330', 'MWC', 150000.00, 'profile_pic-1702014093824.jpg', 15, '40', 18, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(77, 'Giày Thể Thao Nam MWC NATT- 5458 ', 'MWC', 345000.00, 'profile_pic-1702014133682.jpg', 15, '40', 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(82, 'Giày Thể Thao Nam MWC NATT - 533', 'MWC', 345000.00, 'profile_pic-1702473532969.jpg', 15, '39', 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
-(83, 'Giày Sandal Nam MWC - 7027', 'MWC', 215000.00, 'profile_pic-1705334672451.jpg', 15, '37', 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(84, 'Giày thể thao nữ Adios NUTT- A144', 'Adios', 315000.00, 'profile_pic-1705383428310.jpg', 16, '39', 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(85, 'Giày thể thao nữ Niken NUTT- B11', 'Adios', 315000.00, 'profile_pic-1705383465739.jpg', 16, '40', 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(86, 'Giày cao gót Pack NUCG- 4443', 'Pack', 315000.00, 'profile_pic-1705383506383.jpg', 16, '40', 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(87, 'Giày Oxford Niken NUOX- 9635', 'Niken', 315000.00, 'profile_pic-1705383560469.jpg', 16, '40', 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
-(88, 'Giày sandal nữ Niken NUSD- 2454', 'Niken', 305000.00, 'profile_pic-1705383625789.jpg', 16, '39', 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.');
+INSERT INTO `sanpham` (`MASP`, `TENSANPHAM`, `MAHANG`, `GIA`, `giamgia`, `description`, `MALOAI`, `MAGIATRI`, `SOLUONG`, `THONGTINSANPHAM`) VALUES
+(26, 'Giày MWC - T21A', 2, 345000.00, NULL, 'profile_pic-1702011118624.jpg', 15, 2, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(29, 'Giày MWC - NT83', 2, 345000.00, NULL, 'profile_pic-1702011129020.jpg', 15, 1, 2, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng chất liệu da tổng hợp phối màu, in chữ thời trang.  Đặc biệt sản phẩm sử dụng chất liệu da cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(30, 'Giày MWC - NT80', 2, 345000.00, NULL, 'profile_pic-1702012314938.jpg', 15, 3, 0, 'Giày được thiết kế dáng buộc dây năng động, mặt giày sử dụng vải dệt dầy dặn in ép nhiệt viền nổi ,đế EVA nhẹ nhàng thoải mái.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(31, 'Giày MWC NT85', 4, 375000.00, NULL, 'profile_pic-1702011166495.jpg', 15, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(32, 'Giày MWC NT32', 1, 295000.00, NULL, 'profile_pic-1701869010936.jpg', 13, 3, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(33, 'Giày MWC NT31', 2, 345000.00, NULL, 'profile_pic-1701869062047.jpg', 13, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(34, 'Giày MWC NT30', 1, 345000.00, NULL, 'profile_pic-1701869105575.jpg', 13, 4, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(35, 'Giày MWC NT29', 2, 345000.00, NULL, 'profile_pic-1701869159838.jpg', 13, 1, 7, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(36, 'Giày Pack NT28', 3, 275000.00, NULL, 'profile_pic-1701869217542.jpg', 5, 41, 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(37, 'Giày Niken NT20', 1, 345000.00, NULL, 'profile_pic-1701869291978.jpg', 13, 2, 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(38, 'Giày Adios NT19', 7, 345000.00, NULL, 'profile_pic-1701942142165.jpg', 13, 1, 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(39, 'Giày boot nữ MWC NUBO- 9127', 7, 425000.00, NULL, 'profile_pic-1701961267065.jpg', 16, 42, 10, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(40, 'Giày cao gót MWC NUCG- 4468', 4, 250000.00, NULL, 'profile_pic-1701961364792.jpg', 16, 1, 8, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(41, 'Giày thể thao nữ MWC NUTT- A1', 2, 295000.00, NULL, 'profile_pic-1701961442792.jpg', 16, 41, 2, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng chất liệu da tổng hợp phối màu, in chữ thời trang.  Đặc biệt sản phẩm sử dụng chất liệu da cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(42, 'Giày thể thao nữ MWC NUTT- A133', 3, 375000.00, NULL, 'profile_pic-1701961516007.jpg', 16, 1, 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(43, 'Giày sục cao gót MWC NUCG- 4446', 1, 400000.00, NULL, 'profile_pic-1701961741997.jpg', 16, 41, 10, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(44, 'Giày thể thao nữ MWC NUTT- A133', 1, 400000.00, NULL, 'profile_pic-1701961778593.jpg', 16, 1, 10, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(45, 'Giày thể thao nữ MWC NUTT- A130', 4, 400000.00, NULL, 'profile_pic-1701961853003.jpg', 16, 2, 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(46, 'Giày thể thao nữ MWC NUTT- W668', 2, 430000.00, NULL, 'profile_pic-1701961905082.jpg', 16, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(47, 'Giày sandal nữ MWC NUSD- 2423', 6, 250000.00, NULL, 'profile_pic-1701961964536.jpg', 16, 2, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(48, 'Giày sandal nữ MWC NUSD- 2424', 6, 260000.00, NULL, 'profile_pic-1701961994540.jpg', 16, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(49, 'Giày thể thao nữ MWC NUTT- A114', 4, 260000.00, NULL, 'profile_pic-1701962018496.jpg', 16, 4, 4, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(50, 'Giày sandal nữ MWC NUSD- 2426 ', 1, 400000.00, NULL, 'profile_pic-1701962064910.jpg', 16, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(51, 'Giày sandal nữ MWC NUSD- 2419', 1, 300000.00, NULL, 'profile_pic-1701962101171.jpg', 16, 3, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(52, 'Giày sandal nữ MWC NUSD- 2400', 4, 300000.00, NULL, 'profile_pic-1701962194952.jpg', 16, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(53, 'Giày sandal nữ MWC NUSD- 2400', 2, 300000.00, NULL, 'profile_pic-1701962329249.jpg', 16, 41, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(54, 'Giày Oxford MWC NUOX- 9633', 2, 300000.00, NULL, 'profile_pic-1701962413933.jpg', 16, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(55, 'Dép nữ MWC NUDE- 8333', 2, 345000.00, NULL, 'profile_pic-1701962460645.jpg', 16, 3, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(56, 'Dép nữ MWC NUDE- 8320 ', 2, 345000.00, NULL, 'profile_pic-1701962550785.jpg', 16, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(57, 'Dép nữ MWC NUDE - 8291', 5, 345000.00, NULL, 'profile_pic-1702013056947.jpg', 16, 2, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(58, 'Giày sandal nữ MWC NUSD- 2420', 2, 325000.00, NULL, 'profile_pic-1702013118453.jpg', 16, 1, 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(59, 'Giày Thể Thao Nam MWC - 539', 1, 325000.00, NULL, 'profile_pic-1702013238947.jpg', 15, 41, 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(60, 'Giày Thể Thao Nam MWC - 540', 2, 325000.00, NULL, 'profile_pic-1702013269445.jpg', 15, 1, 10, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(61, 'Giày Thể Thao Nam MWC NATT- 510', 1, 345000.00, NULL, 'profile_pic-1702013307095.jpg', 15, 3, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(62, 'Giày Thể Thao Nam MWC - 5417', 2, 345000.00, NULL, 'profile_pic-1702013335738.jpg', 15, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(63, 'Giày Thể Thao Nam MWC NATT - 5419 ', 1, 250000.00, NULL, 'profile_pic-1702013373958.jpg', 15, 41, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(64, 'Giày Thể Thao Nam MWC NATT- 5425', 1, 300000.00, NULL, 'profile_pic-1702013405888.jpg', 15, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(65, 'Giày Thể Thao Nam MWC - 5414 ', 2, 300000.00, NULL, 'profile_pic-1702013468074.jpg', 15, 41, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(66, 'Giày Thể Thao Nam MWC NATT- 5441', 1, 300000.00, NULL, 'profile_pic-1702013527307.jpg', 15, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(67, 'Giày Thể Thao Nam MWC - 5385 ', 1, 550000.00, NULL, 'profile_pic-1702013562057.jpg', 5, 4, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(68, 'Giày Thể Thao Nam MWC NATT - 5309', 2, 550000.00, NULL, 'profile_pic-1702013585397.jpg', 5, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(69, 'Giày thể thao nam MWC NATT- 5010', 2, 150000.00, NULL, 'profile_pic-1702013630078.jpg', 5, 4, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(70, 'Giày Thể Thao Nam MWC - 5418 ', 1, 150000.00, NULL, 'profile_pic-1702013759694.jpg', 15, 1, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(71, 'Giày Thể Thao Nam MWC NATT- 5427 ', 2, 300000.00, NULL, 'profile_pic-1702013821705.jpg', 15, 1, 19, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(72, 'Giày Tây nam MWC - 6630 ', 3, 300000.00, NULL, 'profile_pic-1702013873183.jpg', 15, 4, 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(73, 'Giày Thể Thao Nam MWC NATT- 5452', 1, 300000.00, NULL, 'profile_pic-1702013997081.jpg', 15, 1, 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(74, 'Giày Thể Thao Nam MWC NATT - 5443 ', 2, 400000.00, NULL, 'profile_pic-1702014033646.jpg', 15, 1, 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(75, 'Giày Thể Thao Nam MWC NATT- 5442', 1, 400000.00, NULL, 'profile_pic-1702014056989.jpg', 15, 3, 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(76, 'Giày Thể Thao Nam MWC NATT - 5330', 1, 150000.00, NULL, 'profile_pic-1702014093824.jpg', 15, 1, 18, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(77, 'Giày Thể Thao Nam MWC NATT- 5458 ', 4, 345000.00, NULL, 'profile_pic-1702014133682.jpg', 15, 1, 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(82, 'Giày Thể Thao Nam MWC NATT - 533', 1, 345000.00, NULL, 'profile_pic-1702473532969.jpg', 15, 3, 20, 'Giày được thiết kế dáng thắt dây năng động, mặt giày sử dụng da tổng hợp vân nổi thời trang, phối màu nhã nhặn.  Đặc biệt sản phẩm sử dụng chất liệu cao cấp có độ bền tối ưu giúp bạn thoải mái trong mọi hoàn cảnh.  Giày thoáng khí cả mặt trong lẫn mặt ngoài khiến người mang luôn cảm thấy dễ chịu dù hoạt động trong thời gian dài.'),
+(83, 'Giày Sandal Nam MWC - 7027', 1, 215000.00, NULL, 'profile_pic-1705334672451.jpg', 15, 1, 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(84, 'Giày thể thao nữ Adios NUTT- A144', 2, 315000.00, NULL, 'profile_pic-1705383428310.jpg', 16, 4, 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(85, 'Giày thể thao nữ Niken NUTT- B11', 1, 315000.00, NULL, 'profile_pic-1705383465739.jpg', 16, 1, 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(86, 'Giày cao gót Pack NUCG- 4443', 2, 315000.00, NULL, 'profile_pic-1705383506383.jpg', 16, 3, 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(87, 'Giày Oxford Niken NUOX- 9635', 1, 315000.00, NULL, 'profile_pic-1705383560469.jpg', 16, 1, 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.'),
+(88, 'Giày sandal nữ Niken NUSD- 2454', 1, 305000.00, NULL, 'profile_pic-1705383625789.jpg', 16, 2, 20, 'Giày thiết kế với cổ cao phối dây kéo sau gót ôm chân, sử dụng chất liệu da tổng hợp êm mềm thời trang.  Phần gót không quá cao cũng không quá thấp, vừa đủ để tôn lên dáng người của nàng mà lại rất dễ dàng di chuyển, giày vừa ấm, vừa thời trang lại tôn dáng.  Boot cao cổ chính là best seller cho các cô nàng yêu thích phong cách trẻ trung thời thượng, sang chảnh.');
 
 -- --------------------------------------------------------
 
@@ -348,8 +355,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`taikhoan`, `matkhau`) VALUES
 ('12321313', '$2b$10$Vr/DhM4SKxRbJpG0BO8mTefYgoo0QBXOJj6BVlUEUSRYkBAGRZWCy'),
-('123213131111', '$2b$10$QkaAw8lm2aKKAjC5gDK7BOi0TuKVzc2qMObPyWShUEJV5p3LU1JTW'),
-('abc', '123123');
+('abccc', '$2b$10$fBTCCben0J0y9yuDzUDBCeauHbsQCOieMNATLyFkN5LVaVp1O7a8.');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -373,19 +379,20 @@ ALTER TABLE `donhang`
 -- Chỉ mục cho bảng `hang`
 --
 ALTER TABLE `hang`
-  ADD PRIMARY KEY (`TENHANG`);
+  ADD PRIMARY KEY (`MAHANG`);
 
 --
 -- Chỉ mục cho bảng `khachhang`
 --
 ALTER TABLE `khachhang`
-  ADD PRIMARY KEY (`MAKHACHHANG`);
+  ADD PRIMARY KEY (`MAKHACHHANG`),
+  ADD KEY `taikhoan` (`taikhoan`);
 
 --
 -- Chỉ mục cho bảng `kichco`
 --
 ALTER TABLE `kichco`
-  ADD PRIMARY KEY (`GIATRI`);
+  ADD PRIMARY KEY (`MAGIATRI`);
 
 --
 -- Chỉ mục cho bảng `loai`
@@ -398,9 +405,9 @@ ALTER TABLE `loai`
 --
 ALTER TABLE `sanpham`
   ADD PRIMARY KEY (`MASP`),
-  ADD KEY `GIATRI` (`GIATRI`),
-  ADD KEY `SANPHAM_ibfk_2` (`TENHANG`),
-  ADD KEY `SANPHAM_ibfk_1` (`MALOAI`);
+  ADD KEY `SANPHAM_ibfk_1` (`MALOAI`),
+  ADD KEY `SANPHAM_ibfk_2` (`MAHANG`),
+  ADD KEY `SANPHAM_ibfk_4` (`MAGIATRI`);
 
 --
 -- Chỉ mục cho bảng `users`
@@ -419,16 +426,28 @@ ALTER TABLE `donhang`
   MODIFY `MADONHANG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=964;
 
 --
+-- AUTO_INCREMENT cho bảng `hang`
+--
+ALTER TABLE `hang`
+  MODIFY `MAHANG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
 -- AUTO_INCREMENT cho bảng `khachhang`
 --
 ALTER TABLE `khachhang`
   MODIFY `MAKHACHHANG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=967;
 
 --
+-- AUTO_INCREMENT cho bảng `kichco`
+--
+ALTER TABLE `kichco`
+  MODIFY `MAGIATRI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
 -- AUTO_INCREMENT cho bảng `loai`
 --
 ALTER TABLE `loai`
-  MODIFY `MALOAI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `MALOAI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT cho bảng `sanpham`
@@ -454,12 +473,18 @@ ALTER TABLE `donhang`
   ADD CONSTRAINT `DONHANG_ibfk_1` FOREIGN KEY (`MAKHACHHANG`) REFERENCES `khachhang` (`MAKHACHHANG`);
 
 --
+-- Các ràng buộc cho bảng `khachhang`
+--
+ALTER TABLE `khachhang`
+  ADD CONSTRAINT `khachhang_ibfk_1` FOREIGN KEY (`taikhoan`) REFERENCES `users` (`taikhoan`);
+
+--
 -- Các ràng buộc cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  ADD CONSTRAINT `SANPHAM_ibfk_1` FOREIGN KEY (`MALOAI`) REFERENCES `loai` (`MALOAI`),
-  ADD CONSTRAINT `SANPHAM_ibfk_2` FOREIGN KEY (`TENHANG`) REFERENCES `hang` (`TENHANG`),
-  ADD CONSTRAINT `SANPHAM_ibfk_3` FOREIGN KEY (`GIATRI`) REFERENCES `kichco` (`GIATRI`);
+  ADD CONSTRAINT `SANPHAM_ibfk_2` FOREIGN KEY (`MAHANG`) REFERENCES `hang` (`MAHANG`),
+  ADD CONSTRAINT `SANPHAM_ibfk_3` FOREIGN KEY (`MALOAI`) REFERENCES `loai` (`MALOAI`),
+  ADD CONSTRAINT `SANPHAM_ibfk_4` FOREIGN KEY (`MAGIATRI`) REFERENCES `kichco` (`MAGIATRI`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  backend:
+    build: .
+    image: b:latest
+    restart: always
+    ports:
+      - "3003:3003"
+    env_file: .env
+    environment:
+      PORT : 3003
+      URL_REACT: http://localhost:3000
+      HOST_NAME : localhost
+      NODE_ENV : development
+      DB_HOST : host.docker.internal
+      DB_PORT : 3308
+      DB_USER : root
+      DB_NAME : phucshoe
+      DB_PASSWORD : 123456
+      SECRETROLE : 3
+      SECRETKEYADMIN : phucfix
+
+    depends_on:
+      - database
+    networks:
+      - phucshoe_network
+    
+  frontend:
+    image: a:latest
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_BACKEND_URL: http://localhost:3003
+    networks:
+      - phucshoe_network
+
+  database:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: phucshoe
+    ports:
+      - "3308:3306"
+    networks:
+      - phucshoe_network
+
+networks:
+  phucshoe_network:
+    driver: bridge

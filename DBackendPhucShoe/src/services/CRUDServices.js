@@ -22,7 +22,6 @@ const getUpdateSanPhamID = async (
   SOLUONG,
   image
 ) => {
-  
   let [results, fields] = await (
     await connection
   ).query(

@@ -18,7 +18,7 @@ const getAllProduct = async (req, res) => {
       let offset = (page - 1) * limit;
 
       const [results, fields] = await connection.execute(
-        "SELECT * FROM `sanpham` LIMIT ? OFFSET ?",
+        "SELECT * FROM `sanpham` LIMIT ? OFFSET ? ",
         [limit, offset]
       );
 
@@ -26,7 +26,7 @@ const getAllProduct = async (req, res) => {
       const productsWithImageUrls = results.map((product) => {
         return {
           ...product,
-          imageUrl: `http://localhost:8081/api/v1/images/${product.description}`,
+          imageUrl: `http://localhost:3003/api/v1/images/${product.description}`,
         };
       });
 
@@ -55,7 +55,7 @@ const getAllProduct = async (req, res) => {
       const productsWithImageUrls = results.map((product) => {
         return {
           ...product,
-          imageUrl: `http://localhost:8081/api/v1/images/${product.description}`,
+          imageUrl: `http://localhost:3003/api/v1/images/${product.description}`,
         };
       });
       return res.status(200).json({
@@ -74,7 +74,7 @@ const getAllProduct = async (req, res) => {
 
 const getDonHangg = async (Time, id, MaSP, SoluongDaMua, Tongtien) => {
   let idKhachHang = id;
-  console.log("time=>", Time);
+  // console.log("time=>", Time);
   let IdDonHang;
   let isIdUnique = false;
   try {
@@ -90,7 +90,7 @@ const getDonHangg = async (Time, id, MaSP, SoluongDaMua, Tongtien) => {
         const [results, fields] = await (
           await connection
         ).query(
-          "INSERT INTO DONHANG (MADONHANG, MAKHACHHANG, NGAYDONHANG) VALUES (?,?,?)",
+          "INSERT INTO donhang (MADONHANG, MAKHACHHANG, NGAYDONHANG) VALUES (?,?,?)",
           [IdDonHang, idKhachHang, Time]
         );
 
@@ -161,7 +161,7 @@ const getChiTietDonHang = async (IdDonHang, MaSP, SoluongDaMua, Tongtien) => {
   const [results, fields] = await (
     await connection
   ).query(
-    "INSERT INTO CHITIETDONHANG (MADONHANG,MASP,SOLUONG,THANHTIEN) VALUES (?,?,?,?)",
+    "INSERT INTO chitietdonhang (MADONHANG,MASP,SOLUONG,THANHTIEN) VALUES (?,?,?,?)",
     [IdDonHang, MaSP, SoluongDaMua, Tongtien]
   );
 };
@@ -196,19 +196,18 @@ const getProduct = async (req, res) => {
 
     console.log(currentTime);
     console.log(req.body.customerID);
+    console.log(req.body.dataDiachi);
+    const DiachiKhachhang = req.body.dataDiachi;
     let id = req.body.customerID;
     let Time = currentTime;
     let MaSP = req.body.IdSP;
     let SoluongDaMua = req.body.SoluongDaMua;
     let Tongtien = req.body.Tongtien;
-    const { name, phoneNumber, address, note, province, districts, ward } =
-      customerInfo;
-    const getaddress =
-      address + ", " + ward + ", " + districts + ", " + province;
+    const { name, phoneNumber, note } = customerInfo;
 
     let isIdUnique = false;
     let newId;
-
+    console.log("name=>", name);
     // Thử insert dữ liệu và kiểm tra xem có lỗi Duplicate entry hay không
     do {
       newId = generateRandomCustomerID();
@@ -216,8 +215,8 @@ const getProduct = async (req, res) => {
         const [insertResults, insertFields] = await (
           await connection
         ).query(
-          "INSERT INTO KHACHHANG (MAKHACHHANG,TEN, SODIENTHOAI, DIACHI, GHICHU) VALUES (?,?, ?, ?, ?)",
-          [newId, name, phoneNumber, getaddress, note]
+          "INSERT INTO khachhang (MAKHACHHANG,TEN, DIACHI, GHICHU, SODIENTHOAI) VALUES (?,?, ?, ?, ?)",
+          [newId, name, DiachiKhachhang, note, phoneNumber]
         );
         isIdUnique = true; // Nếu không có lỗi thì thoát khỏi vòng lặp
       } catch (insertError) {
@@ -230,8 +229,6 @@ const getProduct = async (req, res) => {
     } while (!isIdUnique);
 
     await getDonHangg(Time, newId, MaSP, SoluongDaMua, Tongtien);
-
-    res.json({ message: "Data received and inserted successfully" });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Internal Server Error" });
