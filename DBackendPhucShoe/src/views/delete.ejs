@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/images/favicon.ico">
+    <title>Create Users</title>
+</head>
+<style>
+
+</style>
+
+<body>
+
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a href="/create">Cập nhật</a>
+
+    </div>
+    <div class="form">
+        <form action="/delete-user" method="post">
+            <fieldset>
+                <legend>Cập Nhật Sản Phẩm</legend>
+                <div class="input-group">
+                    <label for="">ID</label>
+                    <input type="text" name="ID" value="<%= userEdit.id %>">
+                </div>
+                <div class="input-group">
+                    <label for="">Email</label>
+                    <input type="text" name="Email" value="<%= userEdit.email %>">
+                </div>
+
+                <div class="button">
+                    <button> delete New User</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <style>
+
+    </style>
+</body>
+
+</html>

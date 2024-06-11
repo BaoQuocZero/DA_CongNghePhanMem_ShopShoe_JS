@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/images/favicon.ico">
+    <title>Hệ Thống PhucShoe</title>
+</head>
+<style>
+
+</style>
+
+<body>
+    <div class="container">
+        <div class="vertical-navbar">
+            <a class="active" href="/">Home</a>
+            <a href="/create">Tạo Sản Phẩm</a>
+            <!-- <a href="/khachhang">Thông Tin Khách Hàng</a> -->
+            <a href="/All-donhang">Tất Cả Đơn Hàng</a>
+        </div>
+        <!-- <div class="form">
+
+        <form action="/create-Sanpham" enctype="multipart/form-data" method="post">
+            <fieldset>
+                <legend>Form add new users</legend>
+                <div class="input-group">
+                    <label for="">ID</label>
+                    <input type="text" name="Gia" value="">
+                </div>
+                <div class="input-group">
+                    <label for="">Tên Sản Phẩm</label>
+                    <input type="text" name="tenSanpham">
+                </div>
+                <div class="input-group">
+                    <label for="">Giá bán</label>
+                    <input type="text" name="Gia">
+                </div>
+
+                <div class="input-group">
+                    <label for="size">Tên Hãng</label>
+                    <select name="Tenhang" id="">
+
+                        <option value="Nike">Nike</option>
+
+
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="">Mã Loại</label>
+                    <input type="text" name="Loaisanpham">
+                </div>
+                <div class="input-group">
+                    <label for="size">Size</label>
+                    <select name="Size" id="size">
+
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+
+                    </select>
+                </div>
+                <div class="input-group input-groupcity">
+                    <label for="">Số lượng</label>
+                    <input type="text" name="Soluong">
+                </div>
+                <div>
+                    <label for="">Avatar: </label>
+                    <input type="file" name="profile_pic" />
+                </div>
+                <td>
+                    <form method="POST" action="/upload-profile-pic" enctype="multipart/form-data"></form>
+                </td>
+                <div class="button">
+                    <button> Adđ New User</button>
+                </div>
+            </fieldset>
+        </form>
+    </div> -->
+        <!-- views/Tim.ejs -->
+
+        <!-- Form để nhập các điều kiện tìm kiếm -->
+
+
+        <div class="list-users">
+            <div class="container-form-quayve">
+                <form action="/" method="get">
+                    <button class="chucnang-quayve">Quay về</button>
+                </form>
+            </div>
+            <h2 class="tieude-h3">Tìm Sản Phẩm</h2>
+            <p class="danhsachsanpham">Danh Sách Sản Phẩm</p>
+            <table>
+                <tr>
+                    <form action="/Tim" method="post" class="search-form">
+
+                        <input type="text" placeholder="Tên sản phẩm" name="TenSP" class="search-input">
+                        <input type="text" placeholder="Tên hãng" name="TenHang" class="search-input">
+
+                        <input type="text" placeholder="Mã loại" name="MaLoai" class="search-input">
+                        <input type="text" placeholder="Kích cỡ" name="Size" class="search-input">
+
+                        <button type="submit" class="search-button">Tìm</button>
+                    </form>
+                </tr>
+            </table>
+            <table class="table">
+                <tr class="tieude-data">
+                    <th>Mã </th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Tên Hãng</th>
+                    <th>Giá bán</th>
+
+                    <th>Mã Loại</th>
+                    <th>Size </th>
+                    <th>Số lượng</th>
+                    <th> Mô tả</th>
+                    <th> Hình ảnh</th>
+                    <th> Chức năng</th>
+                </tr>
+
+                <% listSanpham.forEach(function(listSanpham) { %>
+                    <tr>
+
+                        <td>
+                            <%= listSanpham.MASP %>
+                        </td>
+                        <td>
+                            <%= listSanpham.TENSANPHAM %>
+                        </td>
+                        <td>
+                            <%= listSanpham.TENHANG %>
+                        </td>
+                        <td>
+                            <%= parseFloat(listSanpham.GIA).toFixed(0).toLocaleString() %> đ
+                        </td>
+
+                        <td>
+                            <%= listSanpham.MALOAI %>
+                        </td>
+                        <td>
+                            <%= listSanpham.GIATRI %>
+                        </td>
+                        <td>
+                            <%= listSanpham.SOLUONG %>
+                        </td>
+                        <td>
+                            <%= listSanpham.THONGTINSANPHAM %>
+                        </td>
+                        <td>
+
+
+                            <img src="/images/<%= listSanpham.description %>" alt="" width="50px" height="50px" />
+                        </td>
+
+                        <td>
+                            <form action="/chon-sanpham/<%= listSanpham.MASP %>" method="post">
+                                <button class="chucnang">Chọn</button>
+                            </form>
+
+
+                        </td>
+
+                    </tr>
+
+                    <% }); %>
+
+
+
+            </table>
+        </div>
+    </div>
+    <style>
+        .chucnang-quayve {
+            margin-bottom: 20px;
+            width: 100px;
+            height: 35px;
+            border-radius: 7px;
+            background-color: #45a049;
+            border: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .active {
+            background-color: black;
+        }
+
+        .danhsachsanpham {
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .chucnang {
+            width: 65px;
+            height: 35px;
+            border-radius: 7px;
+            background-color: #45a049;
+            border: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tieude-data {
+            background-color: whitesmoke;
+            border-radius: 10px;
+
+        }
+
+        .table {}
+
+        .tieude-h3 {}
+
+        .list-users {
+            margin-left: 15%;
+            margin-top: 50px;
+            padding: 15px 20px;
+            width: 80%;
+            background-color: white;
+            border-radius: 15px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #ccc;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            background-color: #edf1fa;
+
+        }
+
+        .vertical-navbar {
+
+            width: 10%;
+            display: flex;
+            flex-direction: column;
+            background-color: #333;
+            /* Màu nền của navbar */
+            padding: 15px;
+            /* Khoảng cách giữa các nút */
+            position: fixed;
+
+            height: 100%;
+            /* Chiều cao của navbar sẽ chiếm toàn bộ chiều cao của trang */
+        }
+
+        .vertical-navbar a {
+            color: white;
+            /* Màu chữ của các nút */
+            text-decoration: none;
+            /* Loại bỏ đường gạch chân mặc định cho liên kết */
+            padding: 10px;
+            /* Kích thước của từng nút */
+            /* border-bottom: 1px solid #ddd; */
+            /* Đường biên dưới giữa các nút */
+        }
+
+        .vertical-navbar a:hover {
+            background-color: black;
+            /* Màu nền khi di chuột qua nút */
+        }
+
+        .content {
+            margin-left: 200px;
+            /* Để tránh bị che phủ bởi navbar */
+            padding: 20px;
+        }
+    </style>
+</body>
+
+
+</html>
