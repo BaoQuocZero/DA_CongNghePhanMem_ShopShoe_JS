@@ -6,12 +6,20 @@ import { useNavigate } from "react-router-dom";
 
 const ListOrders = () => {
     const navigate = useNavigate()
+    const tokenSetStorage = sessionStorage.getItem("accessToken");
+
+    const axiosWithCredentials = axios.create({
+        withCredentials: true, // Bật sử dụng cookie trong yêu cầu
+        headers: {
+            Authorization: `Bearer ${tokenSetStorage}`, // Thay yourToken bằng token của bạn
+        },
+    });
     const [ListOdersChuaGiao, setListOdersChuaGiao] = useState([]);
     const [IsOpenChiTiet, setIsOpenChiTiet] = useState(false)
     const [MaDonHang, setMaDonHang] = useState(null)
     const fetchData = async () => {
         try {
-            const response = await axios.get("http://localhost:3003/api/v1/donhangchuagiao");
+            const response = await axiosWithCredentials.get("http://localhost:3003/api/v1/donhangchuagiao");
             const sortedOrders = response.data.DT.sort((a, b) => new Date(b.ngaydonhang) - new Date(a.ngaydonhang));
             setListOdersChuaGiao(sortedOrders);
             console.log('check data', response.data);

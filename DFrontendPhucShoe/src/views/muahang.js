@@ -23,6 +23,7 @@ const MuaHang = () => {
   const [KQTongtien, setKQTongtien] = useState(0);
   const [descriptionGiay, setdescriptionGiay] = useState(null);
   const [TENSANPHAM, setTENSANPHAM] = useState(null);
+  const [TienHienThi, setTienHienThi] = useState(null);
   // useEffect to fetch data and update state
   useEffect(() => {
     if (state) {
@@ -43,7 +44,8 @@ const MuaHang = () => {
       setTENSANPHAM(giay.TENSANPHAM);
       setPrice1(parseFloat(tienvaSL).toLocaleString());
       setPrice(parseFloat(GIA).toLocaleString());
-      setKQTongtien(
+      setKQTongtien(price);
+      setTienHienThi(
         parseFloat(tongTien)
           .toFixed(0)
           .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -531,7 +533,7 @@ const MuaHang = () => {
               <hr></hr>
               <div className="muahang-tongcong">
                 <span>Tổng cộng</span>
-                <span className="muahang-tongcong1">{KQTongtien}đ</span>
+                <span className="muahang-tongcong1">{TienHienThi}đ</span>
               </div>
               <button
                 type="button"

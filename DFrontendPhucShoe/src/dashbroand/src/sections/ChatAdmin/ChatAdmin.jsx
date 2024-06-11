@@ -324,7 +324,7 @@ const ChatAdmin = () => {
           {DataAllUserBackend.map((users) => (
             <div className={`headerListUser ${selectedUser === users.taikhoan ? 'selected' : ''}`} onClick={() => handleUserIb(users)}>
               <img
-                src={users.avatar ? `http://localhost:3003/images/${users.avatar}` : `${avat}`}
+                src={users.avatar ? `http://localhost:3003/images/${users.avatar}` : `http://localhost:3003/images/avatatrang.jpg`}
                 className="headerListUser-avata"
                 alt="User Avatar"
               />
