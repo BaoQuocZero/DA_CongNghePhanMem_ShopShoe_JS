@@ -12,13 +12,13 @@ const NavBarUser = () => {
 
   const handleOpenLogout = () => {
     setOpenLogout(!openLogout);
-    console.log(openLogout);
+    // console.log(openLogout);
   };
   const handleLogout = async () => {
     try {
       const response = await axios.post("http://localhost:3003/api/v1/logout");
 
-      console.log(response.data.EC);
+      // console.log(response.data.EC);
       if (response.data.EC === 0) {
         sessionStorage.removeItem("accessToken");
         window.location.href = "/login";

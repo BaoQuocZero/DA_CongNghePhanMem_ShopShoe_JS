@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation, Navigate } from "react-router-dom";
+import {
+  useParams,
+  useLocation,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import MyNavbar from "../components/NavbarhomePage";
 import axios from "axios";
 import "./profileCustomer.css";
@@ -10,9 +15,12 @@ import Loading from "../components/ComponentLoading/CompnentLoading.tsx";
 
 import { set } from "date-fns";
 import OrderStatus from "./component/OrderStatus.js";
+import ListOrdersCustomer from "./profileOrderUser/ListOrdersCustomer.jsx";
+import ListOrdersCustomerDaGiao from "./profileOrderUser/ListOrdersCustomerDaGiao.jsx";
+import ListOrdersCustomerHuyDon from "./profileOrderUser/ListOrdersCustomerHuyDon.jsx";
 const ProfileCustomer = () => {
+  const navigate = useNavigate();
   const tokenSetStorage = sessionStorage.getItem("accessToken");
-  const token = useLocation();
 
   const axiosWithCredentials = axios.create({
     withCredentials: true, // Bật sử dụng cookie trong yêu cầu
@@ -20,25 +28,120 @@ const ProfileCustomer = () => {
       Authorization: `Bearer ${tokenSetStorage}`, // Thay yourToken bằng token của bạn
     },
   });
+  const token = useLocation();
   const { username } = useParams();
   const [IsOpenProfile, setIsOpenProfile] = useState(true);
   const [IsOpenProfilePassword, setIsOpenProfilePassword] = useState(false);
   const [IsOpenLuuThayDoi, setIsOpenLuuThayDoi] = useState(false);
   const [IsOpenDonHang, setIsOpenDonHang] = useState(false);
+  const [IsOpenDonHangDaGiao, setIsOpenDonHangDaGiao] = useState(false);
+  const [IsOpenDonHangHuyDon, setIsOpenDonHangHuyDon] = useState(false);
+  const [selectedItem, setSelectedItem] = useState("profile"); // New state to track selected item
+  const [CountCustomer, setCountCustomer] = useState(0);
+
+  // ----------------START THAY ĐỔI MẬT KHẨU-----------------------------------
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [message, setMessage] = useState("");
+  // ----------------END THAY ĐỔI MẬT KHẨU-----------------------------------
+
   const handleIsOpenProfile = () => {
+    setSelectedItem("profile"); // Set selected item
     setIsOpenProfile(true);
     setIsOpenProfilePassword(false);
     setIsOpenDonHang(false);
+    setIsOpenDonHangHuyDon(false);
+    setIsOpenDonHangDaGiao(false);
+    setCountCustomer(0);
   };
+
   const handleIsOpenProfilePassword = () => {
+    setSelectedItem("password"); // Set selected item
     setIsOpenProfile(false);
     setIsOpenDonHang(false);
+    setIsOpenDonHangHuyDon(false);
+    setIsOpenDonHangDaGiao(false);
     setIsOpenProfilePassword(true);
+    setCountCustomer(0);
   };
+
   const handleIsOpenDonHang = () => {
+    setCountCustomer(0);
+    setSelectedItem("orders"); // Set selected item
     setIsOpenProfile(false);
     setIsOpenProfilePassword(false);
+    setIsOpenDonHangHuyDon(false);
+    setIsOpenDonHangDaGiao(false);
     setIsOpenDonHang(true);
+  };
+
+  const handleIsOpenDonHangDaGiao = () => {
+    setSelectedItem("delivered"); // Set selected item
+    setIsOpenProfile(false);
+    setIsOpenProfilePassword(false);
+    setIsOpenDonHangHuyDon(false);
+    setIsOpenDonHangDaGiao(true);
+    setIsOpenDonHang(false);
+    setCountCustomer(0);
+  };
+
+  const handleIsOpenDonHangHuyDon = () => {
+    setSelectedItem("canceled"); // Set selected item
+    setIsOpenProfile(false);
+    setIsOpenProfilePassword(false);
+    setIsOpenDonHangHuyDon(true);
+    setIsOpenDonHangDaGiao(false);
+    setIsOpenDonHang(false);
+    setCountCustomer(CountCustomer + 1);
+    console.log(CountCustomer);
+    if (CountCustomer == 2) {
+      toast.success("Double Click Hủy Đơn (* ^ ω ^)");
+    }
+    if (CountCustomer == 3) {
+      toast.success("Triple Click Hủy Đơn (⌒ω⌒)");
+    }
+    if (CountCustomer == 4) {
+      toast.info("Quatalill Click Hủy Đơn ╰(▔∀▔)╯");
+    }
+    if (CountCustomer == 5) {
+      toast.warning("Pentakill Click Hủy Đơn (─‿‿─)");
+    }
+    if (CountCustomer == 6) {
+      toast.warning("Super Click Hủy Đơn -_-");
+    }
+    if (CountCustomer == 7) {
+      toast.warning("SuperGod Click Hủy Đơn -_-!");
+    }
+    if (CountCustomer == 8) {
+      toast.error("SuperBlue Click Hủy Đơn (o_O)");
+    }
+    if (CountCustomer == 9) {
+      toast.error("SuperUltra Click Hủy Đơn (□_□)");
+    }
+    if (CountCustomer == 10) {
+      toast.error("Waoooo SuperUltra Click Hủy Đơn 	Σ(O_O)");
+    }
+    if (CountCustomer > 10) {
+      toast.error(
+        "Waoooo SuperUltra Click Hủy Đơn " +
+          " " +
+          " (°ロ°)!" +
+          " x" +
+          CountCustomer
+      );
+    }
+    if (CountCustomer === 25) {
+      toast.error(
+        "Mày muốn phá website tao à? " + " " + " (°ロ°)!" + " x" + CountCustomer
+      );
+    }
+    if (CountCustomer === 40) {
+      toast.error(
+        "Mày muốn phá website tao à? " + " " + " (°ロ°)!" + " x" + CountCustomer
+      );
+      navigate("/");
+    }
   };
   const [selectedFile, setSelectedFile] = useState(null);
   const [profileUser, setprofileUser] = useState();
@@ -185,21 +288,20 @@ const ProfileCustomer = () => {
 
   //--------------------start api get user------------------------
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const DataHang = await axiosWithCredentials.get(
-          `http://localhost:3003/api/v1/user/info/${username}`
-        );
-        setprofileUser(DataHang.data.DT.results);
-
-        setImgAvatar(DataHang.data.DT.results[0].avatar);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
+    fetchAvatarCustomer();
   }, []);
+  const fetchAvatarCustomer = async () => {
+    try {
+      const DataHang = await axiosWithCredentials.get(
+        `http://localhost:3003/api/v1/user/info/${username}`
+      );
+      setprofileUser(DataHang.data.DT.results);
+
+      setImgAvatar(DataHang.data.DT.results[0].avatar);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   //--------------------end api get user------------------------
   console.log(Xa);
@@ -208,18 +310,36 @@ const ProfileCustomer = () => {
     if (profileUser) {
       const parts = DiachiUser ? DiachiUser.split(", ") : [];
 
-      // Gán giá trị vào các state
-      setXa(parts[1]);
-      setHuyen(parts[2]);
-      setTinh(parts[3]);
+      setXaUser(parts[1]);
+      setHuyenUser(parts[2]);
+      setTinhUser(parts[3]);
       setApUser(parts[0]);
+
+      // ---------DÀNH CHO API ----------
+      // setXa(parts[1]);
+      // setHuyen(parts[2]);
+      // setTinh(parts[3]);
+      // setApUser(parts[0]);
     }
   }, [profileUser]);
 
   //----------------------end api tỉnh --------------------------------
-
+  const validateVietnamPhoneNumber = (phoneNumber) => {
+    const vietnamPhoneRegex = /^(03|05|07|08|09)\d{8}$/;
+    return vietnamPhoneRegex.test(phoneNumber);
+  };
   const handleUpdateProfileUser = async (event) => {
     event.preventDefault();
+    if (PhoneUser.length != 10) {
+      toast.error("Số điện thoại phải 10 chữ số !");
+      return;
+    }
+    if (!validateVietnamPhoneNumber(PhoneUser)) {
+      toast.error(
+        "Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại Việt Nam!"
+      );
+      return;
+    }
     console.log("ádas=>", DiachiUsertoBack);
     console.log("ten", TenUser);
     console.log("ten", PhoneUser);
@@ -235,6 +355,7 @@ const ProfileCustomer = () => {
           }
         );
         console.log("update success", response.data);
+        fetchAvatarCustomer();
         toast.success("Cập nhật thông tin thành công !!!");
       } catch (error) {
         console.error("Error uploading image:", error);
@@ -318,7 +439,6 @@ const ProfileCustomer = () => {
   if (loading) {
     return <Loading />; // Render component Loading trong khi dữ liệu đang được tải
   }
-  // const handleUpdatePassword = () => {};
 
   const handleFileChange = async (event) => {
     setIsOpenLuuThayDoi(true);
@@ -342,9 +462,39 @@ const ProfileCustomer = () => {
       );
 
       alert("File uploaded successfully!");
+      fetchAvatarCustomer();
     } catch (error) {
       console.error("Error uploading file:", error);
       alert("Failed to upload file.");
+    }
+  };
+
+  // ----------------------THAY ĐỔI MẬT KHẨU-------------------------------
+
+  const handleUpdatePassword = async (event) => {
+    event.preventDefault();
+    if (newPassword !== confirmNewPassword) {
+      toast.error("Mật khẩu mới và xác nhận mật khẩu không khớp");
+      return;
+    }
+
+    try {
+      const response = await axiosWithCredentials.put(
+        `http://localhost:3003/api/v1/user/info/update/password/${username}`,
+        {
+          passwordcu: currentPassword,
+          passwordmoi: newPassword,
+        }
+      );
+
+      if (response.data.EC === 0) {
+        toast.success("Mật khẩu đã được cập nhật thành công");
+      } else {
+        toast.success(response.data.EM);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Có lỗi xảy ra khi cập nhật mật khẩu");
     }
   };
   if (loading) {
@@ -369,22 +519,44 @@ const ProfileCustomer = () => {
               <div className="functions-br-ngang1"></div>
             </div>
             <div
-              className="functions-thongtincanhan"
+              className={`functions-thongtincanhan ${
+                selectedItem === "profile" ? "active" : ""
+              }`}
               onClick={handleIsOpenProfile}
             >
               <p>Thông tin cá nhân</p>
             </div>
             <div
-              className="functions-thongtincanhan"
+              className={`functions-thongtincanhan ${
+                selectedItem === "password" ? "active" : ""
+              }`}
               onClick={handleIsOpenProfilePassword}
             >
               <p>Thay đổi mật khẩu</p>
             </div>
             <div
-              className="functions-thongtincanhan"
+              className={`functions-thongtincanhan ${
+                selectedItem === "orders" ? "active" : ""
+              }`}
               onClick={handleIsOpenDonHang}
             >
               <p>Xem đơn hàng</p>
+            </div>
+            <div
+              className={`functions-thongtincanhan ${
+                selectedItem === "delivered" ? "active" : ""
+              }`}
+              onClick={handleIsOpenDonHangDaGiao}
+            >
+              <p>Đơn hàng đã giao</p>
+            </div>
+            <div
+              className={`functions-thongtincanhan ${
+                selectedItem === "canceled" ? "active" : ""
+              }`}
+              onClick={handleIsOpenDonHangHuyDon}
+            >
+              <p>Đơn hàng đã hủy</p>
             </div>
           </div>
         </div>
@@ -437,8 +609,8 @@ const ProfileCustomer = () => {
                           Vd: Hồ Hoàng Phúc
                         </div>
                       </div>
-
-                      <div>
+                      {/* ---------------START--------API TỈNH--------------- */}
+                      {/* <div>
                         <label htmlFor="provinceSelect">Chọn tỉnh:</label>
                         <select
                           id="provinceSelect"
@@ -490,6 +662,58 @@ const ProfileCustomer = () => {
                               </option>
                             ))}
                         </select>
+                      </div> */}
+                      {/* ----------------END--------API TỈNH---------------    */}
+                      <div class="mb-12">
+                        <label for="exampleInputEmail1" class="form-label">
+                          Hãy nhập địa chỉ của bạn
+                        </label>
+                        <input
+                          placeholder="Tỉnh"
+                          type="text"
+                          class="form-control"
+                          id="exampleInputEmail1"
+                          aria-describedby="emailHelp"
+                          value={TinhUser}
+                          onChange={(event) => setTinhUser(event.target.value)}
+                        />
+                        <div id="emailHelp" class="form-text">
+                          Vd: Số nhà 18, Đường Điện Biên Phủ
+                        </div>
+                      </div>
+                      <div class="mb-12">
+                        <label for="exampleInputEmail1" class="form-label">
+                          Hãy nhập huyện của bạn
+                        </label>
+                        <input
+                          placeholder="Huyện"
+                          type="text"
+                          class="form-control"
+                          id="exampleInputEmail1"
+                          aria-describedby="emailHelp"
+                          value={HuyenUser}
+                          onChange={(event) => setHuyenUser(event.target.value)}
+                        />
+                        <div id="emailHelp" class="form-text">
+                          Vd: Số nhà 18, Đường Điện Biên Phủ
+                        </div>
+                      </div>
+                      <div class="mb-12">
+                        <label for="exampleInputEmail1" class="form-label">
+                          Hãy nhập xã của bạn
+                        </label>
+                        <input
+                          placeholder="Xã"
+                          type="text"
+                          class="form-control"
+                          id="exampleInputEmail1"
+                          aria-describedby="emailHelp"
+                          value={XaUser}
+                          onChange={(event) => setXaUser(event.target.value)}
+                        />
+                        <div id="emailHelp" class="form-text">
+                          Vd: Số nhà 18, Đường Điện Biên Phủ
+                        </div>
                       </div>
                       <div class="mb-12">
                         <label for="exampleInputEmail1" class="form-label">
@@ -584,80 +808,83 @@ const ProfileCustomer = () => {
         {IsOpenProfilePassword ? (
           <div className="profileCustomer-information">
             <div className="information-name">
-              {" "}
               <p>Thay đổi mật khẩu</p>
             </div>
             <div className="information-br">
-              {" "}
               <div className="br"></div>
             </div>
             <div className="information-data">
-              {" "}
               <div className="information-data-row mt-3">
                 <div className="row">
-                  <div class="col">
-                    {" "}
-                    <form>
-                      <div class="mb-12">
-                        <label for="exampleInputEmail1" class="form-label">
+                  <div className="col">
+                    <form onSubmit={handleUpdatePassword}>
+                      <div className="mb-12">
+                        <label htmlFor="username" className="form-label">
                           Tên tài khoản
                         </label>
                         <input
-                          type="email"
-                          class="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
+                          type="text"
+                          className="form-control"
+                          id="username"
                           value={username}
                           disabled
                         />
-                        <div id="emailHelp" class="form-text">
-                          Vd: toiyeuem
-                        </div>
                       </div>
 
-                      <div class="mb-12">
-                        <label for="exampleInputEmail1" class="form-label">
-                          Mật khẩu
+                      <div className="mb-12">
+                        <label htmlFor="currentPassword" className="form-label">
+                          Mật khẩu hiện tại
                         </label>
                         <input
-                          type="email"
-                          class="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
+                          type="password"
+                          className="form-control"
+                          id="currentPassword"
+                          value={currentPassword}
+                          onChange={(e) => setCurrentPassword(e.target.value)}
                         />
-                        <div id="emailHelp" class="form-text"></div>
                       </div>
-                      <div class="mb-12">
-                        <label for="exampleInputEmail1" class="form-label">
-                          Mật khẩu Mới
+
+                      <div className="mb-12">
+                        <label htmlFor="newPassword" className="form-label">
+                          Mật khẩu mới
                         </label>
                         <input
-                          type="email"
-                          class="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
+                          type="password"
+                          className="form-control"
+                          id="newPassword"
+                          value={newPassword}
+                          onChange={(e) => setNewPassword(e.target.value)}
                         />
-                        <div id="emailHelp" class="form-text"></div>
                       </div>
-                      <div class="mb-12">
-                        <label for="exampleInputEmail1" class="form-label">
-                          Nhập Lại Mật Khẩu Mới
+
+                      <div className="mb-12">
+                        <label
+                          htmlFor="confirmNewPassword"
+                          className="form-label"
+                        >
+                          Nhập lại mật khẩu mới
                         </label>
                         <input
-                          type="email"
-                          class="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                          onChange={handleFileChange}
+                          type="password"
+                          className="form-control"
+                          id="confirmNewPassword"
+                          value={confirmNewPassword}
+                          onChange={(e) =>
+                            setConfirmNewPassword(e.target.value)
+                          }
                         />
-                        <div id="emailHelp" class="form-text"></div>
                       </div>
-                      <button type="submit" class="btn btn-primary">
+
+                      {message && (
+                        <div className="alert alert-info">{message}</div>
+                      )}
+
+                      <button type="submit" className="btn btn-primary mt-2">
                         Update
                       </button>
                     </form>
                   </div>
-                  <div class="col-12"></div>
+                  <div className="col-12"></div>
                 </div>
               </div>
             </div>
@@ -680,7 +907,48 @@ const ProfileCustomer = () => {
 
             <div className="OrderStatus-container">
               {" "}
-              <OrderStatus />
+              {/* <OrderStatus /> */}
+              <ListOrdersCustomer />
+            </div>
+          </div>
+        ) : (
+          false
+        )}
+        {IsOpenDonHangHuyDon ? (
+          <div className="profileCustomer-information">
+            <div className="information-name">
+              {" "}
+              <p>Xem Đơn Hàng Đã Bị Hủy</p>
+            </div>
+            <div className="information-br">
+              {" "}
+              <div className="br"></div>
+            </div>
+
+            <div className="OrderStatus-container">
+              {" "}
+              {/* <OrderStatus /> */}
+              <ListOrdersCustomerHuyDon />
+            </div>
+          </div>
+        ) : (
+          false
+        )}
+        {IsOpenDonHangDaGiao ? (
+          <div className="profileCustomer-information">
+            <div className="information-name">
+              {" "}
+              <p>Xem Đơn Hàng Đã Giao</p>
+            </div>
+            <div className="information-br">
+              {" "}
+              <div className="br"></div>
+            </div>
+
+            <div className="OrderStatus-container">
+              {" "}
+              {/* <OrderStatus /> */}
+              <ListOrdersCustomerDaGiao />
             </div>
           </div>
         ) : (
@@ -688,7 +956,7 @@ const ProfileCustomer = () => {
         )}
       </div>
 
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </>
   );
 };

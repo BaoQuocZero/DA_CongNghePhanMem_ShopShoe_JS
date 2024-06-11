@@ -35,7 +35,7 @@ function ListSpNu() {
           data: response.data.hang,
           loading: false,
         });
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error(error.message);
         setData({
@@ -48,7 +48,7 @@ function ListSpNu() {
     fetchData();
   }, []);
 
-  console.log("checkdatalistSHOE", data);
+  // console.log("checkdatalistSHOE", data);
 
   return (
     <div className="App">

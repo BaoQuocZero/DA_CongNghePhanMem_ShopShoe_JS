@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../assets/styles/thongtinchitietgiay.css";
 import { toast } from "react-toastify";
@@ -6,20 +6,26 @@ const ThongTinChiTietGiay = () => {
   const { state } = useLocation();
   const [counterValue, setCounterValue] = useState(1);
   const [selectedSize, setSelectedSize] = useState(null);
+  const [price, setprice] = useState(null);
   const navigate = useNavigate();
   console.log(state.MASP);
 
+  useEffect(() => {
+    if (state.GIA) {
+      const GIA = parseFloat(state.GIA).toFixed(0);
+      var GIASP = parseFloat(GIA);
+      setprice(GIASP.toLocaleString());
+    }
+  }, []);
   let handleClickMuaHang = (event) => {
     if (selectedSize == null) {
-      // alert('Vui lòng chọn Size giày');
       toast.error("Vui lòng chọn Size giày");
-      event.preventDefault(); // Ngăn chặn sự kiện navigation mặc định
+      event.preventDefault();
     } else {
       navigate(`/muahang/${state.MASP}`, {
         state: { giay: state, soLuong: counterValue, size: selectedSize },
       });
     }
-    // Thêm mã xử lý mua hàng của bạn ở đây nếu cần
   };
 
   const handleSizeClick = (size) => {
@@ -31,23 +37,17 @@ const ThongTinChiTietGiay = () => {
       toast.error(
         "Số lượng mà bạn đặt mua đã vượt quá số lượng trong kho hàng hiện có, rất xin lỗi vì sự bất tiện này"
       );
-      // alert('Số lượng mà bạn đặt mua đã vượt quá số lượng trong kho hàng hiện có, rất xin lỗi vì sự bất tiện này :(');
       setCounterValue(state.SOLUONG);
     } else {
       setCounterValue(counterValue + 1);
     }
   };
-
   const decrement = () => {
     if (counterValue > 1) {
       setCounterValue(counterValue - 1);
     }
   };
-  const GIA = parseFloat(state.GIA).toFixed(0);
 
-  var GIASP = parseFloat(GIA);
-
-  const price = GIASP.toLocaleString();
   return (
     <>
       <div className="container">

@@ -1,0 +1,33 @@
+docker build -t phucmagin2px/frontend-reactjs .
+
+docker tag phucmagin2px/frontend-reactjs phucmagin2px/frontend-reactjs:latest
+
+docker push phucmagin2px/frontend-reactjs:latest
+
+----------------BACKEND-------------------------
+docker build -t phucmagin2px/backend-nodejs-mysql .
+
+docker tag phucmagin2px/backend-nodejs-mysql phucmagin2px/backend-nodejs-mysql:latest
+
+docker push phucmagin2px/backend-nodejs-mysql:latest
+
+docker save -o D:/Docker-Container/Docker-image/phucmagin2px/backend-nodejs-mysql.tar phucmagin2px/phucmagin2px/backend-nodejs-mysql
+
+-----------------SERVER CHAT-----------------------
+cd path/to/backend-mongodb
+
+# Build Docker image
+docker build -t phucmagin2px/backendchat-nodejs-mongodb .
+
+# Tag Docker image
+docker tag phucmagin2px/backendchat-nodejs-mongodb phucmagin2px/backendchat-nodejs-mongodb:latest
+
+# Push Docker image lên Docker Hub
+docker push phucmagin2px/backend-nodejs-mongodb:latest
+
+docker save -o D:/Docker-Container/Docker-image/phucmagin2px/backendchat-nodejs-mongodb.tar phucmagin2px/backendchat-nodejs-mongodb
+
+------------
+docker compose up
+
+

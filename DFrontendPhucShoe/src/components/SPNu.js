@@ -35,7 +35,7 @@ function ListSpNu() {
           data: response.data.hang,
           loading: false,
         });
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error(error.message);
         setData({
@@ -49,7 +49,7 @@ function ListSpNu() {
   }, []);
 
   // console.log('checkdatalistSHOE', data);
-  console.log("hello");
+
   return (
     <div className="App">
       <ChildSPNu shoes={data} hang={hang} />

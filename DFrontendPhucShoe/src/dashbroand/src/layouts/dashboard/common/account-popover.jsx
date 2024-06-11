@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import axios from 'axios';
 import { account } from '../../../_mock/account';
 import { toast } from 'react-toastify';
-
+import avat from "../../../../public/assets/images/avatars/lufy2.jpg";
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [
@@ -76,7 +76,7 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={account.photoURL}
+          src={avat}
           alt={account.displayName}
           sx={{
             width: 36,

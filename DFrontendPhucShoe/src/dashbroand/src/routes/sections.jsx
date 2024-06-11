@@ -6,6 +6,9 @@ import { Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from '../layouts/dashboard';
 import ProductsPageFake from "../pages/products"
+
+const ChangePassword = lazy(() => import('../sections/changePassword/changePassword'));
+const ChatAdmin = lazy(() => import('../sections/ChatAdmin/ChatAdmin'));
 const OnlyChiTietHoaDon = lazy(() => import('../sections/ListOrders/ChiTietHoaDon/OnlyChiTietHoaDon'));
 const ListOrdersChiTietHoaDon = lazy(() => import('../sections/ListOrders/ChiTietHoaDon/ListOrdersChiTietHoaDon'));
 const ListOrdersDaHuy = lazy(() => import('../sections/ListOrders/ListOrdersDaHuy/ListOrdersDaHuy'));
@@ -113,7 +116,25 @@ export default function Router() {
         </DashboardLayout>
       )
     }
-    ,
+    , {
+      path: '/chat', // Thêm ký tự '*' vào cuối đường dẫn
+      element: (
+        <DashboardLayout>
+          <Suspense fallback={<div>Loading...</div>}>
+            <ChatAdmin />
+          </Suspense>
+        </DashboardLayout>
+      )
+    }, {
+      path: '/changePass', // Thêm ký tự '*' vào cuối đường dẫn
+      element: (
+        <DashboardLayout>
+          <Suspense fallback={<div>Loading...</div>}>
+            <ChangePassword />
+          </Suspense>
+        </DashboardLayout>
+      )
+    },
     // {
     //   path: '/blog',
     //   element: (

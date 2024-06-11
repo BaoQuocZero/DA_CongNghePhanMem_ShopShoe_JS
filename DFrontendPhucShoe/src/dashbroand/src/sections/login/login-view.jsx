@@ -161,7 +161,8 @@ export default function LoginView() {
               variant="outlined"
               sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
             >
-              <Iconify icon="eva:google-fill" color="#DF3E30" />
+              <img src={require('../../../public/assets/images/avatars/Untitled-1.png')}
+                className='imglogo-changepass1' alt="" />
             </Button>
 
             <Button
@@ -171,7 +172,8 @@ export default function LoginView() {
               variant="outlined"
               sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
             >
-              <Iconify icon="eva:facebook-fill" color="#1877F2" />
+              <img src={require('../../../public/assets/images/avatars/iconlogo.png')}
+                className='imglogo-changepass' alt="" />
             </Button>
 
             <Button
@@ -181,7 +183,10 @@ export default function LoginView() {
               variant="outlined"
               sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
             >
-              <Iconify icon="eva:twitter-fill" color="#1C9CEA" />
+              <img src={require('../../../public/assets/images/avatars/logoB.png')}
+                className='imglogo-changepass1' alt="" />
+              {/* <Iconify icon="eva:twitter-fill" color="#1C9CEA" /> */}
+
             </Button>
           </Stack>
 

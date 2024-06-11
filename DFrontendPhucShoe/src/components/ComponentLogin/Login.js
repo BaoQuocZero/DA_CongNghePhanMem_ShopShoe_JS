@@ -27,10 +27,7 @@ const Login = () => {
   const [PasswordRegister, setPasswordRegister] = useState("");
   const [RePasswordRegister, setRePasswordRegister] = useState("");
 
-  const handleRegister = (event) => {
-    console.log(UsernameRegister);
-    console.log(PasswordRegister);
-    console.log(RePasswordRegister);
+  const handleRegister = async (event) => {
     event.preventDefault();
     if (
       !UsernameRegister ||
@@ -48,16 +45,17 @@ const Login = () => {
         })
         .then((response) => {
           // Xử lý phản hồi từ máy chủ nếu cần
-          console.log(response);
+
           if (response.data.EC == 1) {
+            axios.post("http://localhost:3001/api/createUser", {
+              username: UsernameRegister,
+            });
             toast.success("Đăng ký thành công");
           } else {
             toast.error(response.data.EM);
           }
         })
-        .catch((error) => {
-          // Xử lý lỗi nếu cần
-        });
+        .catch((error) => {});
     }
   };
 
@@ -73,19 +71,14 @@ const Login = () => {
           password: PasswordLogin,
         })
         .then((response) => {
-          console.log(response.data);
-          console.log(response.data.EC);
           if (response.data.EC == 1) {
-            console.log(response.data.DT.access_token);
             sessionStorage.setItem(
               "accessToken",
               response.data.DT.access_token
             );
 
             toast.success("Đăng nhập thành công");
-            // navigate(`/profile/${UsernameLogin}`, {
-            //   state: { access_token: response.data.DT.access_token },
-            // });
+
             navigate(`/`);
           } else {
             toast.error("Đăng nhập thất bại");

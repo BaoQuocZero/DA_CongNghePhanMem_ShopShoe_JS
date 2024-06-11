@@ -1,12 +1,10 @@
 import "../assets/styles/NavBar.css";
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserTie } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
-
+import avat from "../assets/img-avata/lufy2.jpg";
 const MyNavbar = () => {
   const token = sessionStorage.getItem("accessToken");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -64,15 +62,12 @@ const MyNavbar = () => {
       state: { access_token: token },
     });
   };
-
   const handleLogout = () => {
     sessionStorage.removeItem("accessToken");
     setIsAuthenticated(false);
     navigate("/");
     toast.success("Đăng xuất thành công ^^!");
   };
-  console.log("Dropdown state:", isDropdownOpen);
-
   return (
     <div className="navbar" id="navbar">
       <div color="light" light expand="md" className="nav">
@@ -101,7 +96,11 @@ const MyNavbar = () => {
                 <div className="nav-avatar" onClick={toggleDropdown}>
                   <img
                     className="nav-avatarUser"
-                    src={`http://localhost:3003/images/${imgAvatar}`}
+                    src={
+                      imgAvatar
+                        ? `http://localhost:3003/images/${imgAvatar}`
+                        : `${avat}`
+                    }
                     alt="Avatar"
                   />
                 </div>

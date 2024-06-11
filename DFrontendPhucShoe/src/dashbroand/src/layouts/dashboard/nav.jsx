@@ -15,7 +15,7 @@ import { RouterLink } from '../../routes/components';
 
 import { useResponsive } from '../../hooks/use-responsive';
 
-
+import avatarImage from '../../../public/assets/images/avatars/lufy2.jpg';
 import { account } from '../../_mock/account';
 
 import Logo from '../../components/logo';
@@ -51,7 +51,7 @@ export default function Nav({ openNav, onCloseNav }) {
         bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
       }}
     >
-      <Avatar src={account.photoURL} alt="photoURL" />
+      <Avatar src={avatarImage} alt="photoURL" />
 
       <Box sx={{ ml: 2 }}>
         <Typography variant="subtitle2">{account.displayName}</Typography>

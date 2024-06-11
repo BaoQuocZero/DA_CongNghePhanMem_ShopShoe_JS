@@ -4,7 +4,6 @@ import "./listShoe.css";
 import "../childComponent/chillTatCaSP.css";
 import "../childComponent/listShoeSeal.css";
 export const handleItemClick = (shoe, navigate) => {
-  console.log("Item clicked:", shoe);
   navigate(`/thongtinchitietgiay/${shoe.MASP}`, { state: shoe });
 };
 

@@ -147,6 +147,7 @@ const ListOrders = () => {
                         <tr>
                             <th>Mã đơn hàng</th>
                             <th>Tên</th>
+                            <th>Tên tài khoản</th>
                             <th>Ngày đặt hàng</th>
                             <th>Tên sản phẩm</th>
                             <th>Số lượng</th>
@@ -162,6 +163,7 @@ const ListOrders = () => {
                         <tr>
                             <td>{filteredOrder.madonhang}</td>
                             <td>{filteredOrder.ten}</td>
+                            <td>{filteredOrder.taikhoan ? filteredOrder.taikhoan : "Không xác định"}</td>
                             <td>{new Date(filteredOrder.ngaydonhang).toLocaleString()}</td>
                             <td>{filteredOrder.tensanpham}</td>
                             <td>{filteredOrder.soluong}</td>

@@ -8,6 +8,12 @@
 
 }
 
+.functions-thongtincanhan.active {
+    cursor: pointer;
+    color: blue;
+
+}
+
 .profileCustomer-functions {
     width: 20%;
     height: auto;
@@ -63,6 +69,7 @@
 }
 
 .functions-thongtincanhan {
+    user-select: none;
     width: 80%;
     height: auto;
     margin-top: 5%;
@@ -90,7 +97,8 @@
     height: 100%;
     display: flex;
     margin-top: 0px;
-    margin-left: 50px;
+
+    padding-left: 50px;
     /* background-color: blue; */
     /* align-items: center;
     justify-content: center; */
@@ -103,7 +111,7 @@
     width: 500px;
     height: 500px;
     display: flex;
-    display: flex;
+
     justify-content: center;
     /* align-items: center; */
 }
@@ -155,9 +163,4 @@
 .br {
     width: 94%;
     border: 1px solid black;
-}
-
-.functions-thongtincanhan:hover {
-    cursor: pointer;
-    color: blue;
 }

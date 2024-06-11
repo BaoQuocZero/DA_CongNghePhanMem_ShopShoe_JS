@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "./listShoe.css";
 
 export const handleItemClick = (shoe, navigate) => {
-  console.log("Item clicked:", shoe);
   navigate(`/thongtinchitietgiay/${shoe.MASP}`, { state: shoe });
 };
 

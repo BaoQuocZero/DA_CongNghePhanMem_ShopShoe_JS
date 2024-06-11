@@ -13,6 +13,12 @@
 
 }
 
+.form-muahang-hoso {
+    margin-top: -10px;
+    font-family: "Roboto", sans-serif;
+    margin-left: 80px;
+}
+
 #logophucshoe {
 
     margin-top: 100px;
@@ -131,6 +137,8 @@
     margin-left: 11%;
     margin-top: 1%;
     font-weight: bold;
+    font-family: "Roboto", sans-serif;
+
 }
 
 .muahang-input:focus {
@@ -167,6 +175,7 @@
     width: 80%;
     height: auto;
     margin-left: 10%;
+    font-family: "Roboto", sans-serif;
 
 }
 

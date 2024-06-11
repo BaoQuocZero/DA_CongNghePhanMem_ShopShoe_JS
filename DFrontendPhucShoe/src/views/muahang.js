@@ -6,53 +6,130 @@ import axios from "axios";
 import "../assets/styles/muahang.css"; // Import tệp CSS
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import { jwtDecode } from "jwt-decode";
+import LoadingComponent from "../components/ComponentLoading/CompnentLoading.tsx";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 const MuaHang = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const giay = state?.giay;
-  const soLuong = state?.soLuong;
-  const size = state?.size;
-  const image = state?.image;
-  const [DiachiUsertoBack, setDiachiUsertoBack] = useState("");
-  const tienvaSL = giay.GIA * soLuong;
-  const Tien = parseFloat(tienvaSL).toFixed(0);
-  var so1 = parseFloat(Tien);
-  const price1 = so1.toLocaleString();
 
-  const GIA = parseFloat(giay.GIA).toFixed(0);
-  var so = parseFloat(GIA);
-
-  const price = so.toLocaleString();
-
-  const tongTien = GIA * soLuong + 30000;
-  const Tien2 = parseFloat(tongTien).toFixed(0);
-  var so2 = parseFloat(Tien2);
-  const KQTongtien = so2.toLocaleString();
+  // State variables
+  const [giay, setGiay] = useState(null);
+  const [soLuong, setSoLuong] = useState(0);
+  const [size, setSize] = useState("");
+  const [image, setImage] = useState("");
+  const [price1, setPrice1] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [KQTongtien, setKQTongtien] = useState(0);
+  const [descriptionGiay, setdescriptionGiay] = useState(null);
+  const [TENSANPHAM, setTENSANPHAM] = useState(null);
+  // useEffect to fetch data and update state
   useEffect(() => {
-    console.log("check state => ", state);
-    if (!state) {
-      navigate("/");
+    if (state) {
+      setGiay(state.giay);
+      setSoLuong(state.soLuong);
+      setSize(state.size);
+      setImage(state.image);
     }
-  }, [state, navigate]);
-  const [customerInfo, setCustomerInfo] = useState({
-    name: "",
-    phoneNumber: "",
+  }, [state]);
 
-    note: "",
-  });
-  const [orderTime, setOrderTime] = useState("");
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    if (["name", "phoneNumber", "note"].includes(name)) {
-      setCustomerInfo((prevInfo) => ({
-        ...prevInfo,
-        [name]: value,
-      }));
+  // useEffect to calculate derived state
+  useEffect(() => {
+    if (giay) {
+      const tienvaSL = giay.GIA * soLuong;
+      const GIA = parseFloat(giay.GIA).toFixed(0);
+      const tongTien = parseFloat(GIA) * soLuong + 30000;
+      setdescriptionGiay(giay.description);
+      setTENSANPHAM(giay.TENSANPHAM);
+      setPrice1(parseFloat(tienvaSL).toLocaleString());
+      setPrice(parseFloat(GIA).toLocaleString());
+      setKQTongtien(
+        parseFloat(tongTien)
+          .toFixed(0)
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      );
     }
-  };
+  }, [giay, soLuong]);
+
+  const [provinces, setProvinces] = useState([]);
+  const [selectedProvinceId, setSelectedProvinceId] = useState(null); // Lưu trữ ID của tỉnh được chọn
+  const [districts, setDistricts] = useState([]);
+  const [selectedDistrictId, setSelectedDistrictId] = useState(null); // Lưu trữ ID của huyện được chọn
+  const [wards, setWards] = useState([]);
+  const [TinhUser, setTinhUser] = useState(null);
+  const [HuyenUser, setHuyenUser] = useState(null);
+  const [XaUser, setXaUser] = useState(null);
+  const [username, setdecodedTokenUsername] = useState(null);
+  const [Token, setToken] = useState(null);
+  const [IsOpenContractCustomer, setIsOpenContractCustomer] = useState(false);
+  const [profileUser, setprofileUser] = useState([]);
+  const [Loading, setLoading] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    if (!giay) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [giay]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("accessToken");
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setdecodedTokenUsername(decoded.taikhoan);
+        setIsOpenContractCustomer(true);
+        setToken(token);
+      } catch (error) {
+        console.error("Failed to decode token:", error);
+      }
+    }
+  }, []);
+  const [DiachiUsertoBack, setDiachiUsertoBack] = useState(null);
+  const [name, setname] = useState(null);
+  const [phoneNumber, setphoneNumber] = useState(null);
+  const [note, setnote] = useState(null);
+  const [orderTime, setOrderTime] = useState(null);
+  const [DiachiUser, setDiachiUser] = useState(null);
+  const [ApUser, setApUser] = useState(null);
+
+  useEffect(() => {
+    // Kiểm tra xem tất cả các biến đã được thiết lập hay chưa
+    if (
+      TinhUser !== null &&
+      HuyenUser !== null &&
+      XaUser !== null &&
+      ApUser !== null
+    ) {
+      // Ghép các biến thành một chuỗi và cập nhật DiachiUser
+      setDiachiUsertoBack(
+        `${ApUser}, xã ${XaUser}, huyện ${HuyenUser}, tỉnh ${TinhUser}`
+      );
+    }
+  }, [TinhUser, HuyenUser, XaUser, ApUser]);
+
+  useEffect(() => {
+    if (profileUser && profileUser.length > 0) {
+      const { TEN, DIACHI, SODIENTHOAI } = profileUser[0];
+      setname(TEN);
+      setDiachiUser(DIACHI);
+      setphoneNumber(SODIENTHOAI);
+
+      if (profileUser) {
+        const parts = DiachiUser ? DiachiUser.split(", ") : [];
+
+        // Gán giá trị vào các state
+        setXaUser(parts[1]);
+        setHuyenUser(parts[2]);
+        setTinhUser(parts[3]);
+        setApUser(parts[0]);
+      }
+
+      // console.log(DIACHI);
+    }
+  }, [profileUser]);
 
   const generateRandomCustomerID = () => {
     // Lấy thời gian Unix (milliseconds)
@@ -65,17 +142,21 @@ const MuaHang = () => {
 
   const sendDataToBackend = async () => {
     console.log("dia chi =>", DiachiUsertoBack);
+    console.log("usernmae =>", username);
     try {
       const response = await axios.post(
-        "http://localhost:3003/api/v1/product",
+        "http://localhost:3003/api/v1/productt",
         {
-          data: customerInfo,
+          username: username,
+          name: name,
+          phoneNumber: phoneNumber,
+          note: note,
           dataDiachi: DiachiUsertoBack,
           IdSP: giay.MASP,
           kichCo: size,
           customerID: customerID,
           SoluongDaMua: soLuong,
-          Tongtien: tongTien,
+          Tongtien: KQTongtien,
         }
       );
       console.log("Success:", response.data);
@@ -86,20 +167,19 @@ const MuaHang = () => {
 
   const handleOrder = () => {
     const currentTime = format(new Date(), "yyyy-MM-dd HH:mm:ss");
-    console.log("Thông tin người dùng:", customerInfo);
-    console.log("Thông tin người dùng:", customerInfo.districts);
+
     console.log(giay.MASP);
     setOrderTime(currentTime);
     console.log("dia chi =>", DiachiUsertoBack);
-    const isValidPhoneNumber = /^0\d{9}$/.test(customerInfo.phoneNumber);
+    const isValidPhoneNumber = /^0\d{9}$/.test(phoneNumber);
     if (!isValidPhoneNumber) {
       toast.error("Số điện thoại không hợp lệ !!!");
     } else {
       if (
-        !customerInfo.name ||
+        !name ||
         !DiachiUsertoBack ||
-        !customerInfo.phoneNumber ||
-        customerInfo.phoneNumber.length !== 10
+        !phoneNumber ||
+        phoneNumber.length !== 10
       ) {
         // alert('Vui lòng nhập đầy đủ thông tin');
         toast.error("Vui lòng nhập đầy đủ thông tin!!!");
@@ -110,25 +190,16 @@ const MuaHang = () => {
         } else {
           // Call the printSelectedValues function to log the selected values
           console.log("currentTime after setOrderTime:", currentTime);
-          // Additional logic to send customerInfo to the server or perform other actions
+
           toast.success("Cảm ơn bạn đã ủng hộ chúng mình");
           sendDataToBackend();
           // Thông báo đặt hàng thành công
-          // alert('Cảm ơn bạn đã đặt hàng!' + customerInfo.name + "  " + customerInfo.phoneNumber + "  " + customerInfo.province + "  " + customerInfo.district + "  " + customerInfo.ward + "  " + customerInfo.note);
         }
       }
     }
   };
 
   // ----------------------------------------API tỉnh thành ----------------------------------------
-  const [provinces, setProvinces] = useState([]);
-  const [selectedProvinceId, setSelectedProvinceId] = useState(null); // Lưu trữ ID của tỉnh được chọn
-  const [districts, setDistricts] = useState([]);
-  const [selectedDistrictId, setSelectedDistrictId] = useState(null); // Lưu trữ ID của huyện được chọn
-  const [wards, setWards] = useState([]);
-  const [TinhUser, setTinhUser] = useState(null);
-  const [HuyenUser, setHuyenUser] = useState(null);
-  const [XaUser, setXaUser] = useState(null);
 
   useEffect(() => {
     const fetchProvinces = async () => {
@@ -224,12 +295,38 @@ const MuaHang = () => {
     setXaUser(selectedXaName);
   };
 
-  // Kiểm tra xem giay có tồn tại không
-  if (!giay) {
-    // Nếu giay không tồn tại, hiển thị thông báo hoặc chuyển hướng đến một trang khác
-    return <div>Không tìm thấy thông tin sản phẩm</div>;
+  const handleClickChecked = async () => {
+    setIsChecked(!isChecked);
+    console.log("checked", isChecked);
+    if (!isChecked) {
+      fetchAvatarCustomer();
+      setTimeout(() => {
+        fetchAvatarCustomer();
+      }, 1000);
+    } else {
+      toast.success("Thêm dữ liệu thành công !!");
+    }
+  };
+  const fetchAvatarCustomer = async () => {
+    try {
+      const axiosWithCredentials = axios.create({
+        withCredentials: true, // Bật sử dụng cookie trong yêu cầu
+        headers: {
+          Authorization: `Bearer ${Token}`, // Thay yourToken bằng token của bạn
+        },
+      });
+      const DataHang = await axiosWithCredentials.get(
+        `http://localhost:3003/api/v1/user/info/${username}`
+      );
+      setprofileUser(DataHang.data.DT.results);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+    }
+  };
+  if (Loading) {
+    return <LoadingComponent />;
   }
-
   return (
     <>
       <div className="div-logomuahang">
@@ -248,8 +345,8 @@ const MuaHang = () => {
                 <input
                   type="text"
                   name="name"
-                  value={customerInfo.name}
-                  onChange={handleInputChange}
+                  value={name}
+                  onChange={(event) => setname(event.target.value)}
                   className="muahang-input hoten"
                   placeholder="Họ và tên"
                 />
@@ -259,20 +356,24 @@ const MuaHang = () => {
                 <input
                   type="text"
                   name="phoneNumber"
-                  // value={customerInfo.phoneNumber}
-                  onChange={handleInputChange}
+                  value={phoneNumber}
+                  onChange={(event) => setphoneNumber(event.target.value)}
                   className="muahang-input muahang-sdt"
                   placeholder="Số điện thoại "
                 />
               </label>
-              <div className="container-tinhthanhvietnam">
+              {/* --------START-----API-------------------------- */}
+              {/* <div className="container-tinhthanhvietnam">
                 <select
                   className="tinhthanh"
                   name="province"
                   onChange={handleProvinceChange}
-                  // value={customerInfo.provinces}
+                  value={TinhUser}
                 >
-                  <option value="">Chọn</option>
+                  <option value={TinhUser}>
+                    {" "}
+                    {TinhUser ? TinhUser : "Chọn tỉnh"}
+                  </option>
                   {provinces.map((province) => (
                     <option
                       key={province.province_id}
@@ -287,9 +388,11 @@ const MuaHang = () => {
                   name="district"
                   className="tinhthanh"
                   onChange={handleDistrictChange}
-                  value={customerInfo.district}
+                  value={HuyenUser}
                 >
-                  <option value="">Chọn huyện</option>
+                  <option value={HuyenUser}>
+                    {HuyenUser ? HuyenUser : "Chọn huyện"}
+                  </option>
                   {Array.isArray(districts) &&
                     districts.map((district) => (
                       <option
@@ -304,10 +407,10 @@ const MuaHang = () => {
                 <select
                   className="tinhthanh"
                   name="ward"
-                  // value={customerInfo.ward}
+                  value={XaUser}
                   onChange={handleChangeXa}
                 >
-                  <option value="">Chọn xã</option>
+                  <option value={XaUser}>{XaUser ? XaUser : "Chọn xã"}</option>
                   {Array.isArray(wards) &&
                     wards.map((ward) => (
                       <option key={ward.ward_id} value={ward.ward_id}>
@@ -315,29 +418,79 @@ const MuaHang = () => {
                       </option>
                     ))}
                 </select>
+              </div> */}
+              {/* --------END-----API---------------------------- */}
+              <div class="mb-12">
+                <input
+                  placeholder="Tỉnh"
+                  type="text"
+                  class="tinhthanh"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  value={TinhUser}
+                  onChange={(event) => setTinhUser(event.target.value)}
+                />
+              </div>
+              <div class="mb-12">
+                <input
+                  placeholder="Huyện"
+                  type="text"
+                  class="tinhthanh"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  value={HuyenUser}
+                  onChange={(event) => setHuyenUser(event.target.value)}
+                />
+              </div>
+              <div class="mb-12">
+                <input
+                  placeholder="Xã"
+                  type="text"
+                  class="tinhthanh"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  value={XaUser}
+                  onChange={(event) => setXaUser(event.target.value)}
+                />
               </div>
               <label className="muahang-label">
                 <input
                   type="text"
                   name="address"
-                  value={customerInfo.address}
-                  onChange={handleInputChange}
+                  value={ApUser}
+                  onChange={(event) => setApUser(event.target.value)}
                   className="muahang-input muahang-sonha"
                   placeholder="Số nhà và tên đường"
                 />
-              </label>{" "}
+              </label>
               <br />
               <label className="muahang-label">
                 <input
                   type="text"
                   name="note"
-                  value={customerInfo.note}
-                  onChange={handleInputChange}
+                  value={note}
+                  onChange={(event) => setnote(event.target.value)}
                   className="muahang-input"
                   placeholder="Ghi chú"
                 />
               </label>
               <p className="thanhtoan">Hình thức thanh toán tại nhà</p>
+              {IsOpenContractCustomer && (
+                <div className="form-muahang-hoso">
+                  <p>Bạn có muốn sử dụng thông tin trong hồ sơ để mua hàng?</p>{" "}
+                  <div class="form-check">
+                    <label class="form-check-label">Hãy bật tắt nó</label>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="check1"
+                      name="option1"
+                      value="something"
+                      onClick={handleClickChecked}
+                    />
+                  </div>
+                </div>
+              )}
             </form>
           </div>
           <div className="muahang-customer-info">
@@ -346,12 +499,12 @@ const MuaHang = () => {
               <div className="thongtin-sanpham_2">
                 <span className="discount-bannerr">{soLuong}</span>
                 <img
-                  src={`http://localhost:3003/images/${giay.description}`}
+                  src={`http://localhost:3003/images/${descriptionGiay}`}
                   className="sanpham-img"
                 ></img>
 
                 <span className="sanpham-name">
-                  Giày Thời Trang {giay.TENSANPHAM}{" "}
+                  Giày Thời Trang {TENSANPHAM}{" "}
                 </span>
                 <span className="sanpham-price">{price}đ</span>
               </div>

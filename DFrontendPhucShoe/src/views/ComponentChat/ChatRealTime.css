@@ -1,0 +1,248 @@
+.container-chat {
+    right: 0;
+    position: fixed;
+    bottom: 30;
+    z-index: 300000000000;
+    margin-top: -70px;
+    margin-right: 10px;
+}
+
+.iconCLickChat {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+}
+
+.containe-chat-realtime {
+    margin-top: -320px;
+
+    width: 320px;
+    height: 390px;
+    /* border: 1px solid red; */
+    z-index: 300000000000;
+}
+
+.containe-chat-realtime-top {
+    background-color: #242526;
+    width: 100%;
+    height: 15%;
+    display: flex;
+
+    align-items: center;
+}
+
+.chat-avt {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.chat-name {
+    width: 50%;
+    height: 100%;
+    display: flex;
+
+    align-items: center;
+    color: white;
+    font-family: Agbalumo;
+    filter: brightness(105%);
+    font-weight: 400;
+    margin-left: 5px;
+}
+
+.chat-name>p {
+    margin-top: 10px;
+}
+
+.chat-off {
+    margin-left: 30px;
+
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.iconCLickChat-chat-avt-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    /* border: 1px solid rgb(255, 255, 255); */
+}
+
+.iconCLickChat-chat-avt-img:hover {
+    cursor: pointer;
+
+}
+
+.chat-avt-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    /* border: 1px solid rgb(255, 255, 255); */
+}
+
+.chat-avt:hover {
+    background-color: #3a3b3c;
+    border-radius: 14px;
+    cursor: pointer;
+}
+
+.chat-name:hover>p {
+    cursor: pointer;
+    filter: brightness(80%);
+    color: white;
+}
+
+
+.fa-minus {
+
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    color: white;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+}
+
+.chat-off:hover>.fa-minus {
+    cursor: pointer;
+    filter: brightness(80%);
+    color: white;
+}
+
+/* ----------NOIDUNG TIN NHAN------------------------- */
+
+
+.container-chat-realtime-noidungmess {
+
+    width: 100%;
+    height: 75%;
+    background-color: black;
+
+}
+
+.container-chat-realtime-send {
+    width: 100%;
+    height: 10%;
+    background-color: #242526;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    padding-top: 1px;
+}
+
+.NoiDungChat-thanhChat-Input {
+    width: 70%;
+    height: 100%;
+    margin-right: 20px;
+}
+
+.NoiDungChat-thanhChat-Input-1 {
+    width: 90%;
+    height: 80%;
+    border-radius: 13px;
+    background-color: #3a3b3c;
+    border: none;
+    outline: none;
+    color: #e4e6eb;
+    font-size: 13px;
+    padding-left: 10px;
+    z-index: 2;
+    /* margin-left: -10%; */
+}
+
+.NoiDungChat-thanhChat-3 {
+    width: 20%;
+    height: 100%;
+
+
+}
+
+
+
+/* --------------------------------------------------------------------- */
+
+
+/* Stylesheet (CSS) */
+.chat-container {
+
+    height: 300px;
+    /* Bạn có thể điều chỉnh chiều cao này tùy theo ý muốn */
+    overflow-y: auto;
+
+    /* Tùy chọn: thêm viền để dễ nhìn hơn */
+}
+
+
+.message {
+    /* padding: 2px; */
+    /* margin: 2px 0; */
+}
+
+.container-messs {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.container-noidungtinnhan,
+.container-noidungtinnhan2 {
+    padding: 5px;
+    border-radius: 5px;
+
+}
+
+.noidungtinnhan,
+.noidungtinnhan2 {
+    margin: 0;
+}
+
+.NoiDungChat-NoiDung-1-TinNhan-Avt {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.image-Avta {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+
+
+/* ----------------------------------- */
+.chat-container::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.chat-container::-webkit-scrollbar-track {
+    background-color: #000000;
+    border-radius: 10px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+    background-color: #242526;
+    border-radius: 10px;
+}
+
+.chat-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

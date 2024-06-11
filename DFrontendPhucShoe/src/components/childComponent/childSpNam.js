@@ -4,13 +4,10 @@ import "./listShoe.css";
 import "../childComponent/chillTatCaSP.css";
 
 export const handleItemClick = (shoe, navigate) => {
-  console.log("Item clicked:", shoe);
   navigate(`/thongtinchitietgiay/${shoe.MASP}`, { state: shoe });
 };
 
 export const renderShoeItem = (shoe, navigate) => {
-  console.log("Rendering shoe item:", shoe);
-
   // Làm tròn giá đến hai chữ số sau dấu thập phân
   const roundedPrice = parseFloat(shoe.GIA).toFixed(0);
   var so = parseFloat(roundedPrice);
@@ -106,7 +103,7 @@ export const ChildSPNam = ({ shoes }) => {
           Sắp xếp theo giá {sortOrder === "asc" ? "tăng dần" : "giảm dần"}
         </button>
       </div>
-      <div className="dropdown-container">
+      {/* <div className="dropdown-container">
         <label className="label-brand" htmlFor="brandFilter">
           Chọn hãng:
         </label>
@@ -122,7 +119,7 @@ export const ChildSPNam = ({ shoes }) => {
             </option>
           ))}
         </select>
-      </div>
+      </div> */}
       <div className="dropdown-container">
         <label className="label-price" htmlFor="priceFilter">
           Chọn giá:

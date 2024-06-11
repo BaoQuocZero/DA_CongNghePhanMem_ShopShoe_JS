@@ -1,0 +1,36 @@
+.ChatRealTime-CssComponent {
+    position: fixed;
+    margin-top: -50px;
+
+}
+
+.ChatRealTime-CssComponent-muahang {
+    margin-top: -220px;
+    position: fixed;
+}
+
+.ChatRealTime-CssComponent-spnu {
+    position: fixed;
+    margin-top: -76%;
+}
+
+.ChatRealTime-CssComponent-spnam {
+    position: fixed;
+    margin-top: -83%;
+}
+
+.ChatRealTime-CssComponent-tuyendung {
+    position: fixed;
+    margin-top: 42%;
+}
+
+.ChatRealTime-CssComponent-tatcasp {
+    position: fixed;
+    margin-top: 41%;
+    z-index: 400;
+}
+
+.ChatRealTime-CssComponent {
+    margin-top: 41%;
+    position: fixed;
+}
