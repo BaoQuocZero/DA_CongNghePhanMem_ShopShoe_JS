@@ -25,6 +25,7 @@ const MuaHang = () => {
   const [TENSANPHAM, setTENSANPHAM] = useState(null);
   const [TienHienThi, setTienHienThi] = useState(null);
   const [Tongtienguixuongbackend, setTongtienguixuongbackend] = useState(null);
+  const [giamgia, setgiamgia] = useState(null);
   // useEffect to fetch data and update state
   useEffect(() => {
     if (state) {
@@ -38,14 +39,20 @@ const MuaHang = () => {
   // useEffect to calculate derived state
   useEffect(() => {
     if (giay) {
-      const tienvaSL = giay.GIA * soLuong;
+      setgiamgia(giay.giamgia);
+      console.log(giamgia);
+
       const GIA = parseFloat(giay.GIA).toFixed(0);
-      const tongTien = parseFloat(GIA) * soLuong + 30000;
+      const TongSotienDaGiamGia = GIA - (GIA / 100) * giay.giamgia;
+      const tongTien = parseFloat(TongSotienDaGiamGia) * soLuong + 30000;
+      const tienvaSL = TongSotienDaGiamGia * soLuong;
       setTongtienguixuongbackend(tongTien);
       setdescriptionGiay(giay.description);
       setTENSANPHAM(giay.TENSANPHAM);
+
       setPrice1(parseFloat(tienvaSL).toLocaleString());
-      setPrice(parseFloat(GIA).toLocaleString());
+
+      setPrice(parseFloat(TongSotienDaGiamGia).toLocaleString());
       setKQTongtien(price);
       setTienHienThi(
         parseFloat(tongTien)

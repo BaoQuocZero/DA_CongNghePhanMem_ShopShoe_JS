@@ -322,7 +322,7 @@ const Taosanpham = async (req, res) => {
     const TengiayShoe = req.body.TengiayShoe;
     const HanggiayShoe = req.body.HanggiayShoe;
     const GiabanShoe = req.body.GiabanShoe;
-    const GiamgiaShoe = req.body.GiamgiaShoe;
+    // const GiamgiaShoe = req.body.GiamgiaShoe;
     const LoaiGiayShoe = req.body.LoaiGiayShoe;
     const SizeGiayShoe = req.body.SizeGiayShoe;
     const SoLuongShoe = req.body.SoLuongShoe;
@@ -332,7 +332,7 @@ const Taosanpham = async (req, res) => {
       TengiayShoe,
       HanggiayShoe,
       GiabanShoe,
-      GiamgiaShoe,
+      // GiamgiaShoe,
       req.file.filename,
       LoaiGiayShoe,
       SizeGiayShoe,
@@ -356,7 +356,7 @@ const Capnhatsanpham = async (req, res) => {
     const TengiayShoe = req.body.TengiayShoe;
     const HanggiayShoe = req.body.HanggiayShoe;
     const GiabanShoe = req.body.GiabanShoe;
-    const GiamgiaShoe = req.body.GiamgiaShoe;
+    // const GiamgiaShoe = req.body.GiamgiaShoe;
     const LoaiGiayShoe = req.body.LoaiGiayShoe;
     const SizeGiayShoe = req.body.SizeGiayShoe;
     const SoLuongShoe = req.body.SoLuongShoe;
@@ -367,7 +367,7 @@ const Capnhatsanpham = async (req, res) => {
       TengiayShoe,
       HanggiayShoe,
       GiabanShoe,
-      GiamgiaShoe,
+      // GiamgiaShoe,
       filename,
       LoaiGiayShoe,
       SizeGiayShoe,

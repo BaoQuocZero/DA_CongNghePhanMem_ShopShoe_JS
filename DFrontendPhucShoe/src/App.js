@@ -74,7 +74,7 @@ const App = () => {
 
                 <ThongTinChiTietGiay />
                 {isAuthenticated ? (
-                  <div className="ChatRealTime-CssComponent">
+                  <div className="ChatRealTime-CssComponentThongtinchitiet">
                     {" "}
                     <ChatRealTime />{" "}
                   </div>

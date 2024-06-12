@@ -216,9 +216,10 @@ const ProfileCustomer = () => {
       ApUser !== null
     ) {
       // Ghép các biến thành một chuỗi và cập nhật DiachiUser
-      setDiachiUsertoBack(
-        `${ApUser}, xã ${XaUser}, huyện ${HuyenUser}, tỉnh ${TinhUser}`
-      );
+      // setDiachiUsertoBack(
+      //   `${ApUser}, xã ${XaUser}, huyện ${HuyenUser}, tỉnh ${TinhUser}`
+      // );
+      setDiachiUsertoBack(`${ApUser},  ${XaUser},  ${HuyenUser},  ${TinhUser}`);
     }
   }, [TinhUser, HuyenUser, XaUser, ApUser]);
   //------------------------api huyện---------------------------------
@@ -473,6 +474,14 @@ const ProfileCustomer = () => {
 
   const handleUpdatePassword = async (event) => {
     event.preventDefault();
+    if (username == "") {
+      toast.error("Hệ thống không lấy được Username ");
+      return;
+    }
+    if (newPassword == "" || confirmNewPassword == "") {
+      toast.error("Các Mật khẩu không được rỗng");
+      return;
+    }
     if (newPassword !== confirmNewPassword) {
       toast.error("Mật khẩu mới và xác nhận mật khẩu không khớp");
       return;

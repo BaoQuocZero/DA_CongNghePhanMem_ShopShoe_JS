@@ -100,7 +100,7 @@ const ModalCreateProducts = ({
   const [TengiayShoe, setTengiayShoe] = useState();
   const [HanggiayShoe, setHanggiayShoe] = useState();
   const [GiabanShoe, setGiabanShoe] = useState();
-  const [GiamgiaShoe, setGiamgiaShoe] = useState();
+  // const [GiamgiaShoe, setGiamgiaShoe] = useState();
   const [LoaiGiayShoe, setLoaiGiayShoe] = useState();
   const [SizeGiayShoe, setSizeGiayShoe] = useState();
   const [SoLuongShoe, setSoLuongShoe] = useState();
@@ -114,8 +114,8 @@ const ModalCreateProducts = ({
     if (!TengiayShoe) errors.TengiayShoe = true;
     if (!HanggiayShoe) errors.HanggiayShoe = true;
     if (!GiabanShoe || isNaN(GiabanShoe)) errors.GiabanShoe = true;
-    if ((GiamgiaShoe && isNaN(GiamgiaShoe)) || !GiamgiaShoe)
-      errors.GiamgiaShoe = true;
+    // if ((GiamgiaShoe && isNaN(GiamgiaShoe)) || !GiamgiaShoe)
+    //   errors.GiamgiaShoe = true;
     if (!LoaiGiayShoe) errors.LoaiGiayShoe = true;
     if (!SizeGiayShoe || isNaN(SizeGiayShoe)) errors.SizeGiayShoe = true;
     if (!SoLuongShoe || isNaN(SoLuongShoe)) errors.SoLuongShoe = true;
@@ -128,12 +128,20 @@ const ModalCreateProducts = ({
       toast.error("Vui lòng nhập đầy đủ và chính xác các thông tin.");
       return;
     }
+    if (SoLuongShoe > 200) {
+      toast.error("Số lượng giày quá lớn rồi :<");
+      return;
+    }
+    if (GiabanShoe > 10000000) {
+      toast.error("Số tiền quá lớn rồi :<");
+      return;
+    }
     const formData = new FormData();
     formData.append("image", selectedImage);
     formData.append("TengiayShoe", TengiayShoe);
     formData.append("HanggiayShoe", HanggiayShoe);
     formData.append("GiabanShoe", GiabanShoe);
-    formData.append("GiamgiaShoe", GiamgiaShoe);
+    // formData.append("GiamgiaShoe", GiamgiaShoe);
     formData.append("LoaiGiayShoe", LoaiGiayShoe);
     formData.append("SizeGiayShoe", SizeGiayShoe);
     formData.append("SoLuongShoe", SoLuongShoe);
@@ -156,7 +164,7 @@ const ModalCreateProducts = ({
       setTengiayShoe("");
       setHanggiayShoe("");
       setGiabanShoe("");
-      setGiamgiaShoe("");
+      // setGiamgiaShoe("");
       setLoaiGiayShoe("");
       setSizeGiayShoe("");
       setSoLuongShoe("");
@@ -167,7 +175,7 @@ const ModalCreateProducts = ({
       callback();
     } catch (error) {
       console.error("Error uploading image:", error);
-      toast.success("Oh Noo đã xảy ra lỗi O.o");
+      toast.error("Oh Noo đã xảy ra lỗi O.o");
     }
   };
   const [isOpenHangGiay, setIsOpenHangGiay] = useState(false);
@@ -257,7 +265,7 @@ const ModalCreateProducts = ({
                 Tên giày
               </label>
               <input
-                type="email"
+                type="text"
                 className={`form-control ${
                   inputErrors.TengiayShoe ? "border-danger" : ""
                 }`}
@@ -301,7 +309,7 @@ const ModalCreateProducts = ({
                   <h4> Thêm hãng giày</h4>
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control mb-2 "
                   id="exampleFormControlInput1"
                   placeholder="MWC"
@@ -324,7 +332,7 @@ const ModalCreateProducts = ({
               </label>
               <input
                 onFocus={() => handleFocus("GiabanShoe")}
-                type="email"
+                type="number"
                 className={`form-control ${
                   inputErrors.GiabanShoe ? "border-danger" : ""
                 }`}
@@ -334,7 +342,7 @@ const ModalCreateProducts = ({
                 onChange={(event) => setGiabanShoe(event.target.value)}
               />
             </div>
-            <div class="mb-3">
+            {/* <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">
                 Giảm giá
               </label>
@@ -349,7 +357,7 @@ const ModalCreateProducts = ({
                 disabled={DisableInput}
                 onChange={(event) => setGiamgiaShoe(event.target.value)}
               />
-            </div>
+            </div> */}
             <div class="input-group mb-3">
               <select
                 onFocus={() => handleFocus("LoaiGiayShoe")}
@@ -382,7 +390,7 @@ const ModalCreateProducts = ({
                   <h4> Thêm loại giày</h4>
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control mb-2"
                   id="exampleFormControlInput1"
                   placeholder="Nam"
@@ -430,7 +438,7 @@ const ModalCreateProducts = ({
                   <h4> Thêm size giày</h4>
                 </label>
                 <input
-                  type="email"
+                  type="number"
                   class="form-control mb-2"
                   id="exampleFormControlInput1"
                   placeholder="45"
@@ -452,7 +460,7 @@ const ModalCreateProducts = ({
               </label>
               <input
                 onFocus={() => handleFocus("SoLuongShoe")}
-                type="email"
+                type="number"
                 className={`form-control ${
                   inputErrors.SoLuongShoe ? "border-danger" : ""
                 }`}

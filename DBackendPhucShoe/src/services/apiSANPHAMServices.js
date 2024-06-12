@@ -4,7 +4,7 @@ const createSANPHAM = async (
   tengiay,
   hanggiay,
   giaban,
-  giamgia,
+  // giamgia,
   mota,
   loaigiay,
   sizegiay,
@@ -25,18 +25,8 @@ const createSANPHAM = async (
       };
     } else {
       const [results1, fields1] = await connection.execute(
-        "insert into sanpham (tensanpham,mahang,gia,giamgia,description,maloai,magiatri,soluong,thongtinsanpham)  values (?,?,?,?,?,?,?,?,?)",
-        [
-          tengiay,
-          hanggiay,
-          giaban,
-          giamgia,
-          mota,
-          loaigiay,
-          sizegiay,
-          soluong,
-          thongtin,
-        ]
+        "insert into sanpham (tensanpham,mahang,gia,description,maloai,magiatri,soluong,thongtinsanpham)  values (?,?,?,?,?,?,?,?)",
+        [tengiay, hanggiay, giaban, mota, loaigiay, sizegiay, soluong, thongtin]
       );
       return {
         EM: "thêm sản phẩm mới thành công",
@@ -138,7 +128,7 @@ const updateSANPHAM = async (
   tengiay,
   hanggiay,
   giaban,
-  giamgia,
+  // giamgia,
   mota,
   loaigiay,
   sizegiay,
@@ -154,12 +144,11 @@ const updateSANPHAM = async (
     if (results.length > 0) {
       if (mota === null) {
         const [results1, fields] = await connection.execute(
-          "update sanpham set tensanpham = ?,mahang = ?,gia = ? ,giamgia=?,maloai=?,magiatri=?,soluong=?,thongtinsanpham=? where masp=?",
+          "update sanpham set tensanpham = ?,mahang = ?,gia = ? ,maloai=?,magiatri=?,soluong=?,thongtinsanpham=? where masp=?",
           [
             tengiay,
             hanggiay,
             giaban,
-            giamgia,
 
             loaigiay,
             sizegiay,

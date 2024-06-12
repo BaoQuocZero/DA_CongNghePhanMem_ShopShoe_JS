@@ -3,7 +3,7 @@ const connection = require("../config/old.js");
 const getDonHangChuaGiao = async () => {
   try {
     const [results, fields] = await connection.execute(
-      "SELECT d.ten,k.taikhoan,d.diachi,d.ghichu,d.sodienthoai,s.tensanpham,s.gia,h.tenhang,kc.GIATRI,l.name,s.description,c.soluong,c.thanhtien,d.madonhang,d.ngaydonhang,d.trangthai FROM khachhang AS k JOIN donhang AS d ON k.makhachhang = d.makhachhang JOIN chitietdonhang AS c ON d.madonhang = c.madonhang JOIN sanpham AS s ON c.masp = s.masp JOIN hang AS h ON s.mahang = h.mahang JOIN kichco AS kc ON s.magiatri = kc.magiatri JOIN loai AS l ON s.maloai = l.maloai WHERE d.trangthai = 'ChuaGiao';"
+      "SELECT d.ten,k.taikhoan,d.diachi,d.ghichu,d.sodienthoai,s.tensanpham,s.gia,s.giamgia,h.tenhang,kc.GIATRI,l.name,s.description,c.soluong,c.thanhtien,d.madonhang,d.ngaydonhang,d.trangthai FROM khachhang AS k JOIN donhang AS d ON k.makhachhang = d.makhachhang JOIN chitietdonhang AS c ON d.madonhang = c.madonhang JOIN sanpham AS s ON c.masp = s.masp JOIN hang AS h ON s.mahang = h.mahang JOIN kichco AS kc ON s.magiatri = kc.magiatri JOIN loai AS l ON s.maloai = l.maloai WHERE d.trangthai = 'ChuaGiao';"
     );
 
     const productsWithImageUrls = results.map((product) => {

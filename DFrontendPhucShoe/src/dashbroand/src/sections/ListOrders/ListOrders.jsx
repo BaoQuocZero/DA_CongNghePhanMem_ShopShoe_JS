@@ -160,6 +160,7 @@ const ListOrders = () => {
                             <th>Tên sản phẩm</th>
                             <th>Số lượng</th>
                             <th>Giá</th>
+                            <th>Giảm giá</th>
                             <th>Thành tiền</th>
                             <th>Địa chỉ</th>
                             <th>Số điện thoại</th>
@@ -175,7 +176,10 @@ const ListOrders = () => {
                             <td>{new Date(filteredOrder.ngaydonhang).toLocaleString()}</td>
                             <td>{filteredOrder.tensanpham}</td>
                             <td>{filteredOrder.soluong}</td>
+
                             <td>{formatCurrency(filteredOrder.gia)}</td>
+                            <td>{filteredOrder.giamgia != null ? `${filteredOrder.giamgia}%` : 'không giảm giá'}</td>
+
                             <td>{formatCurrency(filteredOrder.thanhtien)}</td>
                             <td>{filteredOrder.diachi}</td>
                             <td>{filteredOrder.sodienthoai}</td>

@@ -54,7 +54,7 @@ export default function ShopProductCard({ product, callback }) {
   const TengiayShoefake = product.TENSANPHAM
   const HanggiayShoefake = product.MAHANG
   const GiabanShoefake = product.GIA
-  const GiamgiaShoefake = product.giamgia
+  // const GiamgiaShoefake = product.giamgia
   const LoaiGiayShoefake = product.MALOAI
   const SizeGiayShoefake = product.MAGIATRI
   const SoLuongShoefake = product.SOLUONG
@@ -63,7 +63,7 @@ export default function ShopProductCard({ product, callback }) {
   const [TengiayShoe, setTengiayShoe] = useState(TengiayShoefake);
   const [HanggiayShoe, setHanggiayShoe] = useState(HanggiayShoefake);
   const [GiabanShoe, setGiabanShoe] = useState(GiabanShoefake);
-  const [GiamgiaShoe, setGiamgiaShoe] = useState(GiamgiaShoefake);
+  // const [GiamgiaShoe, setGiamgiaShoe] = useState(GiamgiaShoefake);
   const [LoaiGiayShoe, setLoaiGiayShoe] = useState(LoaiGiayShoefake);
   const [SizeGiayShoe, setSizeGiayShoe] = useState(SizeGiayShoefake);
   const [SoLuongShoe, setSoLuongShoe] = useState(SoLuongShoefake);
@@ -75,12 +75,20 @@ export default function ShopProductCard({ product, callback }) {
     formData.append("TengiayShoe", TengiayShoe);
     formData.append("HanggiayShoe", HanggiayShoe);
     formData.append("GiabanShoe", GiabanShoe);
-    formData.append("GiamgiaShoe", GiamgiaShoe);
+    // formData.append("GiamgiaShoe", GiamgiaShoe);
+    // console.log('check giam gia => backend =>', GiamgiaShoe)
     formData.append("LoaiGiayShoe", LoaiGiayShoe);
     formData.append("SizeGiayShoe", SizeGiayShoe);
     formData.append("SoLuongShoe", SoLuongShoe);
     formData.append("ThongtinShoe", ThongtinShoe);
-
+    if (SoLuongShoe > 200) {
+      toast.error("Số lượng giày quá lớn rồi :<");
+      return;
+    }
+    if (GiabanShoe > 90000000) {
+      toast.error("Số tiền quá lớn rồi :<");
+      return;
+    }
     try {
       const response = await axios.put(
         `http://localhost:3003/api/v1/product/info/update/${product.MASP}`,
@@ -92,8 +100,10 @@ export default function ShopProductCard({ product, callback }) {
         }
       );
       console.log(response.data)
+      toast.success('Hình như update được á, check lại thử xem');
       callback()
     } catch (error) {
+      toast.error('Ohh nooo O.o !!')
       console.error("Error uploading image:", error);
     }
   };
@@ -319,7 +329,7 @@ export default function ShopProductCard({ product, callback }) {
               </label>
               <input
                 value={TengiayShoe}
-                type="email"
+                type="text"
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="Giày MWC NT85"
@@ -375,7 +385,7 @@ export default function ShopProductCard({ product, callback }) {
                   <h4> Thêm hãng giày</h4>
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control mb-2"
                   id="exampleFormControlInput1"
                   placeholder="MWC"
@@ -397,7 +407,7 @@ export default function ShopProductCard({ product, callback }) {
                 Giá bán giày
               </label>
               <input
-                type="email"
+                type="number"
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="259.000"
@@ -406,7 +416,7 @@ export default function ShopProductCard({ product, callback }) {
                 onChange={(event) => setGiabanShoe(event.target.value)}
               />
             </div>
-            <div class="mb-3">
+            {/* <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">
                 Giảm giá
               </label>
@@ -419,7 +429,7 @@ export default function ShopProductCard({ product, callback }) {
                 disabled={DisableInput}
                 onChange={(event) => setGiamgiaShoe(event.target.value)}
               />
-            </div>
+            </div> */}
             <div class="input-group mb-3">
               <select
                 class="form-select"
@@ -467,7 +477,7 @@ export default function ShopProductCard({ product, callback }) {
                   <h4> Thêm loại giày</h4>
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   class="form-control mb-2"
                   id="exampleFormControlInput1"
                   placeholder="Nam"
@@ -529,7 +539,7 @@ export default function ShopProductCard({ product, callback }) {
                   <h4> Thêm size giày</h4>
                 </label>
                 <input
-                  type="email"
+                  type="number"
                   class="form-control mb-2"
                   id="exampleFormControlInput1"
                   placeholder="45"
@@ -550,7 +560,7 @@ export default function ShopProductCard({ product, callback }) {
                 Số lượng giày
               </label>
               <input
-                type="email"
+                type="number"
                 class="form-control"
                 id="exampleFormControlInput1"
                 placeholder="100"

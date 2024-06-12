@@ -7,16 +7,16 @@ const ThongTinChiTietGiay = () => {
   const [counterValue, setCounterValue] = useState(1);
   const [selectedSize, setSelectedSize] = useState(null);
   const [price, setprice] = useState(null);
+
   const navigate = useNavigate();
-  console.log(state.MASP);
 
   useEffect(() => {
     if (state.GIA) {
       const GIA = parseFloat(state.GIA).toFixed(0);
-      var GIASP = parseFloat(GIA);
+      const GIASP = parseFloat(GIA);
       setprice(GIASP.toLocaleString());
     }
-  }, []);
+  }, [state.GIA]);
   let handleClickMuaHang = (event) => {
     if (selectedSize == null) {
       toast.error("Vui lòng chọn Size giày");
