@@ -24,6 +24,7 @@ const MuaHang = () => {
   const [descriptionGiay, setdescriptionGiay] = useState(null);
   const [TENSANPHAM, setTENSANPHAM] = useState(null);
   const [TienHienThi, setTienHienThi] = useState(null);
+  const [Tongtienguixuongbackend, setTongtienguixuongbackend] = useState(null);
   // useEffect to fetch data and update state
   useEffect(() => {
     if (state) {
@@ -40,6 +41,7 @@ const MuaHang = () => {
       const tienvaSL = giay.GIA * soLuong;
       const GIA = parseFloat(giay.GIA).toFixed(0);
       const tongTien = parseFloat(GIA) * soLuong + 30000;
+      setTongtienguixuongbackend(tongTien);
       setdescriptionGiay(giay.description);
       setTENSANPHAM(giay.TENSANPHAM);
       setPrice1(parseFloat(tienvaSL).toLocaleString());
@@ -50,6 +52,7 @@ const MuaHang = () => {
           .toFixed(0)
           .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
       );
+      console.log("check", price);
     }
   }, [giay, soLuong]);
 
@@ -158,7 +161,7 @@ const MuaHang = () => {
           kichCo: size,
           customerID: customerID,
           SoluongDaMua: soLuong,
-          Tongtien: KQTongtien,
+          Tongtien: Tongtienguixuongbackend,
         }
       );
       console.log("Success:", response.data);
