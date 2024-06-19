@@ -36,6 +36,7 @@ const {
 // -------------------------------------------------------------------------------------------------
 //hãng
 const TaoHang = async (req, res) => {
+  console.log("check ", req.body);
   try {
     const hang = req.body.hang;
     const results = await createHANG(hang);
