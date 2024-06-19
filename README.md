@@ -60,12 +60,12 @@ This project is a web application for a shoe store built using ReactJS for the f
    - Add the following variables:
 
      ```
-     PORT=3008
-     DB_HOST=localhost
-     DB_USER=root
-     DB_PASSWORD=123456
-     DB_NAME=phucshoe
-     JWT_SECRET=your_jwt_secret
+     PORT=
+     DB_HOST=
+     DB_USER=
+     DB_PASSWORD=
+     DB_NAME=
+     JWT_SECRET=
      ```
 
 5. Start the backend server:
